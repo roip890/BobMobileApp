@@ -11,12 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bob.bobmobileapp.drawerItems.CustomUrlPrimaryDrawerItem;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.bob.bobmobileapp.drawerItems.CustomPrimaryDrawerItem;
-import com.bob.bobmobileapp.drawerItems.CustomUrlPrimaryDrawerItem;
 import com.bob.bobmobileapp.drawerItems.OverflowMenuDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
