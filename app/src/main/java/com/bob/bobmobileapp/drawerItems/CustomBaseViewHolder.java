@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 import com.bob.bobmobileapp.R;
 
-class CustomBaseViewHolder extends RecyclerView.ViewHolder {
-    protected View view;
-    protected ImageView icon;
-    protected TextView name;
-    protected TextView description;
+public class CustomBaseViewHolder extends RecyclerView.ViewHolder {
+    public View view;
+    public ImageView icon;
+    public TextView name;
+    public TextView description;
 
     public CustomBaseViewHolder(View view) {
         super(view);

@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.drawerItems;
+package com.bob.bobmobileapp.drawerItems.primary;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -18,10 +18,10 @@ import java.util.List;
 /**
  * Created by mikepenz on 03.02.15.
  */
-public class OverflowMenuDrawerItem extends BaseDescribeableDrawerItem<OverflowMenuDrawerItem, OverflowMenuDrawerItem.ViewHolder> {
+public class OverflowMenuPrimaryDrawerItem extends BaseDescribeableDrawerItem<OverflowMenuPrimaryDrawerItem, OverflowMenuPrimaryDrawerItem.ViewHolder> {
   private int mMenu;
 
-  public OverflowMenuDrawerItem withMenu(int menu) {
+  public OverflowMenuPrimaryDrawerItem withMenu(int menu) {
     this.mMenu = menu;
     return this;
   }
@@ -32,7 +32,7 @@ public class OverflowMenuDrawerItem extends BaseDescribeableDrawerItem<OverflowM
 
   private PopupMenu.OnMenuItemClickListener mOnMenuItemClickListener;
 
-  public OverflowMenuDrawerItem withOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener onMenuItemClickListener) {
+  public OverflowMenuPrimaryDrawerItem withOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener onMenuItemClickListener) {
     this.mOnMenuItemClickListener = onMenuItemClickListener;
     return this;
   }
@@ -44,7 +44,7 @@ public class OverflowMenuDrawerItem extends BaseDescribeableDrawerItem<OverflowM
   private PopupMenu.OnDismissListener mOnDismissListener;
 
 
-  public OverflowMenuDrawerItem withOnDismissListener(PopupMenu.OnDismissListener onDismissListener) {
+  public OverflowMenuPrimaryDrawerItem withOnDismissListener(PopupMenu.OnDismissListener onDismissListener) {
     this.mOnDismissListener = onDismissListener;
     return this;
   }
@@ -55,7 +55,7 @@ public class OverflowMenuDrawerItem extends BaseDescribeableDrawerItem<OverflowM
 
   @Override
   public int getType() {
-    return R.id.material_drawer_item_overflow_menu;
+    return R.id.material_drawer_item_overflow_menu_primary;
   }
 
   @Override

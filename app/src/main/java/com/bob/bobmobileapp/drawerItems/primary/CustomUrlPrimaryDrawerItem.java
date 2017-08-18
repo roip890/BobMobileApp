@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.drawerItems;
+package com.bob.bobmobileapp.drawerItems.primary;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.drawerItems.CustomBaseViewHolder;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.interfaces.ColorfulBadgeable;
@@ -54,7 +55,7 @@ public class CustomUrlPrimaryDrawerItem extends CustomUrlBasePrimaryDrawerItem<C
 
   @Override
   public int getType() {
-    return R.id.material_drawer_item_custom_url_item;
+    return R.id.material_drawer_item_custom_url_item_primary;
   }
 
   @Override

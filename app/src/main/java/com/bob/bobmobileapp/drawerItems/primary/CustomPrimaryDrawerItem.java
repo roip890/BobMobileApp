@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.drawerItems;
+package com.bob.bobmobileapp.drawerItems.primary;
 
 
 import com.mikepenz.materialdrawer.holder.ColorHolder;

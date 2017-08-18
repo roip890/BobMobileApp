@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.drawerItems;
+package com.bob.bobmobileapp.drawerItems.primary;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,6 +7,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 
+import com.bob.bobmobileapp.drawerItems.CustomBaseViewHolder;
 import com.mikepenz.materialdrawer.holder.ColorHolder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
