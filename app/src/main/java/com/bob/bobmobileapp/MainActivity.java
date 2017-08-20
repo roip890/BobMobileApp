@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.bob.bobmobileapp.drawerItems.secondary.CustomCenteredSecondaryDrawerItem;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         //Create the drawer
         buildDrawer(savedInstanceState);
 
+        UltimateRecyclerView ultimateRecyclerView = (UltimateRecyclerView) findViewById(R.id.recycler_view);
 
     }
 

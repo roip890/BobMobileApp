@@ -64,7 +64,17 @@ dependencies {
     compile 'com.mikepenz:ionicons-typeface:2.0.1.3@aar'
     compile 'com.mikepenz:pixeden-7-stroke-typeface:1.2.0.1@aar'
 
-
+    //picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    //picasso transformations
+    compile 'jp.wasabeef:picasso-transformations:2.1.2'
+
+    //quick recycleview
+    compile 'com.marshalchen.ultimaterecyclerview:library:0.7.2'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.27'
+
+    //Realm
+    apply plugin: 'realm-android'
 
 }

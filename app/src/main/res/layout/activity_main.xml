@@ -10,5 +10,12 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp" />
 
+    <com.marshalchen.ultimaterecyclerview.UltimateRecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </com.marshalchen.ultimaterecyclerview.UltimateRecyclerView>
+
+
 </RelativeLayout>
 
