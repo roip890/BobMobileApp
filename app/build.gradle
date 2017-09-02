@@ -71,10 +71,12 @@ dependencies {
     compile 'jp.wasabeef:picasso-transformations:2.1.2'
 
     //quick recycleview
-    compile 'com.marshalchen.ultimaterecyclerview:library:0.7.2'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.27'
 
     //Realm
     apply plugin: 'realm-android'
+
+    //validate text input layout
+    compile 'com.julianraj:validatedtextinputlayout:0.3.0'
 
 }

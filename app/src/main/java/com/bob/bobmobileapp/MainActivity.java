@@ -3,6 +3,8 @@ package com.bob.bobmobileapp;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,8 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.bob.bobmobileapp.drawerItems.secondary.CustomCenteredSecondaryDrawerItem;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.marshalchen.ultimaterecyclerview.UltimateRecyclerView;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -23,32 +23,36 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    //save our header or result
+    private Toolbar toolbar;
     private AccountHeader headerResult = null;
     private Drawer result = null;
-    private Toolbar toolbar;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Handle Toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.app_name);
+        //toolbar
+        initToolbar();
 
-
-        // Create the AccountHeader
+        //nav drawer
         buildHeader(false, savedInstanceState);
-
-        //Create the drawer
         buildDrawer(savedInstanceState);
 
-        UltimateRecyclerView ultimateRecyclerView = (UltimateRecyclerView) findViewById(R.id.recycler_view);
+        //
+
 
     }
 
+    //toolbar
+    public void initToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.app_name);
+    }
+
+    //nav drawer
     private void buildHeader(boolean compact, Bundle savedInstanceState) {
         // Create the AccountHeader
     }
@@ -110,6 +114,18 @@ public class MainActivity extends AppCompatActivity {
         outState = headerResult.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
+
+
+    //recycler view
+    private void initRecyclerView() {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+
+    }
+
 
     @Override
     public void onBackPressed() {
