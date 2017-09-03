@@ -12,6 +12,7 @@ import com.bob.bobmobileapp.realm.objects.FormItem;
 import com.julianraj.validatedtextinputlayout.ValidatedTextInputLayout;
 
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 /**
  * Created by user on 01/09/2017.
@@ -39,7 +40,7 @@ public class TimeViewHolder extends LabelViewHolder {
             @Override
             public void onClick(View view) {
                 String timeText = textView.getText().toString();
-                String[] timeParts = timeText.split(":");
+                String[] timeParts = timeText.split(Pattern.quote(":"));
                 int hours = Integer.parseInt(timeParts[0]);
                 int minutes = Integer.parseInt(timeParts[1]);
                 TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
