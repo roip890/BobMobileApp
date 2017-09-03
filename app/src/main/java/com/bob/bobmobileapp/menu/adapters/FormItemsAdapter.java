@@ -1,12 +1,17 @@
 package com.bob.bobmobileapp.menu.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.menu.viewholders.DefaultLabelViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.DefaultViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.LabelViewHolder;
 import com.bob.bobmobileapp.menu.viewholders.TextViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.TimeViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.TitleViewHolder;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 
 import java.util.List;
@@ -21,28 +26,31 @@ public class FormItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final int FORM_ITEM_DEFAULT = -1;
     private final int FORM_ITEM_TEXT = 0;
     private final int FORM_ITEM_LABEL = 1;
-    private final int FORM_ITEM_TIME = 2;
-    private final int FORM_ITEM_DATE = 3;
-    private final int FORM_ITEM_PHONE = 4;
-    private final int FORM_ITEM_CURRENCY = 5;
-    private final int FORM_ITEM_lOCATION_INPUT = 6;
-    private final int FORM_ITEM_LOCATION = 7;
-    private final int FORM_ITEM_NUMBER = 8;
-    private final int FORM_ITEM_COMBO_BOX = 9;
-    private final int FORM_ITEM_RADIO_BUTTON = 10;
-    private final int FORM_ITEM_CHECK_BOX = 11;
-    private final int FORM_ITEM_IMAGE = 12;
-    private final int FORM_ITEM_GALLERY = 13;
-    private final int FORM_ITEM_MUSIC = 14;
-    private final int FORM_ITEM_VIDEO = 15;
+    private final int FORM_ITEM_TITLE = 2;
+    private final int FORM_ITEM_TIME = 3;
+    private final int FORM_ITEM_DATE = 4;
+    private final int FORM_ITEM_PHONE = 5;
+    private final int FORM_ITEM_CURRENCY = 6;
+    private final int FORM_ITEM_lOCATION_INPUT = 7;
+    private final int FORM_ITEM_LOCATION = 8;
+    private final int FORM_ITEM_NUMBER = 9;
+    private final int FORM_ITEM_COMBO_BOX = 10;
+    private final int FORM_ITEM_RADIO_BUTTON = 11;
+    private final int FORM_ITEM_CHECK_BOX = 12;
+    private final int FORM_ITEM_IMAGE = 13;
+    private final int FORM_ITEM_GALLERY = 14;
+    private final int FORM_ITEM_MUSIC = 15;
+    private final int FORM_ITEM_VIDEO = 16;
 
 
     // The items to display in your RecyclerView
     private List<FormItem> formItems;
+    private Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public FormItemsAdapter(List<FormItem> items) {
+    public FormItemsAdapter(Context context, List<FormItem> items) {
         this.formItems = items;
+        this.context = context;
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -57,6 +65,8 @@ public class FormItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             return FORM_ITEM_TEXT;
         } else if (formItems.get(position).getType().equals("label")) {
             return FORM_ITEM_LABEL;
+        } else if (formItems.get(position).getType().equals("title")) {
+            return FORM_ITEM_TITLE;
         } else if (formItems.get(position).getType().equals("time")) {
             return FORM_ITEM_TIME;
         } else if (formItems.get(position).getType().equals("date")) {
@@ -92,18 +102,19 @@ public class FormItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-
         switch (viewType) {
             case FORM_ITEM_TEXT:
-                View textViewLayout = inflater.inflate(R.layout.form_item_text_input_layout, viewGroup, false);
-                viewHolder = new TextViewHolder(textViewLayout);
-                break;
+                return new TextViewHolder(context, inflater.inflate(R.layout.form_item_text_input_layout, viewGroup, false));
+            case FORM_ITEM_LABEL:
+                return new DefaultLabelViewHolder(context, inflater.inflate(R.layout.form_item_label_layout, viewGroup, false));
+            case FORM_ITEM_TITLE:
+                return new TitleViewHolder(context, inflater.inflate(R.layout.form_item_title_layout, viewGroup, false));
+            case FORM_ITEM_TIME:
+                return new TimeViewHolder(context, inflater.inflate(R.layout.form_item_label_layout, viewGroup, false));
             default:
-                break;
+                return new DefaultViewHolder(context, inflater.inflate(R.layout.form_item_default_layout, viewGroup, false));
         }
-        return viewHolder;
     }
 
     @Override
