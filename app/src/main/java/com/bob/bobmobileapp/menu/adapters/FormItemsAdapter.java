@@ -6,15 +6,23 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.menu.viewholders.DateViewHolder;
 import com.bob.bobmobileapp.menu.viewholders.DefaultLabelViewHolder;
 import com.bob.bobmobileapp.menu.viewholders.DefaultViewHolder;
-import com.bob.bobmobileapp.menu.viewholders.LabelViewHolder;
 import com.bob.bobmobileapp.menu.viewholders.TextViewHolder;
 import com.bob.bobmobileapp.menu.viewholders.TimeViewHolder;
 import com.bob.bobmobileapp.menu.viewholders.TitleViewHolder;
+import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.FormItem;
+import com.bob.bobmobileapp.realm.objects.FormItemProperty;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+
+import io.realm.RealmResults;
 
 /**
  * Created by user on 01/09/2017.
@@ -112,6 +120,8 @@ public class FormItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return new TitleViewHolder(context, inflater.inflate(R.layout.form_item_title_layout, viewGroup, false));
             case FORM_ITEM_TIME:
                 return new TimeViewHolder(context, inflater.inflate(R.layout.form_item_label_layout, viewGroup, false));
+            case FORM_ITEM_DATE:
+                return new DateViewHolder(context, inflater.inflate(R.layout.form_item_label_layout, viewGroup, false));
             default:
                 return new DefaultViewHolder(context, inflater.inflate(R.layout.form_item_default_layout, viewGroup, false));
         }
