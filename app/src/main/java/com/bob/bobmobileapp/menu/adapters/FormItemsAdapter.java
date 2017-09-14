@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.menu.viewholders.base.TextViewHolder;
 import com.bob.bobmobileapp.menu.viewholders.output.TimeOutputViewHolder;
-import com.bob.bobmobileapp.menu.viewholders.TitleViewHolder;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 
 import java.util.List;

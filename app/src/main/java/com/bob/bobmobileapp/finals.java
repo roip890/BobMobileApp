@@ -47,4 +47,39 @@ public class finals {
 
     }
 
+    public static final HashMap<String,Integer> gravity;
+    static {
+        gravity = new HashMap<String, Integer>();
+        gravity.put("axis_clip", 8);
+        gravity.put("axispullafter", 4);
+        gravity.put("axispullbefore", 2);
+        gravity.put("axisspecified", 1);
+        gravity.put("axisxshift", 0);
+        gravity.put("axis_y_shift", 4);
+        gravity.put("bottom", 80);
+        gravity.put("center", 17);
+        gravity.put("center_horizontal", 1);
+        gravity.put("center_vertical", 16);
+        gravity.put("clip_horizontal", 8);
+        gravity.put("clip_vertical", 128);
+        gravity.put("display_clip_horizontal", 16777216);
+        gravity.put("display_clip_vertical", 268435456);
+        gravity.put("end", 8388613);
+        gravity.put("fill", 119);
+        gravity.put("fill_horizontal", 7);
+        gravity.put("textimemultiline", 112);
+        gravity.put("fill_vertical", 112);
+        gravity.put("horizontal_gravity_mask", 7);
+        gravity.put("left", 3);
+        gravity.put("no_gravity", 0);
+        gravity.put("relative_horizontal_gravity_mask", 8388615);
+        gravity.put("relative_layout_direction", 8388608);
+        gravity.put("right", 5);
+        gravity.put("start", 8388611);
+        gravity.put("top", 48);
+        gravity.put("vertical_gravity_mask", 112);
+
+
+    }
+
 }
