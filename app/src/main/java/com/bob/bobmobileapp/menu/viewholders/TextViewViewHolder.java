@@ -32,20 +32,16 @@ public class TextViewViewHolder extends TextViewHolder {
     @Override
     protected void updateProperties(HashMap<String, String> properties) {
         super.updateProperties(properties);
-        this.getValue(properties);
+        String curProperty;
+        if ((curProperty = properties.get("text_lable")) != null) {
+            this.textLable = curProperty;
+        }
     }
 
     @Override
     protected void configure() {
         super.configure();
         this.setValue();
-    }
-
-    protected void getValue(HashMap<String, String> properties) {
-        String curProperty;
-        if ((curProperty = properties.get("text_lable")) != null) {
-            this.textLable = curProperty;
-        }
     }
 
     protected void setValue() {

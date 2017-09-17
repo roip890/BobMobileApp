@@ -1,26 +1,36 @@
-package com.bob.bobmobileapp.menu.viewholders;
+package com.bob.bobmobileapp.menu.viewholders.dialog;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
+import android.os.Build;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.menu.viewholders.dialog.base.DialogViewHolder;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
 /**
- * Created by user on 01/09/2017.
+ * Created by user on 17/09/2017.
  */
 
-public class DateViewHolder extends TextViewViewHolder {
+public class DateDialogViewHolder extends DialogViewHolder {
 
     protected int year, month, day;
     protected SimpleDateFormat dateFormat;
+    protected DatePicker datePicker;
 
-    public DateViewHolder(Context context, View view) {
-        super(context, view, null);
+    public DateDialogViewHolder(Context context, View view) {
+        super(context, view);
     }
 
     @Override
@@ -32,6 +42,7 @@ public class DateViewHolder extends TextViewViewHolder {
         this.day = calendar.get(Calendar.DAY_OF_MONTH);
         this.hint = "Select Date:";
         this.dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        this.dialogTitleText = this.hint;
     }
 
     protected void updateProperties(HashMap<String, String> properties) {
@@ -58,6 +69,31 @@ public class DateViewHolder extends TextViewViewHolder {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         this.textField.setText(dateFormat.format(calendar.getTime()));
+    }
+
+    @Override
+    protected void onPositiveClicked(MaterialDialog dialog, DialogAction which) {
+        this.year = this.datePicker.getYear();
+        this.month = this.datePicker.getMonth();
+        this.day = this.datePicker.getDayOfMonth();
+        this.setValue();
+    }
+
+    @Override
+    protected View getCustomView() {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.dialog_date_picker, null);
+        datePicker = (DatePicker) view.findViewById(R.id.date_picker);
+        this.datePicker.init(this.year, this.month, this.day, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDays) {
+                year = selectedYear;
+                month = selectedMonth;
+                day = selectedDays;
+                setValue();
+            }
+        });
+        return view;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.menu.viewholders.base;
+package com.bob.bobmobileapp.menu.viewholders.dialog.base;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -28,7 +28,7 @@ public class DialogViewHolder extends TextViewViewHolder {
     protected int dialogBackGroundColor, dialogTitleColor, dialogContentColor,
             dialogPositiveColor, dialogNegativeColor, dialogNeutralColor,
             dialogDividerColor, dialogLinkColor, dialogIconMaxSize;
-    protected boolean dialogIsPositiveFocus, dialogIsNegativeFocus;
+    protected boolean dialogIsPositiveFocus, dialogIsNegativeFocus, isInput;
     protected String dialogTitleText, dialogContentText, dialogPositiveText,
             dialogNegativeText, dialogNeutralText;
     protected GravityEnum dialogTitleGravity , dialogContentGravity, dialogButtonsGravity,
@@ -70,7 +70,7 @@ public class DialogViewHolder extends TextViewViewHolder {
         this.dialogTheme = Theme.LIGHT;
         this.dialogTitleAndButtonsFont = null;
         this.dialogTextFont = null;
-        dialogIcon = null;
+        this.dialogIcon = null;
     }
 
     protected void updateProperties(HashMap<String, String> properties) {

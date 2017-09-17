@@ -18,7 +18,6 @@ import java.util.regex.Pattern;
 public class TimeViewHolder extends TextViewViewHolder {
 
     protected int hours, minutes;
-    protected boolean isInput;
 
 
     public TimeViewHolder(Context context, View view) {
@@ -31,67 +30,12 @@ public class TimeViewHolder extends TextViewViewHolder {
         this.hours = 0;
         this.minutes = 0;
         this.hint = "Select Time:";
-        this.isInput = false;
     }
 
     protected void updateProperties(HashMap<String, String> properties) {
         super.updateProperties(properties);
         String curProperty;
-        if ((curProperty = properties.get("is_input")) != null) {
-            if (curProperty.equals("true")) {
-                this.isInput = true;
-            } else if (curProperty.equals("false")) {
-                this.isInput = false;
-            }
-        }
-    }
-
-    @Override
-    protected void configure() {
-        if (this.isInput) {
-            Calendar calendar = Calendar.getInstance();
-            this.hours = calendar.get(Calendar.HOUR_OF_DAY);
-            this.minutes = calendar.get(Calendar.MINUTE);
-            this.textField.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                            hours = selectedHour;
-                            minutes = selectedMinute;
-                            setValue();
-                        }
-                    }, hours, minutes, true);
-                    timePickerDialog.setTitle(hint);
-                    timePickerDialog.show();
-                }
-            });
-        } else {
-            this.textField.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                }
-            });
-        }
-        if ((this.textLable == null)) {
-            if (this.isInput) {
-                Calendar calendar = Calendar.getInstance();
-                this.hours = calendar.get(Calendar.HOUR_OF_DAY);
-                this.minutes = calendar.get(Calendar.MINUTE);
-            } else {
-                this.hours = 0;
-                this.minutes = 0;
-            }
-        }
-        super.configure();
-    }
-
-
-    @Override
-    protected void getValue(HashMap<String, String> properties) {
-        String curProperty;
-        if ((curProperty = properties.get("text_lable")) != null) {
+        if ((curProperty = properties.get("time")) != null) {
             String[] timeParts = curProperty.split(Pattern.quote(":"));
             if (timeParts.length == 2) {
                 hours = Integer.parseInt(timeParts[0]);
