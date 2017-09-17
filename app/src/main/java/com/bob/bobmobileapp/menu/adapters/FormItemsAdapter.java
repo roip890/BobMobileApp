@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.menu.viewholders.base.TextViewHolder;
-import com.bob.bobmobileapp.menu.viewholders.output.TimeOutputViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.output.TimeViewHolder;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 
 import java.util.List;
@@ -107,7 +107,7 @@ public class FormItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case FORM_ITEM_TITLE:
                 return new TitleViewHolder(context, inflater.inflate(R.layout.form_item_title_layout, viewGroup, false));
             case FORM_ITEM_TIME:
-                return new TimeOutputViewHolder(context, inflater.inflate(R.layout.form_item_label_layout, viewGroup, false));
+                return new TimeViewHolder(context, inflater.inflate(R.layout.form_item_label_layout, viewGroup, false));
             case FORM_ITEM_DATE:
                 return new DateViewHolder(context, inflater.inflate(R.layout.form_item_label_layout, viewGroup, false));
             default:

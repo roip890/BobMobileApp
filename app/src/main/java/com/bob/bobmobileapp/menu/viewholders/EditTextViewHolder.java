@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.menu.viewholders.input;
+package com.bob.bobmobileapp.menu.viewholders;
 
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
@@ -13,10 +13,10 @@ import com.bob.bobmobileapp.tools.Validator;
  * Created by user on 01/09/2017.
  */
 
-public class TextInputViewHolder extends TextViewHolder {
+public class EditTextViewHolder extends TextViewHolder {
 
 
-    public TextInputViewHolder(Context context, View view, Validator validator) {
+    public EditTextViewHolder(Context context, View view, Validator validator) {
         super(context, view, validator);
     }
 

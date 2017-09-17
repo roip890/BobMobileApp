@@ -1,5 +1,8 @@
 package com.bob.bobmobileapp;
 
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.StackingBehavior;
+
 import java.util.HashMap;
 
 /**
@@ -8,7 +11,7 @@ import java.util.HashMap;
 
 public class finals {
 
-    public static final HashMap<String,Integer> inputTypes;
+    public static final HashMap<String, Integer> inputTypes;
     static {
         inputTypes = new HashMap<String, Integer>();
         inputTypes.put("date", 0x14);
@@ -47,7 +50,7 @@ public class finals {
 
     }
 
-    public static final HashMap<String,Integer> gravity;
+    public static final HashMap<String, Integer> gravity;
     static {
         gravity = new HashMap<String, Integer>();
         gravity.put("axis_clip", 8);
@@ -80,6 +83,22 @@ public class finals {
         gravity.put("vertical_gravity_mask", 112);
 
 
+    }
+
+    public static final HashMap<String, GravityEnum> dialogGravity;
+    static {
+        dialogGravity = new HashMap<String, GravityEnum>();
+        dialogGravity.put("start", GravityEnum.START);
+        dialogGravity.put("center", GravityEnum.CENTER);
+        dialogGravity.put("end", GravityEnum.END);
+    }
+
+    public static final HashMap<String, StackingBehavior> dialogStackingBehavior;
+    static {
+        dialogStackingBehavior = new HashMap<String, StackingBehavior>();
+        dialogStackingBehavior.put("never", StackingBehavior.NEVER);
+        dialogStackingBehavior.put("adaptive", StackingBehavior.ADAPTIVE);
+        dialogStackingBehavior.put("always", StackingBehavior.ALWAYS);
     }
 
 }
