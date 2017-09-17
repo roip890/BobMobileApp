@@ -1,19 +1,14 @@
 package com.bob.bobmobileapp.menu.viewholders.dialog;
 
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.TimePicker;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bob.bobmobileapp.R;
-import com.bob.bobmobileapp.menu.viewholders.dialog.base.DialogViewHolder;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -68,7 +63,7 @@ public class DateDialogViewHolder extends DialogViewHolder {
     protected void setValue() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
-        this.textField.setText(dateFormat.format(calendar.getTime()));
+        this.textView.setText(dateFormat.format(calendar.getTime()));
     }
 
     @Override

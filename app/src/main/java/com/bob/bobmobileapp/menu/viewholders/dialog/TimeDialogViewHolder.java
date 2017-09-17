@@ -9,7 +9,6 @@ import android.widget.TimePicker;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bob.bobmobileapp.R;
-import com.bob.bobmobileapp.menu.viewholders.dialog.base.DialogViewHolder;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -56,7 +55,7 @@ public class TimeDialogViewHolder extends DialogViewHolder {
     @Override
     protected void setValue() {
         NumberFormat formatter = new DecimalFormat("00");
-        this.textField.setText(formatter.format(hours) + ":" + formatter.format(minutes));
+        this.textView.setText(formatter.format(hours) + ":" + formatter.format(minutes));
     }
 
     @Override

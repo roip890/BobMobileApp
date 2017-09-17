@@ -1,9 +1,7 @@
-package com.bob.bobmobileapp.menu.viewholders;
+package com.bob.bobmobileapp.menu.viewholders.text;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.view.View;
-import android.widget.DatePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,7 +55,7 @@ public class DateViewHolder extends TextViewViewHolder {
     protected void setValue() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
-        this.textField.setText(dateFormat.format(calendar.getTime()));
+        this.textView.setText(dateFormat.format(calendar.getTime()));
     }
 
 }

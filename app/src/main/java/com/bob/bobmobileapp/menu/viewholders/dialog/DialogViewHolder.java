@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.menu.viewholders.dialog.base;
+package com.bob.bobmobileapp.menu.viewholders.dialog;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,7 +15,8 @@ import com.afollestad.materialdialogs.StackingBehavior;
 import com.afollestad.materialdialogs.Theme;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
-import com.bob.bobmobileapp.menu.viewholders.TextViewViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.text.TextViewViewHolder;
+
 import java.util.HashMap;
 
 /**
@@ -248,7 +249,7 @@ public class DialogViewHolder extends TextViewViewHolder {
                 })
                 .customView(getCustomView(), true);
 
-        this.textField.setOnClickListener(new View.OnClickListener() {
+        this.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogBuilder.show();

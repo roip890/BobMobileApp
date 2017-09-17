@@ -1,13 +1,10 @@
-package com.bob.bobmobileapp.menu.viewholders;
+package com.bob.bobmobileapp.menu.viewholders.text;
 
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.view.View;
-import android.widget.TimePicker;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -48,7 +45,7 @@ public class TimeViewHolder extends TextViewViewHolder {
     @Override
     protected void setValue() {
         NumberFormat formatter = new DecimalFormat("00");
-        this.textField.setText(formatter.format(hours) + ":" + formatter.format(minutes));
+        this.textView.setText(formatter.format(hours) + ":" + formatter.format(minutes));
     }
 
 }

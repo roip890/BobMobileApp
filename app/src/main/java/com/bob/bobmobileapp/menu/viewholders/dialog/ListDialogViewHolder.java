@@ -9,7 +9,6 @@ import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
-import com.bob.bobmobileapp.menu.viewholders.dialog.base.DialogViewHolder;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,7 +83,7 @@ public class ListDialogViewHolder extends DialogViewHolder {
             stringBuilder.append(this.dialogItems.get(i));
         }
 
-        this.textField.setText(stringBuilder.toString());
+        this.textView.setText(stringBuilder.toString());
     }
 
     protected void setItemsCallback() {
