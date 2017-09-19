@@ -86,4 +86,7 @@ dependencies {
     //gson
     compile 'com.google.code.gson:gson:2.8.1'
 
+    //secure shared preferences
+    compile 'com.scottyab:secure-preferences-lib:0.1.4'
+
 }

@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bob.bobmobileapp.R;
-import com.bob.bobmobileapp.menu.viewholders.text.TextViewViewHolder;
-import com.bob.bobmobileapp.menu.viewholders.output.TimeViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.formitem.text.DateViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.formitem.text.TimeViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.formitem.text.TextViewViewHolder;
 import com.bob.bobmobileapp.realm.objects.FormItem;
+import com.bob.bobmobileapp.realm.objects.MenuNode;
 
 import java.util.List;
 
@@ -40,12 +42,13 @@ public class FormItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     // The items to display in your RecyclerView
+    private long menuNodeId;
     private List<FormItem> formItems;
     private Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public FormItemsAdapter(Context context, List<FormItem> items) {
-        this.formItems = items;
+    public FormItemsAdapter(Context context, long menuNodeId) {
+        this.menuNodeId = menuNodeId;
         this.context = context;
     }
 
@@ -103,15 +106,13 @@ public class FormItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case FORM_ITEM_TEXT:
                 return new TextViewViewHolder(context, inflater.inflate(R.layout.form_item_edit_text_layout, viewGroup, false));
             case FORM_ITEM_LABEL:
-                return new DefaultLabelViewHolder(context, inflater.inflate(R.layout.form_item_text_view_layout, viewGroup, false));
-            case FORM_ITEM_TITLE:
-                return new TitleViewHolder(context, inflater.inflate(R.layout.form_item_title_layout, viewGroup, false));
+                return new TextViewViewHolder(context, inflater.inflate(R.layout.form_item_label_layout, viewGroup, false));
             case FORM_ITEM_TIME:
                 return new TimeViewHolder(context, inflater.inflate(R.layout.form_item_text_view_layout, viewGroup, false));
             case FORM_ITEM_DATE:
                 return new DateViewHolder(context, inflater.inflate(R.layout.form_item_text_view_layout, viewGroup, false));
             default:
-                return new DefaultViewHolder(context, inflater.inflate(R.layout.form_item_default_layout, viewGroup, false));
+                return null;
         }
     }
 

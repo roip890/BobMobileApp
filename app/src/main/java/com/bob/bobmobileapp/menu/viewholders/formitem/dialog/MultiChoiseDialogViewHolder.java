@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.menu.viewholders.dialog;
+package com.bob.bobmobileapp.menu.viewholders.formitem.dialog;
 
 import android.content.Context;
 import android.view.View;

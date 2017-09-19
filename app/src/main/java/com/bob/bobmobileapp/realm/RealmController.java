@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 import com.bob.bobmobileapp.realm.objects.FormItemProperty;
 import com.bob.bobmobileapp.realm.objects.MenuNode;
+import com.bob.bobmobileapp.realm.objects.MenuNodeProperty;
 
 import java.util.Collection;
 
@@ -207,4 +208,53 @@ public class RealmController {
     public RealmResults<FormItemProperty> getPropertiesOfFormItem(long formItemPropertyId) {
         return realm.where(FormItemProperty.class).equalTo("parentId", formItemPropertyId).findAll();
     }
+
+    //menu node property
+    public RealmResults<MenuNodeProperty> getMenuNodeProperty() {
+        return realm.where(MenuNodeProperty.class).findAll();
+    }
+
+    public MenuNodeProperty getMenuNodePropertyById(long menuNodePropertyId) {
+        return realm.where(MenuNodeProperty.class).equalTo("id", menuNodePropertyId).findFirst();
+    }
+
+    public void insertMenuNodeProperty(MenuNodeProperty menuNodeProperty) {
+        realm.beginTransaction();
+        realm.copyToRealm(menuNodeProperty);
+        realm.commitTransaction();
+    }
+
+    public void insertMenuNodeProperties(Collection<MenuNodeProperty> menuNodeProperties) {
+        for (MenuNodeProperty menuNodeProperty:menuNodeProperties) {
+            realm.beginTransaction();
+            realm.copyToRealm(menuNodeProperty);
+            realm.commitTransaction();
+        }
+    }
+
+    public void insertOrUpdateMenuNodeProperty(MenuNodeProperty menuNodeProperty) {
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(menuNodeProperty);
+        realm.commitTransaction();
+    }
+
+    public void insertOrUpdatemenuNodeProperties(Collection<MenuNodeProperty> menuNodeProperties) {
+        for (MenuNodeProperty menuNodeProperty:menuNodeProperties) {
+            realm.beginTransaction();
+            realm.copyToRealmOrUpdate(menuNodeProperty);
+            realm.commitTransaction();
+        }
+    }
+
+    public void deleteAllMenuNodeProperties() {
+        realm.beginTransaction();
+        realm.delete(MenuNodeProperty.class);
+        realm.commitTransaction();
+    }
+
+    public RealmResults<MenuNodeProperty> getPropertiesOfMenuNode(long menuNodePropertyId) {
+        return realm.where(MenuNodeProperty.class).equalTo("parentId", menuNodePropertyId).findAll();
+    }
+
+
 }

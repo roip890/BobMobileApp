@@ -12,6 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.bob.bobmobileapp.drawerItems.secondary.CustomCenteredSecondaryDrawerItem;
+import com.bob.bobmobileapp.menu.adapters.FormItemsAdapter;
+import com.bob.bobmobileapp.realm.RealmController;
+import com.bob.bobmobileapp.realm.objects.FormItem;
+import com.bob.bobmobileapp.realm.objects.FormItemProperty;
+import com.bob.bobmobileapp.realm.objects.MenuNode;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -27,20 +32,26 @@ public class MainActivity extends AppCompatActivity {
     private AccountHeader headerResult = null;
     private Drawer result = null;
     private RecyclerView recyclerView;
+    private long curMenuNodeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //get prefs
+        this.getPrefs();
+
         //toolbar
-        initToolbar();
+        this.initToolbar();
 
         //nav drawer
-        buildHeader(false, savedInstanceState);
-        buildDrawer(savedInstanceState);
+        this.buildHeader(false, savedInstanceState);
+        this.buildDrawer(savedInstanceState);
 
-        //
+        //recycler view
+
+
 
 
     }
@@ -55,6 +66,27 @@ public class MainActivity extends AppCompatActivity {
     //nav drawer
     private void buildHeader(boolean compact, Bundle savedInstanceState) {
         // Create the AccountHeader
+    }
+
+    //recycler view
+    private void initRecyclerView() {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        if (curMenuNodeId != -1) {
+            recyclerView.setAdapter(new FormItemsAdapter(this,));
+        }
+
+    }
+
+    //get prefs
+    private void getPrefs() {
+        if (BOBApplication.get().getInSecureSharedPreferences().contains("cur_menu_node_id")) {
+            this.curMenuNodeId = BOBApplication.get().getInSecureSharedPreferences().getLong("cur_menu_node_id", -1);
+        } else {
+            this.curMenuNodeId = -1;
+            BOBApplication.get().getInSecureSharedPreferences().edit().putLong("cur_menu_node_id", this.curMenuNodeId);
+        }
     }
 
     private void buildDrawer(Bundle savedInstanceState) {
@@ -116,16 +148,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //recycler view
-    private void initRecyclerView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
-        
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -133,8 +155,41 @@ public class MainActivity extends AppCompatActivity {
         if (result != null && result.isDrawerOpen()) {
             result.closeDrawer();
         } else {
+
             super.onBackPressed();
         }
+    }
+
+    private void insertItemToDB() {
+        RealmController.getInstance().insertMenuNode(makeNewMenuNode(0, -1, "main", null));
+        RealmController.getInstance().insertMenuNode(makeNewMenuNode(0, -1, "main", null));
+        RealmController.getInstance().insertMenuNode(makeNewMenuNode(0, -1, "main", null));
+    }
+
+    private MenuNode makeNewMenuNode(long id, long parentId, String title, String imageUrl) {
+        MenuNode menuNode = new MenuNode();
+        menuNode.setId(id);
+        menuNode .setParentId(parentId);
+        menuNode.setTitle(title);
+        menuNode.setTitle(imageUrl);
+        return menuNode;
+    }
+
+    private FormItem makeNewFormItem(long id, long parentId, String type) {
+        FormItem formItem = new FormItem();
+        formItem.setId(id);
+        formItem.setParentId(parentId);
+        formItem.setType(type);
+        return formItem;
+    }
+
+    private FormItemProperty makeNewFormItemProperty(long id, long parentId, String key, String value) {
+        FormItemProperty formItemProperty = new FormItemProperty();
+        formItemProperty.setId(id);
+        formItemProperty.setParentId(parentId);
+        formItemProperty.setKey(key);
+        formItemProperty.setValue(value);
+        return formItemProperty;
     }
 
 }

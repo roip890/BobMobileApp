@@ -7,16 +7,15 @@ import io.realm.annotations.PrimaryKey;
  * Created by user on 20/08/2017.
  */
 
-public class MenuNode extends RealmObject{
+public class MenuNodeProperty extends RealmObject {
 
     //fields
     @PrimaryKey
     private long id;
 
     private long parentId;
-    private String title;
-    private String imageUrl;
-    private boolean isLeaf;
+    private String key;
+    private String value;
 
     //getters and setters
     public long getId() {
@@ -35,27 +34,19 @@ public class MenuNode extends RealmObject{
         this.parentId = parentId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getKey() {
+        return key;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getValue() {
+        return value;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public boolean isLeaf() {
-        return isLeaf;
-    }
-
-    public void setLeaf(boolean leaf) {
-        isLeaf = leaf;
+    public void setValue(String value) {
+        this.value = value;
     }
 }

@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.menu.viewholders.dialog;
+package com.bob.bobmobileapp.menu.viewholders.formitem.dialog;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,7 +15,7 @@ import com.afollestad.materialdialogs.StackingBehavior;
 import com.afollestad.materialdialogs.Theme;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
-import com.bob.bobmobileapp.menu.viewholders.text.TextViewViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.formitem.text.TextViewViewHolder;
 
 import java.util.HashMap;
 
