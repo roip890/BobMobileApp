@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.menu.viewholders.formitem.base.BaseViewHolder;
-import com.bob.bobmobileapp.tools.Validator;
+import com.bob.bobmobileapp.tools.validators.Validator;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

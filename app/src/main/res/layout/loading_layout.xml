@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loading_layout_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="50dp"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+
+        <com.bob.bobmobileapp.tools.progressbar.MyProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/image_view"
+
+            app:progress_reached_round_x="15"
+            app:progress_reached_round_y="15"
+            app:progress_unreached_round_x="15"
+            app:progress_unreached_round_y="15"
+
+            app:progress_unreached_color="@color/transparent"
+            app:progress_reached_color="@color/colorPrimaryLight"
+
+            app:progress_unreached_bar_height="10dp"
+            app:progress_reached_bar_height="10dp"
+
+            app:progress_text_size="10sp"
+            app:progress_text_color="@color/colorPrimaryLight"
+            app:progress_text_offset="1dp"
+            app:progress_text_visibility="visible"
+
+            app:progress_max="100"
+            app:progress_current="0"
+
+            />
+
+
+    </FrameLayout>
+
+
+
+</RelativeLayout>

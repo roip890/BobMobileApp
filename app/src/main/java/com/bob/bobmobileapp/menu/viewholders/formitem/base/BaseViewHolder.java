@@ -10,12 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 import com.bob.bobmobileapp.realm.objects.FormItemProperty;
-import com.bob.bobmobileapp.tools.Validator;
+import com.bob.bobmobileapp.tools.validators.Validator;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.devicon_typeface_library.DevIcon;
 import com.mikepenz.entypo_typeface_library.Entypo;
@@ -194,7 +195,7 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
     public void configureFormItem(FormItem formItem) {
         HashMap<String, String> properties = new HashMap<String, String>();
-        RealmResults<FormItemProperty> RealmProperties = RealmController.getInstance().getPropertiesOfFormItem(formItem.getId());
+        RealmResults<FormItemProperty> RealmProperties = RealmController.get().with(BOBApplication.get()).getPropertiesOfFormItem(formItem.getId());
         for (FormItemProperty property : RealmProperties) {
             properties.put(property.getKey(), property.getValue());
         }

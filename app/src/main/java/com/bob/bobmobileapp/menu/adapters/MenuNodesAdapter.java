@@ -6,12 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.menu.viewholders.menunode.MenuNodeViewHolder;
 import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.MenuNode;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.RealmList;
+import io.realm.RealmResults;
 
 /**
  * Created by user on 17/09/2017.
@@ -20,16 +25,17 @@ import java.util.List;
 public class MenuNodesAdapter extends RecyclerView.Adapter<MenuNodeViewHolder> {
 
     private long parentMenuNodeId;
-    private List<MenuNode> menuNodes;
+    private ArrayList<MenuNode> menuNodes;
     private Context context;
 
     public MenuNodesAdapter(Context context) {
-        this(context, -1);
+        this(context, 0);
     }
 
     public MenuNodesAdapter(Context context, long parentMenuNodeId) {
         this.parentMenuNodeId = parentMenuNodeId;
-        this.menuNodes = RealmController.getInstance().getSubMenuNodes(this.parentMenuNodeId);
+        this.menuNodes = new ArrayList<MenuNode>();
+        this.setMenuNodes(RealmController.get().with(BOBApplication.get()).getSubMenuNodes(this.parentMenuNodeId));
         this.context = context;
     }
 
@@ -43,12 +49,6 @@ public class MenuNodesAdapter extends RecyclerView.Adapter<MenuNodeViewHolder> {
     @Override
     public void onBindViewHolder(MenuNodeViewHolder menuNodeViewHolder, int position) {
         menuNodeViewHolder.configureMenuNode(menuNodes.get(position));
-        menuNodeViewHolder.getView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     @Override
@@ -56,9 +56,16 @@ public class MenuNodesAdapter extends RecyclerView.Adapter<MenuNodeViewHolder> {
         return this.menuNodes.size();
     }
 
-    public void setParentMenuNode(long menuNodeId) {
-        this.menuNodes.clear();
-        this.menuNodes.addAll(RealmController.getInstance().getSubMenuNodes(menuNodeId));
+    public void setMenuNodes(List<MenuNode> menuNodes) {
+        if (menuNodes != null) {
+            this.menuNodes.clear();
+            this.menuNodes.addAll(menuNodes);
+        }
+    }
+
+    public void setParentMenuNode(long parentMenuNodeId) {
+        this.parentMenuNodeId = parentMenuNodeId;
+        this.setMenuNodes(RealmController.get().with(BOBApplication.get()).getSubMenuNodes(parentMenuNodeId));
         this.notifyDataSetChanged();
     }
 }

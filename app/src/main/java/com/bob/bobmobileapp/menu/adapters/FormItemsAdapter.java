@@ -5,13 +5,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.menu.viewholders.formitem.text.DateViewHolder;
 import com.bob.bobmobileapp.menu.viewholders.formitem.text.TimeViewHolder;
 import com.bob.bobmobileapp.menu.viewholders.formitem.text.TextViewViewHolder;
+import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 import com.bob.bobmobileapp.realm.objects.MenuNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,14 +45,16 @@ public class FormItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     // The items to display in your RecyclerView
-    private long menuNodeId;
-    private List<FormItem> formItems;
+    private long parentMenuNodeId;
+    private ArrayList<FormItem> formItems;
     private Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public FormItemsAdapter(Context context, long menuNodeId) {
-        this.menuNodeId = menuNodeId;
+    public FormItemsAdapter(Context context, long parentMenuNodeId) {
         this.context = context;
+        this.parentMenuNodeId = parentMenuNodeId;
+        this.formItems = new ArrayList<FormItem>();
+        this.setFormItems(RealmController.get().getFormItemsOfMenuNode(this.parentMenuNodeId));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -128,5 +133,20 @@ public class FormItemsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 break;
             default:
                 break;
-        }    }
+        }
+    }
+
+    public void setFormItems(List<FormItem> formItems) {
+        if (formItems != null) {
+            this.formItems.clear();
+            this.formItems.addAll(formItems);
+        }
+    }
+
+    public void setParentMenuNode(long parentMenuNodeId) {
+        this.parentMenuNodeId = parentMenuNodeId;
+        this.setFormItems(RealmController.get().with(BOBApplication.get()).getFormItemsOfMenuNode(parentMenuNodeId));
+        this.notifyDataSetChanged();
+    }
+
 }

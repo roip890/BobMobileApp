@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.bob.bobmobileapp.tools.Validator;
+import com.bob.bobmobileapp.tools.validators.Validator;
 
 /**
  * Created by user on 17/09/2017.

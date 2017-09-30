@@ -7,6 +7,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,14 +16,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bob.bobmobileapp.BOBApplication;
+import com.bob.bobmobileapp.activities.MainActivity;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.menu.adapters.MenuNodesAdapter;
 import com.bob.bobmobileapp.realm.RealmController;
-import com.bob.bobmobileapp.realm.objects.FormItem;
-import com.bob.bobmobileapp.realm.objects.FormItemProperty;
 import com.bob.bobmobileapp.realm.objects.MenuNode;
 import com.bob.bobmobileapp.realm.objects.MenuNodeProperty;
+import com.bob.bobmobileapp.tools.svg.SvgDecoder;
+import com.bob.bobmobileapp.tools.svg.SvgDrawableTranscoder;
+import com.bob.bobmobileapp.tools.svg.SvgSoftwareLayerSetter;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.StreamEncoder;
+import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
+import com.caverock.androidsvg.SVG;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.devicon_typeface_library.DevIcon;
 import com.mikepenz.entypo_typeface_library.Entypo;
@@ -36,9 +46,9 @@ import com.mikepenz.octicons_typeface_library.Octicons;
 import com.mikepenz.pixeden_7_stroke_typeface_library.Pixeden7Stroke;
 import com.mikepenz.typeicons_typeface_library.Typeicons;
 import com.mikepenz.weather_icons_typeface_library.WeatherIcons;
-import com.squareup.picasso.Picasso;
 import com.vstechlab.easyfonts.EasyFonts;
 
+import java.io.InputStream;
 import java.util.HashMap;
 
 import io.realm.RealmResults;
@@ -54,7 +64,7 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
     private View view;
     private ImageView menuImageView;
     private TextView menuTitleView;
-    private long memuNodeId;
+    private long menuNodeId;
     private int fontColor, layoutBackgroundColor, imageColor,
             gravity, imageMaxHeight, imageMaxWidth;
     private float fontSize;
@@ -67,9 +77,11 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         this.context = context;
         this.adapter = adapter;
-        setView((LinearLayout)itemView.findViewById(R.id.menu_node_view));
-        setMenuImageView((ImageView)itemView.findViewById(R.id.menu_node_image));
-        setMenuTitleView((TextView) itemView.findViewById(R.id.menu_node_title));
+        this.setView((LinearLayout)itemView.findViewById(R.id.menu_node_view));
+        this.setMenuImageView((ImageView)itemView.findViewById(R.id.menu_node_image));
+        this.setMenuTitleView((TextView) itemView.findViewById(R.id.menu_node_title));
+        this.initialize();
+        this.configure();
     }
 
     public ImageView getMenuImageView() {
@@ -97,7 +109,7 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void initialize() {
-        this.memuNodeId = -1;
+        this.menuNodeId = 0;
         this.layoutBackgroundColor = ContextCompat.getColor(context, R.color.transparent);
         this.fontColor = ContextCompat.getColor(context, R.color.textColorPrimary);
         this.fontSize = context.getResources().getDimension(R.dimen.text_size_medium);
@@ -119,7 +131,7 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
         String curProperty;
         if ((curProperty = properties.get("id")) != null) {
             try {
-                this.memuNodeId = Long.parseLong(curProperty);
+                this.menuNodeId = Long.parseLong(curProperty);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
@@ -238,22 +250,38 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
         this.menuTitleView.setText(this.title);
         this.menuImageView.setMaxHeight(this.imageMaxHeight);
         this.menuImageView.setMaxWidth(this.imageMaxWidth);
-        Picasso.with(this.context).load(this.imageUrl).into(this.menuImageView);
-        menuImageView.setImageDrawable(this.imageDrawable);
+        if (this.imageUrl != null) {
+            Glide.with(this.context)
+                    .using(Glide.buildStreamModelLoader(Uri.class, this.context), InputStream.class)
+                    .from(Uri.class)
+                    .as(SVG.class)
+                    .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+                    .sourceEncoder(new StreamEncoder())
+                    .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
+                    .decoder(new SvgDecoder())
+                    .animate(android.R.anim.fade_in)
+                    .listener(new SvgSoftwareLayerSetter<Uri>())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .load(Uri.parse(this.imageUrl))
+                    .into(this.menuImageView);
+        }
+        if (this.imageDrawable != null) {
+            menuImageView.setImageDrawable(this.imageDrawable);
+        }
         if (imageColor != ContextCompat.getColor(this.context, R.color.transparent)) {
             menuImageView.getDrawable().setColorFilter(new PorterDuffColorFilter(this.imageColor, PorterDuff.Mode.SRC_IN));
         }
         this.menuImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.setParentMenuNode(memuNodeId);
+                ((MainActivity) context).setCurMenuNode(menuNodeId);
             }
         });
     }
 
     public void configureMenuNode(MenuNode menuNode) {
         HashMap<String, String> properties = new HashMap<String, String>();
-        RealmResults<MenuNodeProperty> RealmProperties = RealmController.getInstance().getPropertiesOfMenuNode(menuNode.getId());
+        RealmResults<MenuNodeProperty> RealmProperties = RealmController.get().with(BOBApplication.get()).getPropertiesOfMenuNode(menuNode.getId());
         properties.put("id", String.valueOf(menuNode.getId()));
         properties.put("title", menuNode.getTitle());
         properties.put("image_url", menuNode.getImageUrl());
@@ -351,7 +379,5 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
         }
         return null;
     }
-
-
 
 }

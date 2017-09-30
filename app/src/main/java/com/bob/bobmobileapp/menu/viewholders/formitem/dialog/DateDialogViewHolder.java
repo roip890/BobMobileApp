@@ -40,6 +40,7 @@ public class DateDialogViewHolder extends DialogViewHolder {
         this.dialogTitleText = this.hint;
     }
 
+    @Override
     protected void updateProperties(HashMap<String, String> properties) {
         super.updateProperties(properties);
         String curProperty;

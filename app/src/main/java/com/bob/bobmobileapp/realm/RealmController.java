@@ -47,7 +47,7 @@ public class RealmController {
         return instance;
     }
 
-    public static RealmController getInstance() {
+    public static RealmController get() {
         return instance;
     }
 
@@ -78,14 +78,14 @@ public class RealmController {
 
     public void insertMenuNode(MenuNode menuNode) {
         realm.beginTransaction();
-        realm.copyToRealm(menuNode);
+        realm.copyToRealmOrUpdate(menuNode);
         realm.commitTransaction();
     }
 
     public void insertMenuNodes(Collection<MenuNode> menuNodes) {
         for (MenuNode menuNode:menuNodes) {
             realm.beginTransaction();
-            realm.copyToRealm(menuNode);
+            realm.copyToRealmOrUpdate(menuNode);
             realm.commitTransaction();
         }
     }
@@ -126,14 +126,14 @@ public class RealmController {
 
     public void insertFormItem(FormItem formItem) {
         realm.beginTransaction();
-        realm.copyToRealm(formItem);
+        realm.copyToRealmOrUpdate(formItem);
         realm.commitTransaction();
     }
 
     public void insertFormItems(Collection<FormItem> formItems) {
         for (FormItem formItem:formItems) {
             realm.beginTransaction();
-            realm.copyToRealm(formItem);
+            realm.copyToRealmOrUpdate(formItem);
             realm.commitTransaction();
         }
     }
@@ -173,14 +173,14 @@ public class RealmController {
 
     public void insertFormItemProperty(FormItemProperty formItemProperty) {
         realm.beginTransaction();
-        realm.copyToRealm(formItemProperty);
+        realm.copyToRealmOrUpdate(formItemProperty);
         realm.commitTransaction();
     }
 
     public void insertFormItemProperties(Collection<FormItemProperty> formItemProperties) {
         for (FormItemProperty formItemProperty:formItemProperties) {
             realm.beginTransaction();
-            realm.copyToRealm(formItemProperty);
+            realm.copyToRealmOrUpdate(formItemProperty);
             realm.commitTransaction();
         }
     }
@@ -220,14 +220,14 @@ public class RealmController {
 
     public void insertMenuNodeProperty(MenuNodeProperty menuNodeProperty) {
         realm.beginTransaction();
-        realm.copyToRealm(menuNodeProperty);
+        realm.copyToRealmOrUpdate(menuNodeProperty);
         realm.commitTransaction();
     }
 
     public void insertMenuNodeProperties(Collection<MenuNodeProperty> menuNodeProperties) {
         for (MenuNodeProperty menuNodeProperty:menuNodeProperties) {
             realm.beginTransaction();
-            realm.copyToRealm(menuNodeProperty);
+            realm.copyToRealmOrUpdate(menuNodeProperty);
             realm.commitTransaction();
         }
     }

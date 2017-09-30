@@ -1,6 +1,4 @@
-package com.bob.bobmobileapp.tools;
-
-import android.text.TextUtils;
+package com.bob.bobmobileapp.tools.validators;
 
 /**
  * Created by user on 05/09/2017.

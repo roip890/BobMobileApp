@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp;
+package com.bob.bobmobileapp.activities;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,12 +11,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bob.bobmobileapp.BOBApplication;
+import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.drawerItems.secondary.CustomCenteredSecondaryDrawerItem;
 import com.bob.bobmobileapp.menu.adapters.FormItemsAdapter;
+import com.bob.bobmobileapp.menu.adapters.MenuNodesAdapter;
 import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 import com.bob.bobmobileapp.realm.objects.FormItemProperty;
 import com.bob.bobmobileapp.realm.objects.MenuNode;
+import com.bob.bobmobileapp.realm.objects.MenuNodeProperty;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -26,21 +30,29 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private AccountHeader headerResult = null;
     private Drawer result = null;
+    private MenuNodesAdapter menuNodesAdapter;
+    private FormItemsAdapter formItemsAdapter;
     private RecyclerView recyclerView;
     private long curMenuNodeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_layout);
+
+
 
         //get prefs
         this.getPrefs();
+
+        //db
+        this.insertItemToDB();
 
         //toolbar
         this.initToolbar();
@@ -49,11 +61,24 @@ public class MainActivity extends AppCompatActivity {
         this.buildHeader(false, savedInstanceState);
         this.buildDrawer(savedInstanceState);
 
+        //adapters
+        this.setAdapters();
+
         //recycler view
+        this.initRecyclerView();
 
 
 
+    }
 
+    //get prefs
+    private void getPrefs() {
+        if (BOBApplication.get().getInSecureSharedPreferences().contains("cur_menu_node_id")) {
+            this.curMenuNodeId = BOBApplication.get().getInSecureSharedPreferences().getLong("cur_menu_node_id", 0);
+        } else {
+            this.curMenuNodeId = 0;
+            BOBApplication.get().getInSecureSharedPreferences().edit().putLong("cur_menu_node_id", this.curMenuNodeId).apply();
+        }
     }
 
     //toolbar
@@ -66,27 +91,6 @@ public class MainActivity extends AppCompatActivity {
     //nav drawer
     private void buildHeader(boolean compact, Bundle savedInstanceState) {
         // Create the AccountHeader
-    }
-
-    //recycler view
-    private void initRecyclerView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        if (curMenuNodeId != -1) {
-            recyclerView.setAdapter(new FormItemsAdapter(this,));
-        }
-
-    }
-
-    //get prefs
-    private void getPrefs() {
-        if (BOBApplication.get().getInSecureSharedPreferences().contains("cur_menu_node_id")) {
-            this.curMenuNodeId = BOBApplication.get().getInSecureSharedPreferences().getLong("cur_menu_node_id", -1);
-        } else {
-            this.curMenuNodeId = -1;
-            BOBApplication.get().getInSecureSharedPreferences().edit().putLong("cur_menu_node_id", this.curMenuNodeId);
-        }
     }
 
     private void buildDrawer(Bundle savedInstanceState) {
@@ -138,6 +142,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //menu and form adapter
+    private void setAdapters() {
+        this.menuNodesAdapter = new MenuNodesAdapter(this, this.curMenuNodeId);
+        this.formItemsAdapter = new FormItemsAdapter(this, this.curMenuNodeId);
+    }
+
+    //recycler view
+    private void initRecyclerView() {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        this.setCurMenuNode(this.curMenuNodeId);
+    }
+
+    //change menu to form and backward
+    public void setCurMenuNode(long curMenuNodeId) {
+        MenuNode menuNode = RealmController.get().with(BOBApplication.get()).getMenuNodeById(curMenuNodeId);
+        this.curMenuNodeId = (menuNode == null || curMenuNodeId < 0) ? 0 : menuNode.getId();
+        BOBApplication.get().getInSecureSharedPreferences().edit().putLong("cur_menu_node_id", this.curMenuNodeId).apply();
+        if ((menuNode == null) && (menuNode.isLeaf())) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+            formItemsAdapter.setParentMenuNode(this.curMenuNodeId);
+            recyclerView.setAdapter(formItemsAdapter);
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+            menuNodesAdapter.setParentMenuNode(this.curMenuNodeId);
+            recyclerView.setAdapter(menuNodesAdapter);
+        }
+    }
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //add the values which need to be saved from the drawer to the bundle
@@ -147,23 +178,25 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
-
-
     @Override
     public void onBackPressed() {
         //handle the back press :D close the drawer first and if the drawer is closed close the activity
         if (result != null && result.isDrawerOpen()) {
             result.closeDrawer();
         } else {
-
-            super.onBackPressed();
+            //super.onBackPressed();
+            MenuNode menuNode = RealmController.get().with(BOBApplication.get()).getMenuNodeById(this.curMenuNodeId);
+            if (menuNode != null && menuNode.getParentId() >= 0) {
+                setCurMenuNode(menuNode.getParentId());
+            }
         }
     }
 
     private void insertItemToDB() {
-        RealmController.getInstance().insertMenuNode(makeNewMenuNode(0, -1, "main", null));
-        RealmController.getInstance().insertMenuNode(makeNewMenuNode(0, -1, "main", null));
-        RealmController.getInstance().insertMenuNode(makeNewMenuNode(0, -1, "main", null));
+        RealmController.get().with(BOBApplication.get()).insertMenuNode(makeNewMenuNode(0, -1, "main", "https://image.flaticon.com/icons/svg/149/149176.svg"));
+        RealmController.get().with(BOBApplication.get()).insertMenuNode(makeNewMenuNode(1, 0, "food", "https://image.flaticon.com/icons/svg/121/121907.svg"));
+        RealmController.get().with(BOBApplication.get()).insertMenuNode(makeNewMenuNode(2, 0, "room service", "https://image.flaticon.com/icons/svg/201/201699.svg"));
+        RealmController.get().with(BOBApplication.get()).insertMenuNodeProperty(makeNewMenuNodeProperty(0, 1, "font_color", "#FFFF0000"));
     }
 
     private MenuNode makeNewMenuNode(long id, long parentId, String title, String imageUrl) {
@@ -171,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         menuNode.setId(id);
         menuNode .setParentId(parentId);
         menuNode.setTitle(title);
-        menuNode.setTitle(imageUrl);
+        menuNode.setImageUrl(imageUrl);
         return menuNode;
     }
 
@@ -190,6 +223,15 @@ public class MainActivity extends AppCompatActivity {
         formItemProperty.setKey(key);
         formItemProperty.setValue(value);
         return formItemProperty;
+    }
+
+    private MenuNodeProperty makeNewMenuNodeProperty(long id, long parentId, String key, String value) {
+        MenuNodeProperty menuNodeProperty = new MenuNodeProperty();
+        menuNodeProperty.setId(id);
+        menuNodeProperty.setParentId(parentId);
+        menuNodeProperty.setKey(key);
+        menuNodeProperty.setValue(value);
+        return menuNodeProperty;
     }
 
 }
