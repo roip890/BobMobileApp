@@ -92,4 +92,8 @@ dependencies {
     //volley
     compile 'com.android.volley:volley:1.0.0'
 
+    //material edit text
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+
+
 }

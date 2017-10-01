@@ -225,67 +225,67 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
             return drawable;
         } else {
             try {
-                return new IconicsDrawable(context).icon(MaterialDesignIconic.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(MaterialDesignIconic.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(GoogleMaterial.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(GoogleMaterial.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(FontAwesome.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(FontAwesome.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(Octicons.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(Octicons.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(Meteoconcs.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(Meteoconcs.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(CommunityMaterial.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(CommunityMaterial.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(WeatherIcons.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(WeatherIcons.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(Typeicons.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(Typeicons.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(Entypo.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(Entypo.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(DevIcon.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(DevIcon.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(FoundationIcons.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(FoundationIcons.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(Ionicons.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(Ionicons.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
             try {
-                return new IconicsDrawable(context).icon(Pixeden7Stroke.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
+                return new IconicsDrawable(context).icon(Pixeden7Stroke.Icon.valueOf(drawableName));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
