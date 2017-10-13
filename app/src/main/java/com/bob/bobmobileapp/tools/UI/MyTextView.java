@@ -109,6 +109,7 @@ public class MyTextView extends TextInputLayout{
                     Drawable startDrawable = textView.getCompoundDrawablesRelative()[0];
                     Drawable endDrawable = textView.getCompoundDrawablesRelative()[2];
                     if (startDrawableOnFocusOnly) {
+
                         startDrawable = null;
                     }
                     if (endDrawableOnFocusOnly) {
