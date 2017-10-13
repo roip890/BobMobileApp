@@ -1,32 +1,17 @@
 package com.bob.bobmobileapp.tools.validators;
 
 /**
- * Created by user on 05/09/2017.
+ * Created by user on 04/10/2017.
  */
 
-public class DefaultValidator implements Validator {
-
-    private String errorMessage;
-
-    public DefaultValidator(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public DefaultValidator() {
-        this("Please Enter Valid text!");
-    }
+public class DefaultValidator extends Validator {
 
     @Override
-    public boolean isValid(String text) {
-
+    public String validate(String text) {
         if (text.isEmpty()) {
-            return false;
+            return "Please enter a text!";
         }
-        return true;
+        return null;
     }
 
-    @Override
-    public String getErrorMessage() {
-        return this.errorMessage;
-    }
 }

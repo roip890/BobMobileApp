@@ -73,6 +73,8 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         this.textInputLayout = textInputLayout;
     }
 
+
+
     protected abstract void initView(View view);
 
     protected void initialize() {

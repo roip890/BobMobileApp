@@ -9,4 +9,5 @@
     <color name="colorAccent">#c8e8ff</color>
     <color name="colorError">#ff0000</color>
     <color name="transparent">#00000000</color>
+    <color name="testColor">#ffdd00</color>
 </resources>

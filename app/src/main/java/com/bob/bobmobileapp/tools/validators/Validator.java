@@ -4,10 +4,9 @@ package com.bob.bobmobileapp.tools.validators;
  * Created by user on 05/09/2017.
  */
 
-public interface Validator {
+public abstract class Validator {
 
-    boolean isValid(String text);
+    public Validator() {}
 
-    String getErrorMessage();
-
+    public abstract String validate(String text);
 }
