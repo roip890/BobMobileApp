@@ -1,14 +1,11 @@
 package com.bob.bobmobileapp.activities;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.bob.bobmobileapp.BOBApplication;
@@ -133,10 +130,8 @@ public class LoadingActivity extends AppCompatActivity {
         this.editText = (MyEditText) findViewById(R.id.code_edit_text);
         //this.editText.setText("");
         this.editText.setWidth(700);
-        this.codeStartEditTextDrawable = new IconicsDrawable(this).icon(FontAwesome.Icon.faw_key).sizeDp(20);
-        this.codeEndEditTextDrawable = new IconicsDrawable(this).icon(MaterialDesignIconic.Icon.gmi_close_circle).sizeDp(20);
-        this.editText.setStartDrawable(codeStartEditTextDrawable);
-        this.editText.setEndDrawable(codeEndEditTextDrawable);
+        this.editText.setStartDrawable(new IconicsDrawable(this).icon(FontAwesome.Icon.faw_key).sizeDp(20));
+        this.editText.setEndDrawable(new IconicsDrawable(this).icon(MaterialDesignIconic.Icon.gmi_close_circle).sizeDp(20));
         this.editText.setEndDrawableOnClickListener(new MyTextView.DrawableOnClickListener() {
             @Override
             public void onDrawableClick() {
@@ -152,11 +147,63 @@ public class LoadingActivity extends AppCompatActivity {
         this.editText.setStartDrawableColor(ContextCompat.getColor(this, R.color.colorAccent));
         this.editText.setBottomLineColor(ContextCompat.getColor(this, R.color.colorAccent));
         this.editText.setCursorColor(ContextCompat.getColor(this, R.color.colorAccent));
-        this.editText.setUpperHintColor(ContextCompat.getColor(this, R.color.colorAccent));
+        this.editText.setHintColor(ContextCompat.getColor(this, R.color.colorAccent));
         this.editText.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
         this.editText.setErrorTextColor(ContextCompat.getColor(this, R.color.colorError));
         this.editText.setValidator(new DefaultValidator());
         this.editText.setEndDrawableOnFocusOnly(true);
+        this.editText.getTextView().setMaxLines(1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        final MyEditText editText2 = (MyEditText) findViewById(R.id.code_edit_text2);
+        //this.editText.setText("");
+        editText2.setWidth(700);
+        editText2.setStartDrawable(new IconicsDrawable(this).icon(FontAwesome.Icon.faw_key).sizeDp(20));
+        editText2.setEndDrawable(new IconicsDrawable(this).icon(MaterialDesignIconic.Icon.gmi_close_circle).sizeDp(20));
+        editText2.setEndDrawableOnClickListener(new MyTextView.DrawableOnClickListener() {
+            @Override
+            public void onDrawableClick() {
+                if (!editText2.getText().toString().equals("")) {
+                    editText2.setText("");
+                    editText2.setEndDrawableEnable(false);
+                }
+            }
+        });
+        editText2.setHint("Please enter your code");
+
+        editText2.setEndDrawableColor(ContextCompat.getColor(this, R.color.colorAccent));
+        editText2.setStartDrawableColor(ContextCompat.getColor(this, R.color.colorAccent));
+        editText2.setBottomLineColor(ContextCompat.getColor(this, R.color.colorAccent));
+        editText2.setCursorColor(ContextCompat.getColor(this, R.color.colorAccent));
+        editText2.setHintColor(ContextCompat.getColor(this, R.color.colorAccent));
+        editText2.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+        editText2.setErrorTextColor(ContextCompat.getColor(this, R.color.colorError));
+        editText2.setValidator(new DefaultValidator());
+        editText2.setEndDrawableOnFocusOnly(true);
+        editText2.getTextView().setMaxLines(1);
     }
 
 }

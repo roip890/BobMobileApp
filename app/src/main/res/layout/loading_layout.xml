@@ -20,13 +20,30 @@
         android:layout_centerInParent="true"
         android:layout_below="@+id/image_view">
 
-        <com.bob.bobmobileapp.tools.UI.MyEditText
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/code_edit_text"
+            android:orientation="vertical"
             android:layout_gravity="center">
 
-        </com.bob.bobmobileapp.tools.UI.MyEditText>
+            <com.bob.bobmobileapp.tools.UI.MyEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/code_edit_text"
+                android:layout_gravity="center">
+            </com.bob.bobmobileapp.tools.UI.MyEditText>
+
+            <com.bob.bobmobileapp.tools.UI.MyEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/code_edit_text2"
+                android:layout_gravity="center">
+            </com.bob.bobmobileapp.tools.UI.MyEditText>
+
+
+
+        </LinearLayout>
+
 
         <com.bob.bobmobileapp.tools.progressbar.MyProgressBar
             android:id="@+id/progress_bar"

@@ -1,19 +1,12 @@
 package com.bob.bobmobileapp.menu.viewholders.formitem.text;
 
 import android.content.Context;
-import android.graphics.Paint;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
-import android.text.Editable;
-import android.text.SpannableString;
-import android.text.TextWatcher;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +14,7 @@ import android.widget.TextView;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.menu.viewholders.formitem.base.BaseViewHolder;
+import com.bob.bobmobileapp.tools.UI.MyTextView;
 import com.bob.bobmobileapp.tools.validators.Validator;
 
 import java.util.HashMap;
@@ -32,11 +26,16 @@ import java.util.HashMap;
 
 public class TextViewViewHolder extends BaseViewHolder {
 
+    protected MyTextView textView;
     protected Validator validator;
-    protected TextView textView;
-    protected String textLable;
-    private View bottomLine;
-    protected int inputType;
+    protected String text, hintText;
+    protected int foregroundColor, textColor, bottomLineColor, hintColor, errorColor;
+    protected int startDrawableColor, endDrawableColor;
+    protected int textSize, inputType;
+    protected Typeface textType;
+    protected Drawable startDrawable, endDrawable;
+    protected boolean boldText, underlineText, italicText;
+
 
     public TextViewViewHolder(Context context, View view, Validator validator) {
         super(context, view, validator);
@@ -47,211 +46,198 @@ public class TextViewViewHolder extends BaseViewHolder {
         this(context, view, null);
     }
 
-    public TextView getTextView() {
+    public MyTextView getTextView() {
         return textView;
     }
 
-    public void setTextView(TextView textView) {
+    public void setTextView(MyTextView textView) {
         this.textView = textView;
-    }
-
-    public View getBottomLine() {
-        return bottomLine;
-    }
-
-    public void setBottomLine(View bottomLine) {
-        this.bottomLine = bottomLine;
     }
 
     @Override
     protected void initView(View view) {
-        setTextInputLayout((TextInputLayout) view.findViewById(R.id.text_input_layout));
-        setTextView((TextInputEditText) view.findViewById(R.id.text_view));
-        setBottomLine(view.findViewById(R.id.text_view_bottom_line));
+        setTextView((MyTextView) view.findViewById(R.id.my_text_view));
     }
 
     @Override
     protected void initialize() {
         super.initialize();
+        this.validator = new Validator() {
+            @Override
+            public String validate(String text) {
+                return null;
+            }
+        };
+
+        this.text = "";
+        this.hintText = "Please enter your text";
+
+        this.foregroundColor = ContextCompat.getColor(context, R.color.textColorPrimary);
+        this.textColor = ContextCompat.getColor(context, R.color.textColorPrimary);
+        this.hintColor = ContextCompat.getColor(context, R.color.textColorPrimary);
+        this.bottomLineColor = ContextCompat.getColor(context, R.color.textColorPrimary);
+        this.errorColor = ContextCompat.getColor(context, R.color.textColorPrimary);
+        this.startDrawableColor = ContextCompat.getColor(context, R.color.textColorPrimary);
+        this.endDrawableColor = ContextCompat.getColor(context, R.color.textColorPrimary);
+
+        this.textSize = (int)(context.getResources().getDimension(R.dimen.text_size_medium));
         this.inputType = finals.inputTypes.get("none");
+        this.textType = null;
+
+        this.boldText = false;
+        this.underlineText = false;
+        this.italicText = false;
+
+        this.startDrawable = null;
+        this.initEndDrawable();
+
+
     }
 
     @Override
     protected void updateProperties(HashMap<String, String> properties) {
         String curProperty;
+
+        if ((curProperty = properties.get("text")) != null) {
+            this.text = curProperty;
+        }
+        if ((curProperty = properties.get("hint_text")) != null) {
+            this.hintText = curProperty;
+        }
+
         if ((curProperty = properties.get("input_type")) != null) {
             this.inputType = finals.inputTypes.get(curProperty);
         }
-        if ((curProperty = properties.get("text_lable")) != null) {
-            this.textLable = curProperty;
+
+        if ((curProperty = properties.get("foreground_color")) != null) {
+            try {
+                this.foregroundColor = Color.parseColor(curProperty);
+                this.textColor = Color.parseColor(curProperty);
+                this.hintColor = Color.parseColor(curProperty);
+                this.bottomLineColor = Color.parseColor(curProperty);
+                this.errorColor = Color.parseColor(curProperty);
+                this.startDrawableColor = Color.parseColor(curProperty);
+                this.endDrawableColor = Color.parseColor(curProperty);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
         }
+        if ((curProperty = properties.get("text_color")) != null) {
+            try {
+                this.textColor = Color.parseColor(curProperty);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if ((curProperty = properties.get("error_color")) != null) {
+            try {
+                this.errorColor = Color.parseColor(curProperty);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((curProperty = properties.get("font_size")) != null) {
+            try {
+                this.fontSize = Integer.parseInt(curProperty);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((curProperty = properties.get("start_drawable")) != null) {
+            this.startDrawable = this.findDrawable(curProperty);
+        }
+        if ((curProperty = properties.get("layout_background")) != null) {
+            this.layoutBackground = ContextCompat.getDrawable(context, context.getResources().getIdentifier(curProperty, "drawable", context.getPackageName()));
+        }
+        if ((curProperty = properties.get("font_type")) != null) {
+            this.fontType = this.findTypeface(curProperty);
+        }
+        if ((curProperty = properties.get("error_lable")) != null) {
+            this.errorLable = curProperty;
+        }
+        if ((curProperty = properties.get("empty_error_lable")) != null) {
+            this.emptyErrorLable = curProperty;
+        }
+        if ((curProperty = properties.get("bold_text")) != null) {
+            if (curProperty.equals("true")) {
+                this.boldText = true;
+            } else if (curProperty.equals("false")) {
+                this.boldText = false;
+            }
+        }
+        if ((curProperty = properties.get("underline_text")) != null) {
+            if (curProperty.equals("true")) {
+                this.underlineText = true;
+            } else if (curProperty.equals("false")) {
+                this.underlineText = false;
+            }
+        }
+        if ((curProperty = properties.get("italic_text")) != null) {
+            if (curProperty.equals("true")) {
+                this.italicText = true;
+            } else if (curProperty.equals("false")) {
+                this.italicText = false;
+            }
+        }
+        if ((curProperty = properties.get("not_empty")) != null) {
+            if (curProperty.equals("true")) {
+                this.notEmpty = true;
+            } else if (curProperty.equals("false")) {
+                this.notEmpty = false;
+            }
+        }
+        if ((curProperty = properties.get("hint")) != null) {
+            this.errorLable = curProperty;
+        }
+
     }
 
     @Override
     protected void configure() {
-        if (textInputLayout != null) {
-            this.textInputLayout.setBackground(this.layoutBackground);
-            this.textInputLayout.setBackgroundColor(this.layoutBackgroundColor);
-            this.textInputLayout.setTypeface(this.fontType);
-        }
-        startDrawable.setColorFilter(new PorterDuffColorFilter(this.fontColor, PorterDuff.Mode.SRC_IN));
-        this.setDrawables(startDrawable, null, null, null);
+        //this.textView.setBackground(this.layoutBackground);
+        //this.textView.setBackgroundColor(this.layoutBackgroundColor);
+        //((LinearLayout.LayoutParams) this.textView.getLayoutParams()).gravity = this.gravity;
+        this.textView.setValidator(this.validator);
 
-        this.textView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if ((motionEvent.getAction() == MotionEvent.ACTION_UP) && !textView.getText().equals("")
-                && isOnResetDrawable(motionEvent.getX()) && getDrawables()[2] != null) {
-                    textView.setText("");
-                }
-                return true;
-            }
-        });
-
-        this.textView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence text, int start, int count, int after) {
-                if (!text.equals("")) {
-                    startDrawable.setColorFilter(new PorterDuffColorFilter(fontColor, PorterDuff.Mode.SRC_IN));
-                    setDrawables(startDrawable, null, null, null);
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence text, int start, int before, int count) {
-                SpannableString span = new SpannableString(text.toString());
-                if(underlineText)
-                {
-                    span.setSpan(new UnderlineSpan(),0, text.length() - 1 , 0);
-                }
-                if(boldText)
-                {
-                    span.setSpan(new StyleSpan(Typeface.BOLD), 0, text.length() - 1 ,  0);
-                }
-                if(italicText)
-                {
-                    span.setSpan(new StyleSpan(Typeface.ITALIC), 0, text.length() - 1 , 0);
-                }
-                textView.setText(span, TextView.BufferType.SPANNABLE);
-                validateTextField(text.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable text) {
-                validateTextField(text.toString());
-            }
-        });
-
-        this.textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    validateTextField(((TextView) v).getText().toString());
-                }
-            }
-        });
-
-        this.textView.setInputType(this.inputType);
-        this.textView.setGravity(this.gravity);
-        this.textView.setTextColor(this.fontColor);
-        this.bottomLine.setBackgroundColor(ContextCompat.getColor(this.context, R.color.colorPrimary));
-        //ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(
-        //        ViewGroup.MarginLayoutParams.WRAP_CONTENT,
-        //        (int)(context.getResources().getDisplayMetrics().density * 2)
-        //);
-        //params.setMarginStart((int)(context.getResources().getDisplayMetrics().density *
-        //        this.textView.getTotalPaddingStart()));
-        //this.bottomLine.setLayoutParams(params);
-        //this.textView.getBackground().setColorFilter(this.lineColor, PorterDuff.Mode.SRC_ATOP);
-        this.setErrorTextColor(this.errorColor);
-        this.textView.setTextSize(this.fontSize);
-        this.textView.setTypeface(this.fontType);
-        this.textView.setHint(this.hint);
-        if (this.italicText && this.boldText) {
-            this.textView.setTypeface(this.textView.getTypeface(), Typeface.BOLD_ITALIC);
-        } else {
-            if (this.boldText) {
-                this.textView.setTypeface(this.textView.getTypeface(), Typeface.BOLD);
-            }
-            if (this.italicText) {
-                this.textView.setTypeface(this.textView.getTypeface(), Typeface.ITALIC);
-            }
-        }
-        if (this.underlineText) {
-            this.textView.setPaintFlags(this.textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        }
         this.setValue();
+        this.textView.setHint(this.hintText);
+
+        this.textView.setTextColor(this.textColor);
+        this.textView.setHintColor(this.hintColor);
+        this.textView.setBottomLineColor(this.bottomLineColor);
+        this.textView.setErrorTextColor(this.errorColor);
+        this.textView.setStartDrawableColor(this.startDrawableColor);
+        this.textView.setEndDrawableColor(this.endDrawableColor);
+
+        this.textView.setTextSize(this.textSize);
+        this.textView.setTextInputType(this.inputType);
+        this.textView.setTextTypeface(this.textType);
+
+        this.textView.setBoldEnable(this.boldText);
+        this.textView.setItalicEnable(this.italicText);
+        this.textView.setUnderlineEnable(this.underlineText);
+
+        this.textView.setStartDrawable(this.startDrawable);
+        this.textView.setEndDrawable(this.endDrawable);
     }
 
     protected void setValue() {
-        this.textView.setText(this.textLable);
+        this.textView.setText(this.text);
     }
 
-    protected void validateTextField(String text) {
-        if (!this.isValid(text)) {
-            if (text.equals("")) {
-                startDrawable.setColorFilter(new PorterDuffColorFilter(this.fontColor, PorterDuff.Mode.SRC_IN));
-                this.setDrawables(startDrawable, null, null, null);
-                if (notEmpty) {
-                    setError(emptyErrorLable);
-                } else {
-                    setError(errorLable);
+    protected void initEndDrawable() {
+        this.endDrawable = this.findDrawable("gmi_close_circle");
+        this.textView.setEndDrawableOnClickListener(new MyTextView.DrawableOnClickListener() {
+            @Override
+            public void onDrawableClick() {
+                if (!textView.getText().toString().equals("")) {
+                    textView.setText("");
+                    textView.setEndDrawableEnable(false);
                 }
-            } else {
-                Drawable resetDrawable = findDrawable("gmi_close_circle");
-                resetDrawable.setColorFilter(new PorterDuffColorFilter(this.errorColor, PorterDuff.Mode.SRC_IN));
-                startDrawable.setColorFilter(new PorterDuffColorFilter(this.errorColor, PorterDuff.Mode.SRC_IN));
-                this.setDrawables(startDrawable, null, resetDrawable, null);
-                setError(errorLable);
             }
-        } else if (!text.equals("")) {
-            Drawable resetDrawable = findDrawable("gmi_close_circle");
-            resetDrawable.setColorFilter(new PorterDuffColorFilter(this.fontColor, PorterDuff.Mode.SRC_IN));
-            startDrawable.setColorFilter(new PorterDuffColorFilter(this.fontColor, PorterDuff.Mode.SRC_IN));
-            this.setDrawables(startDrawable, null, resetDrawable, null);
-            setError(null);
-        } else {
-            startDrawable.setColorFilter(new PorterDuffColorFilter(this.fontColor, PorterDuff.Mode.SRC_IN));
-            this.setDrawables(startDrawable, null, null, null);
-            if (notEmpty) {
-                setError(emptyErrorLable);
-            }
-        }
-    }
+        });
+        this.textView.setEndDrawableOnFocusOnly(true);
 
-    protected boolean isValid(String text) {
-        if (this.validator != null) {
-            return this.validator.validate(text) == null;
-        }
-        return true;
-    }
-
-    protected boolean isOnResetDrawable(float x) {
-        if (context.getResources().getBoolean(R.bool.is_right_to_left)) {
-            if(x >= this.textView.getTotalPaddingRight()) {
-                return true;
-            }
-        } else {
-            if(x <= this.textView.getTotalPaddingLeft()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    protected void setError(String errorLable) {
-        if (this.textInputLayout != null) {
-            this.textInputLayout.setError(errorLable);
-        } else {
-            this.textView.setError(errorLable);
-        }
-    }
-
-    protected void setDrawables(Drawable start, Drawable top, Drawable end, Drawable bottom) {
-        this.textView.setCompoundDrawablesRelative(start, top, end, bottom);
-    }
-
-    protected Drawable[] getDrawables() {
-        return this.textView.getCompoundDrawablesRelative();
     }
 }

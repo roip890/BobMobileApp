@@ -2,6 +2,7 @@ package com.bob.bobmobileapp.tools.UI;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
@@ -36,6 +37,8 @@ public class MyTextView extends TextInputLayout{
     protected int textColor, bottomLineColor, startDrawableColor, endDrawableColor, errorColor, hintColor;
     protected boolean startDrawableOnFocusOnly;
     protected boolean endDrawableOnFocusOnly;
+    protected boolean focusIsFirst;
+    protected boolean isBold, isItalic, isUnderline;
 
     public MyTextView(Context context) {
         this(context, null);
@@ -53,9 +56,12 @@ public class MyTextView extends TextInputLayout{
         this.startDrawableOnClickListener = null;
         this.endDrawableOnClickListener = null;
         this.validator = null;
+        this.focusIsFirst = true;
+        this.setStartDrawableOnFocusOnly(false);
+        this.setEndDrawableOnFocusOnly(false);
 
         this.initTextView(context);
-        this.initUnderline(context);
+        this.initBottomLine(context);
         this.initColors(context);
         this.addViews();
     }
@@ -103,28 +109,33 @@ public class MyTextView extends TextInputLayout{
         this.textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    validateTextField(((TextView) view).getText().toString());
+                if (focusIsFirst) {
+                    focusIsFirst = false;
                 } else {
-                    Drawable startDrawable = textView.getCompoundDrawablesRelative()[0];
-                    Drawable endDrawable = textView.getCompoundDrawablesRelative()[2];
-                    if (startDrawableOnFocusOnly) {
-
-                        startDrawable = null;
+                    validateTextField(((TextView) view).getText().toString());
+                    if (!hasFocus) {
+                        Drawable startDrawable = textView.getCompoundDrawablesRelative()[0];
+                        Drawable endDrawable = textView.getCompoundDrawablesRelative()[2];
+                        if (startDrawableOnFocusOnly) {
+                            startDrawable = null;
+                        }
+                        if (endDrawableOnFocusOnly) {
+                            endDrawable = null;
+                        }
+                        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(startDrawable, null, endDrawable, null);
                     }
-                    if (endDrawableOnFocusOnly) {
-                        endDrawable = null;
-                    }
-                    textView.setCompoundDrawablesRelativeWithIntrinsicBounds(startDrawable, null, endDrawable, null);
                 }
             }
         });
 
         this.textView.setCompoundDrawablePadding(this.asDP(5));
         this.textView.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.transparent));
+        this.isBold = false;
+        this.isItalic = false;
+        this.isUnderline = false;
     }
 
-    protected void initUnderline(Context context) {
+    protected void initBottomLine(Context context) {
         try {
             FrameLayout.LayoutParams lineLayoutParams = new FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.MATCH_PARENT,
@@ -150,7 +161,6 @@ public class MyTextView extends TextInputLayout{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     protected void initColors(Context context) {
@@ -158,7 +168,7 @@ public class MyTextView extends TextInputLayout{
         this.setBottomLineColor(ContextCompat.getColor(context, R.color.textColorPrimary));
         this.setStartDrawableColor(ContextCompat.getColor(context, R.color.textColorPrimary));
         this.setEndDrawableColor(ContextCompat.getColor(context, R.color.textColorPrimary));
-        this.setUpperHintColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+        this.setHintColor(ContextCompat.getColor(context, R.color.textColorPrimary));
         this.setErrorTextColor(ContextCompat.getColor(context, R.color.colorError));
     }
 
@@ -213,6 +223,49 @@ public class MyTextView extends TextInputLayout{
         this.textView.setTypeface(typeface);
     }
 
+    public void setBoldEnable(boolean isBold) {
+        this.isBold = isBold;
+        if (this.isBold) {
+            if (this.isItalic) {
+                this.textView.setTypeface(this.textView.getTypeface(), Typeface.BOLD_ITALIC);
+            } else {
+                this.textView.setTypeface(this.textView.getTypeface(), Typeface.BOLD);
+            }
+        } else {
+            if (this.isItalic) {
+                this.textView.setTypeface(this.textView.getTypeface(), Typeface.ITALIC);
+            } else {
+                this.textView.setTypeface(this.textView.getTypeface(), Typeface.NORMAL);
+            }
+        }
+    }
+
+    public void setItalicEnable(boolean isItalic) {
+        this.isItalic = isItalic;
+        if (this.isItalic) {
+            if (this.isBold) {
+                this.textView.setTypeface(this.textView.getTypeface(), Typeface.BOLD_ITALIC);
+            } else {
+                this.textView.setTypeface(this.textView.getTypeface(), Typeface.ITALIC);
+            }
+        } else {
+            if (this.isBold) {
+                this.textView.setTypeface(this.textView.getTypeface(), Typeface.BOLD);
+            } else {
+                this.textView.setTypeface(this.textView.getTypeface(), Typeface.NORMAL);
+            }
+        }
+    }
+
+    public void setUnderlineEnable(boolean isUnderline) {
+        this.isUnderline = isUnderline;
+        if (this.isUnderline) {
+            this.textView.setPaintFlags(this.textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        } else {
+            this.textView.setPaintFlags(this.textView.getPaintFlags() & (~Paint.UNDERLINE_TEXT_FLAG));
+        }
+    }
+
     public void setTextInputType(int type) {
         this.textView.setInputType(type);
     }
@@ -257,6 +310,10 @@ public class MyTextView extends TextInputLayout{
         }
     }
 
+    public void setStartDrawable(int startDrawable) {
+        this.setStartDrawable(ContextCompat.getDrawable(getContext(), startDrawable));
+    }
+
     public void setStartDrawable(Drawable startDrawable) {
         this.startDrawable = startDrawable;
         this.paintStartDrawable(startDrawableColor);
@@ -285,6 +342,10 @@ public class MyTextView extends TextInputLayout{
             this.endDrawable.setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN));
         }
         this.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(this.startDrawable, null, this.endDrawable, null);
+    }
+
+    public void setEndDrawable(int endDrawable) {
+        this.setEndDrawable(ContextCompat.getDrawable(getContext(), endDrawable));
     }
 
     public void setEndDrawable(Drawable endDrawable) {
@@ -416,7 +477,7 @@ public class MyTextView extends TextInputLayout{
     }
 
     //set hint color
-    public void setUpperHintColor(int color) {
+    public void setHintColor(int color) {
         this.hintColor = color;
         this.paintUpperHintColor(color);
     }

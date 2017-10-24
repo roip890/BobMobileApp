@@ -16,6 +16,7 @@ import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 import com.bob.bobmobileapp.realm.objects.FormItemProperty;
+import com.bob.bobmobileapp.tools.UI.MyTextView;
 import com.bob.bobmobileapp.tools.validators.Validator;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.devicon_typeface_library.DevIcon;
@@ -45,13 +46,8 @@ import io.realm.RealmResults;
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
     protected Context context;
-    protected TextInputLayout textInputLayout;
-    protected int fontColor, lineColor, layoutBackgroundColor, errorColor, gravity;
-    protected float fontSize;
-    protected Typeface fontType;
-    protected String hint, errorLable, emptyErrorLable;
-    protected Drawable startDrawable, layoutBackground;
-    protected boolean boldText, underlineText, italicText, notEmpty;
+    protected int layoutBackgroundColor, gravity, width, height;
+    protected Drawable layoutBackground;
 
     public BaseViewHolder(Context context, View view, Validator validator) {
         super(view);
@@ -65,34 +61,11 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         this(context, view, null);
     }
 
-    public TextInputLayout getTextInputLayout() {
-        return textInputLayout;
-    }
-
-    public void setTextInputLayout(TextInputLayout textInputLayout) {
-        this.textInputLayout = textInputLayout;
-    }
-
-
-
     protected abstract void initView(View view);
 
     protected void initialize() {
         this.layoutBackgroundColor = ContextCompat.getColor(context, R.color.windowBackground);
-        this.fontColor = ContextCompat.getColor(context, R.color.textColorPrimary);
-        this.lineColor = ContextCompat.getColor(context, R.color.colorPrimary);
-        this.errorColor = ContextCompat.getColor(context, R.color.colorError);
-        this.fontSize = context.getResources().getDimension(R.dimen.text_size_medium);
-        this.startDrawable = null;
         this.layoutBackground = null;
-        this.fontType = null;
-        this.errorLable = "Please enter valid input!";
-        this.emptyErrorLable = "Please enter an input!";
-        this.boldText = false;
-        this.underlineText = false;
-        this.italicText = false;
-        this.notEmpty = false;
-        this.hint = null;
         this.gravity = finals.gravity.get("start");
     }
 
@@ -203,21 +176,6 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         }
         updateProperties(properties);
         configure();
-    }
-
-    protected void setErrorTextColor(int color) {
-        if (textInputLayout != null) {
-            try {
-                Field fErrorView = TextInputLayout.class.getDeclaredField("mErrorView");
-                fErrorView.setAccessible(true);
-                TextView mErrorView = (TextView) fErrorView.get(textInputLayout);
-                Field fCurTextColor = TextView.class.getDeclaredField("mCurTextColor");
-                fCurTextColor.setAccessible(true);
-                fCurTextColor.set(mErrorView, color);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     //extern this functions
