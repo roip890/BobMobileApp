@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.menu.viewholders.formitem.groups;
+/*package com.bob.bobmobileapp.menu.viewholders.formitem.groups;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -16,6 +16,7 @@ import com.bob.bobmobileapp.tools.validators.Validator;
  * Created by user on 17/09/2017.
  */
 
+/*
 public class MultiChoiseViewHolder extends GroupViewHolder {
 
 
@@ -79,3 +80,4 @@ public class MultiChoiseViewHolder extends GroupViewHolder {
         }
     }
 }
+*/

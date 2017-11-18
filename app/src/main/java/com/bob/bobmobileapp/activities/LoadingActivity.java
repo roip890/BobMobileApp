@@ -3,15 +3,18 @@ package com.bob.bobmobileapp.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.tools.UI.MyEditText;
 import com.bob.bobmobileapp.tools.UI.MyTextView;
+import com.bob.bobmobileapp.tools.UI.MyTextViewList;
 import com.bob.bobmobileapp.tools.progressbar.MyProgressBar;
 import com.bob.bobmobileapp.tools.progressbar.ProgressBarTimer;
 import com.bob.bobmobileapp.tools.style.BackgroundColorTimer;
@@ -45,6 +48,22 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.loading_layout);
+
+        //MyTextView myEditText = findViewById(R.id.et);
+        //myEditText.setText("nanana");
+        //myEditText.setBottomLineEnable(false);
+
+
+        MyTextViewList myTextViewList = (MyTextViewList) findViewById(R.id.text_views_list);
+        myTextViewList.setTitle("title");
+        myTextViewList.addTextView();
+        myTextViewList.addTextView();
+        myTextViewList.addTextView();
+        myTextViewList.setText("a", 0);
+        myTextViewList.setText("b", 1);
+        myTextViewList.setText("c", 2);
+        //myTextViewList.setError("error");
+
 
         initLogoImage();
         initProgressBar();

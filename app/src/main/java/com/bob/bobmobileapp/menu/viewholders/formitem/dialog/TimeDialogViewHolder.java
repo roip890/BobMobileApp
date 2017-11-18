@@ -35,8 +35,8 @@ public class TimeDialogViewHolder extends DialogViewHolder {
         Calendar calendar = Calendar.getInstance();
         this.hours = calendar.get(Calendar.HOUR_OF_DAY);
         this.minutes = calendar.get(Calendar.MINUTE);
-        this.hint = "Select Time:";
-        this.dialogTitleText = this.hint;
+        this.hintText = "Select Time:";
+        this.dialogTitleText = this.hintText;
     }
 
     protected void updateProperties(HashMap<String, String> properties) {
@@ -48,7 +48,7 @@ public class TimeDialogViewHolder extends DialogViewHolder {
                 hours = Integer.parseInt(timeParts[0]);
                 minutes = Integer.parseInt(timeParts[1]);
             }
-            this.textLable = curProperty;
+            this.text = curProperty;
         }
     }
 

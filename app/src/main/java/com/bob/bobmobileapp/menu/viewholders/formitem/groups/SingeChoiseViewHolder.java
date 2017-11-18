@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.menu.viewholders.formitem.groups;
+/*package com.bob.bobmobileapp.menu.viewholders.formitem.groups;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bob.bobmobileapp.tools.validators.Validator;
@@ -15,11 +16,13 @@ import com.bob.bobmobileapp.tools.validators.Validator;
  * Created by user on 17/09/2017.
  */
 
+/*
 public class SingeChoiseViewHolder extends GroupViewHolder {
 
 
     public SingeChoiseViewHolder(Context context, View view, Validator validator) {
         super(context, view);
+        RadioGroup rg;
     }
 
     public SingeChoiseViewHolder(Context context, View view) {
@@ -79,3 +82,4 @@ public class SingeChoiseViewHolder extends GroupViewHolder {
         }
     }
 }
+*/

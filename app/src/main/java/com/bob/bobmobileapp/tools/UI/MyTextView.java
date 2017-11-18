@@ -33,7 +33,7 @@ public class MyTextView extends TextInputLayout{
     protected Drawable startDrawable, endDrawable;
     protected DrawableOnClickListener startDrawableOnClickListener, endDrawableOnClickListener;
     protected Validator validator;
-    protected TextView textView, textUnderline;
+    protected TextView textView, textBottomLine;
     protected int textColor, bottomLineColor, startDrawableColor, endDrawableColor, errorColor, hintColor;
     protected boolean startDrawableOnFocusOnly;
     protected boolean endDrawableOnFocusOnly;
@@ -72,6 +72,7 @@ public class MyTextView extends TextInputLayout{
 
     protected void initTextView(Context context) {
         initTextViewUIObject(context);
+
 
         this.textView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -151,12 +152,12 @@ public class MyTextView extends TextInputLayout{
             }
             lineLayoutParams.gravity = Gravity.BOTTOM;
 
-            this.textUnderline = new TextView(this.getContext());
-            this.textUnderline.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
+            this.textBottomLine = new TextView(this.getContext());
+            this.textBottomLine.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
             Field fInputFrame =TextInputLayout.class.getDeclaredField("mInputFrame");
             fInputFrame.setAccessible(true);
             FrameLayout mInputFrame = (FrameLayout) fInputFrame.get(this);
-            mInputFrame.addView(this.textUnderline, lineLayoutParams);
+            mInputFrame.addView(this.textBottomLine, lineLayoutParams);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -273,12 +274,15 @@ public class MyTextView extends TextInputLayout{
     public void setWidth(int width) {
         this.textView.setWidth(width);
         if (this.textView.getCompoundDrawablesRelative()[0] != null) {
-            this.textUnderline.setWidth(width -
+            this.textBottomLine.setWidth(width -
                     (this.textView.getCompoundDrawablesRelative()[0].getIntrinsicWidth() + this.asDP(5)));
         } else {
-            this.textUnderline.setWidth(width);
+            this.textBottomLine.setWidth(width);
         }
+    }
 
+    public void setHeight(int height) {
+        this.textView.setHeight(height);
     }
 
     public CharSequence getText() {
@@ -286,13 +290,21 @@ public class MyTextView extends TextInputLayout{
     }
 
     //bottom line
+    public void setBottomLineEnable(boolean enable) {
+        if (enable) {
+            this.textBottomLine.setVisibility(VISIBLE);
+        } else {
+            this.textBottomLine.setVisibility(INVISIBLE);
+        }
+    }
+
     public void setBottomLineColor(int color) {
         this.bottomLineColor = color;
         this.paintBottomLineColor(color);
     }
 
     protected void paintBottomLineColor(int color) {
-        this.textUnderline.setBackgroundColor(color);
+        this.textBottomLine.setBackgroundColor(color);
     }
 
     //drawables
@@ -302,11 +314,11 @@ public class MyTextView extends TextInputLayout{
         }
         this.textView.setCompoundDrawablesRelativeWithIntrinsicBounds(this.startDrawable, null, this.endDrawable, null);
         if (this.textView.getCompoundDrawablesRelative()[0] != null) {
-            ((FrameLayout.LayoutParams)this.textUnderline.getLayoutParams()).setMarginStart(
+            ((FrameLayout.LayoutParams)this.textBottomLine.getLayoutParams()).setMarginStart(
                     this.textView.getCompoundDrawablesRelative()[0].getIntrinsicWidth() + this.asDP(5)
             );
         } else {
-            ((FrameLayout.LayoutParams)this.textUnderline.getLayoutParams()).setMarginStart(0);
+            ((FrameLayout.LayoutParams)this.textBottomLine.getLayoutParams()).setMarginStart(0);
         }
     }
 

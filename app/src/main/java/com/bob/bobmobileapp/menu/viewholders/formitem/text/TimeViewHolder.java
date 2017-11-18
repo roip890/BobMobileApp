@@ -16,7 +16,6 @@ public class TimeViewHolder extends TextViewViewHolder {
 
     protected int hours, minutes;
 
-
     public TimeViewHolder(Context context, View view) {
         super(context, view, null);
     }
@@ -26,7 +25,7 @@ public class TimeViewHolder extends TextViewViewHolder {
         super.initialize();
         this.hours = 0;
         this.minutes = 0;
-        this.hint = "Select Time:";
+        this.hintText = "Select Time:";
     }
 
     protected void updateProperties(HashMap<String, String> properties) {
@@ -38,7 +37,7 @@ public class TimeViewHolder extends TextViewViewHolder {
                 hours = Integer.parseInt(timeParts[0]);
                 minutes = Integer.parseInt(timeParts[1]);
             }
-            this.textLable = curProperty;
+            this.text = curProperty;
         }
     }
 

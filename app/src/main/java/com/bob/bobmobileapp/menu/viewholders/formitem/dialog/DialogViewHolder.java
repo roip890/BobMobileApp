@@ -29,7 +29,7 @@ public class DialogViewHolder extends TextViewViewHolder {
     protected int dialogBackGroundColor, dialogTitleColor, dialogContentColor,
             dialogPositiveColor, dialogNegativeColor, dialogNeutralColor,
             dialogDividerColor, dialogLinkColor, dialogIconMaxSize;
-    protected boolean dialogIsPositiveFocus, dialogIsNegativeFocus, isInput;
+    protected boolean dialogIsPositiveFocus, dialogIsNegativeFocus;
     protected String dialogTitleText, dialogContentText, dialogPositiveText,
             dialogNegativeText, dialogNeutralText;
     protected GravityEnum dialogTitleGravity , dialogContentGravity, dialogButtonsGravity,

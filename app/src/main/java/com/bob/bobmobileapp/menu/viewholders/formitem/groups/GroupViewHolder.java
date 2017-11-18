@@ -1,10 +1,11 @@
-package com.bob.bobmobileapp.menu.viewholders.formitem.groups;
+/*package com.bob.bobmobileapp.menu.viewholders.formitem.groups;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -23,8 +24,16 @@ import java.util.HashMap;
  * Created by user on 17/09/2017.
  */
 
+/*
 public class GroupViewHolder extends BaseViewHolder {
 
+    protected String text, hintText;
+    protected int foregroundColor, textColor, bottomLineColor, hintColor, errorColor;
+    protected int layoutBackgroundColor, gravity, width, height, textSize;
+    protected Typeface textFont;
+    protected Drawable layoutBackground;
+
+    protected TextInputLayout textInputLayout;
     protected ViewGroup viewGroup;
     protected ArrayList<TextView> textViews;
     protected ArrayList<String> items;
@@ -48,6 +57,14 @@ public class GroupViewHolder extends BaseViewHolder {
         this.viewGroup = viewGroup;
     }
 
+    public ViewGroup getTextInputLayout() {
+        return textInputLayout;
+    }
+
+    public void setTextInputLayout(TextInputLayout textInputLayout) {
+        this.textInputLayout = textInputLayout;
+    }
+
     @Override
     protected void initView(View view) {
         setTextInputLayout((TextInputLayout) view.findViewById(R.id.text_input_layout));
@@ -56,7 +73,6 @@ public class GroupViewHolder extends BaseViewHolder {
 
     @Override
     protected void initialize() {
-        super.initialize();
         this.textViews = new ArrayList<TextView>();
         this.items = new ArrayList<String>();
         this.itemsColor = ContextCompat.getColor(context, R.color.colorPrimary);
@@ -67,7 +83,6 @@ public class GroupViewHolder extends BaseViewHolder {
 
     @Override
     protected void updateProperties(HashMap<String, String> properties) {
-        super.updateProperties(properties);
         String curProperty;
         if ((curProperty = properties.get("items")) != null) {
             this.items = new ArrayList<String>(Arrays.asList(new Gson().fromJson(curProperty, String[].class)));
@@ -94,8 +109,8 @@ public class GroupViewHolder extends BaseViewHolder {
         if (textInputLayout != null) {
             this.textInputLayout.setBackgroundColor(this.layoutBackgroundColor);
             this.textInputLayout.setBackground(this.layoutBackground);
-            this.textInputLayout.setTypeface(this.fontType);
-            this.textInputLayout.setHint(this.hint);
+            this.textInputLayout.setTypeface(this.textFont);
+            this.textInputLayout.setHint(this.hintText);
             this.setErrorTextColor(this.errorColor);
         }
 
@@ -138,3 +153,4 @@ public class GroupViewHolder extends BaseViewHolder {
     }
 
 }
+*/

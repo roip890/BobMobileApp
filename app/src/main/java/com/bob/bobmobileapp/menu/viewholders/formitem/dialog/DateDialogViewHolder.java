@@ -35,9 +35,7 @@ public class DateDialogViewHolder extends DialogViewHolder {
         this.year = calendar.get(Calendar.YEAR);
         this.month = calendar.get(Calendar.MONTH);
         this.day = calendar.get(Calendar.DAY_OF_MONTH);
-        this.hint = "Select Date:";
         this.dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-        this.dialogTitleText = this.hint;
     }
 
     @Override
@@ -56,7 +54,7 @@ public class DateDialogViewHolder extends DialogViewHolder {
             }
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, day);
-            this.textLable = dateFormat.format(calendar.getTime());
+            this.text = dateFormat.format(calendar.getTime());
         }
     }
 

@@ -46,8 +46,6 @@ import io.realm.RealmResults;
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
     protected Context context;
-    protected int layoutBackgroundColor, gravity, width, height;
-    protected Drawable layoutBackground;
 
     public BaseViewHolder(Context context, View view, Validator validator) {
         super(view);
@@ -63,108 +61,9 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
     protected abstract void initView(View view);
 
-    protected void initialize() {
-        this.layoutBackgroundColor = ContextCompat.getColor(context, R.color.windowBackground);
-        this.layoutBackground = null;
-        this.gravity = finals.gravity.get("start");
-    }
+    abstract protected void initialize();
 
-    protected void updateProperties(HashMap<String, String> properties) {
-        String curProperty;
-        if ((curProperty = properties.get("font_color")) != null) {
-            try {
-                this.fontColor = Color.parseColor(curProperty);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((curProperty = properties.get("line_color")) != null) {
-            try {
-                this.lineColor = Color.parseColor(curProperty);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((curProperty = properties.get("foreground_color")) != null) {
-            try {
-                this.fontColor = Color.parseColor(curProperty);
-                this.lineColor = Color.parseColor(curProperty);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if ((curProperty = properties.get("layout_background_color")) != null) {
-            try {
-                this.layoutBackgroundColor = Color.parseColor(curProperty);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((curProperty = properties.get("error_color")) != null) {
-            try {
-                this.errorColor = Color.parseColor(curProperty);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((curProperty = properties.get("font_size")) != null) {
-            try {
-                this.fontSize = Integer.parseInt(curProperty);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((curProperty = properties.get("start_drawable")) != null) {
-            this.startDrawable = this.findDrawable(curProperty);
-        }
-        if ((curProperty = properties.get("layout_background")) != null) {
-            this.layoutBackground = ContextCompat.getDrawable(context, context.getResources().getIdentifier(curProperty, "drawable", context.getPackageName()));
-        }
-        if ((curProperty = properties.get("font_type")) != null) {
-            this.fontType = this.findTypeface(curProperty);
-        }
-        if ((curProperty = properties.get("error_lable")) != null) {
-            this.errorLable = curProperty;
-        }
-        if ((curProperty = properties.get("empty_error_lable")) != null) {
-            this.emptyErrorLable = curProperty;
-        }
-        if ((curProperty = properties.get("bold_text")) != null) {
-            if (curProperty.equals("true")) {
-                this.boldText = true;
-            } else if (curProperty.equals("false")) {
-                this.boldText = false;
-            }
-        }
-        if ((curProperty = properties.get("underline_text")) != null) {
-            if (curProperty.equals("true")) {
-                this.underlineText = true;
-            } else if (curProperty.equals("false")) {
-                this.underlineText = false;
-            }
-        }
-        if ((curProperty = properties.get("italic_text")) != null) {
-            if (curProperty.equals("true")) {
-                this.italicText = true;
-            } else if (curProperty.equals("false")) {
-                this.italicText = false;
-            }
-        }
-        if ((curProperty = properties.get("not_empty")) != null) {
-            if (curProperty.equals("true")) {
-                this.notEmpty = true;
-            } else if (curProperty.equals("false")) {
-                this.notEmpty = false;
-            }
-        }
-        if ((curProperty = properties.get("hint")) != null) {
-            this.errorLable = curProperty;
-        }
-        if ((curProperty = properties.get("gravity")) != null) {
-            this.gravity = finals.gravity.get(curProperty);
-        }
-    }
+    abstract protected void updateProperties(HashMap<String, String> properties);
 
     protected abstract void configure();
 

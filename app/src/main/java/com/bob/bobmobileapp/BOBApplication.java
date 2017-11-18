@@ -1,5 +1,4 @@
 package com.bob.bobmobileapp;
-//brooo
 
 import android.app.Application;
 import android.content.SharedPreferences;
