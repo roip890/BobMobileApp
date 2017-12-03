@@ -30,6 +30,8 @@ import java.lang.reflect.Field;
 
 public class MyTextView extends TextInputLayout{
 
+    protected Drawable backgroundDrawable;
+    protected int backgroundColor;
     protected Drawable startDrawable, endDrawable;
     protected DrawableOnClickListener startDrawableOnClickListener, endDrawableOnClickListener;
     protected Validator validator;
@@ -51,6 +53,7 @@ public class MyTextView extends TextInputLayout{
     public MyTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        this.backgroundDrawable = null;
         this.startDrawable = null;
         this.endDrawable = null;
         this.startDrawableOnClickListener = null;
@@ -130,7 +133,7 @@ public class MyTextView extends TextInputLayout{
         });
 
         this.textView.setCompoundDrawablePadding(this.asDP(5));
-        this.textView.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.transparent));
+        //this.textView.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.transparent));
         this.isBold = false;
         this.isItalic = false;
         this.isUnderline = false;
@@ -165,6 +168,7 @@ public class MyTextView extends TextInputLayout{
     }
 
     protected void initColors(Context context) {
+        this.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
         this.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
         this.setBottomLineColor(ContextCompat.getColor(context, R.color.textColorPrimary));
         this.setStartDrawableColor(ContextCompat.getColor(context, R.color.textColorPrimary));
@@ -181,6 +185,24 @@ public class MyTextView extends TextInputLayout{
         this.addView(this.textView, 0, params);
     }
 
+    //background
+    public void setBackgroundImage(Drawable backgroundDrawable) {
+        this.backgroundDrawable = backgroundDrawable;
+        this.paintBackgroundDrawable(backgroundDrawable);
+    }
+
+    public void paintBackgroundDrawable(Drawable backgroundDrawable) {
+        this.setBackground(backgroundDrawable);
+    }
+
+   public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
+        this.paintBackgroundColor(backgroundColor);
+    }
+
+    public void paintBackgroundColor(int backgroundColor) {
+        super.setBackgroundColor(backgroundColor);
+    }
 
     //validation
     public void validateTextField(String text) {

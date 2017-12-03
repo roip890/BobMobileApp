@@ -48,7 +48,7 @@ public class MyEditText extends MyTextView {
     @Override
     protected void initColors(Context context){
         super.initColors(context);
-        this.setCursorColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+        this.cursorColor = ContextCompat.getColor(context, R.color.textColorPrimary);
     }
 
     public void setCursorColor(int color) {

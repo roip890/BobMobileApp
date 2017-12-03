@@ -1,0 +1,56 @@
+package com.bob.bobmobileapp.tools.UI;
+
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.support.design.widget.TextInputEditText;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
+import android.util.AttributeSet;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.bob.bobmobileapp.R;
+
+import java.lang.reflect.Field;
+
+/**
+ * Created by User on 22/11/2017.
+ */
+
+public class MyButton extends MyTextView {
+
+    protected int buttonColor;
+
+    public MyButton(Context context) {
+        this(context, null);
+    }
+
+    public MyButton(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public MyButton(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.buttonColor = ContextCompat.getColor(context, R.color.colorPrimaryLight);
+        this.setBottomLineEnable(false);
+    }
+
+    @Override
+    protected void initTextViewUIObject(Context context) {
+        this.textView = new Button(context);
+    }
+
+    public void setButtonColor(int color) {
+        this.buttonColor = color;
+        this.paintButtonColor(color);
+    }
+
+    public void paintButtonColor(int color) {
+        ViewCompat.setBackgroundTintList(this.textView, ColorStateList.valueOf(color));
+    }
+
+}

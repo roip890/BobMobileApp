@@ -39,6 +39,8 @@ public class MyTextViewList extends LinearLayout {
     protected TextView bottomLine;
     protected ViewsValidator validator;
     protected int bottomLineColor;
+    protected Drawable backgroundDrawable;
+    protected int backgroundColor;
 
     //title
     protected TextView titleTextView;
@@ -338,6 +340,12 @@ public class MyTextViewList extends LinearLayout {
 
     public void setHeight(int height) {
         this.textViewsListView.getLayoutParams().height = height;
+    }
+
+    //background
+    public void setBackgroundImage(Drawable backgroundDrawable) {
+        this.backgroundDrawable = backgroundDrawable;
+        this.setBackground(backgroundDrawable);
     }
 
     //validation
