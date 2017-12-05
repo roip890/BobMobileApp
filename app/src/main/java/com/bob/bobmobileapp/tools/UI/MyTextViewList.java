@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ public class MyTextViewList extends LinearLayout {
     public final int ERROR_TEXT_VIEW = -3;
 
     //general
-    protected LinearLayout textViewsListView;
+    protected ViewGroup textViewsListView;
     protected TextView bottomLine;
     protected ViewsValidator validator;
     protected int bottomLineColor;
@@ -118,8 +119,7 @@ public class MyTextViewList extends LinearLayout {
     }
 
     protected void initTextViewListView() {
-        this.textViewsListView = new LinearLayout(this.getContext());
-        this.textViewsListView.setOrientation(VERTICAL);
+        this.textViewsListView = this.createTextViewsListView();
         this.textViews = new ArrayList<TextView>();
         this.textViewsColors = new ArrayList<Integer>();
         this.textViewsStartDrawableColors = new ArrayList<Integer>();
@@ -257,7 +257,7 @@ public class MyTextViewList extends LinearLayout {
     }
 
     public void addTextView(int textViewIndex) {
-        TextView textView = new TextView(this.getContext());
+        TextView textView = this.createTextView();
         this.addTextView(textView, textViewIndex);
     }
 
@@ -325,6 +325,16 @@ public class MyTextViewList extends LinearLayout {
        addTextViewListView();
        addBottomLine();
        addErrorView();
+    }
+
+    protected TextView createTextView() {
+        return new TextView(this.getContext());
+    }
+
+    protected ViewGroup createTextViewsListView() {
+        LinearLayout viewGroup =  new LinearLayout(this.getContext());
+        viewGroup.setOrientation(VERTICAL);
+        return viewGroup;
     }
 
     //general

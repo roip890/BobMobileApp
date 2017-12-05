@@ -3,17 +3,10 @@ package com.bob.bobmobileapp.tools.UI;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bob.bobmobileapp.R;

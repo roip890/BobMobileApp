@@ -26,12 +26,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.bob.bobmobileapp.tools.UI.MyButton
+            <com.bob.bobmobileapp.tools.UI.MyPhoneEditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/mybtn">
+                android:id="@+id/phone_view">
 
-            </com.bob.bobmobileapp.tools.UI.MyButton>
+            </com.bob.bobmobileapp.tools.UI.MyPhoneEditText>
 
 
 

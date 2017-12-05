@@ -17,6 +17,7 @@ import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.tools.UI.MyButton;
 import com.bob.bobmobileapp.tools.UI.MyEditText;
+import com.bob.bobmobileapp.tools.UI.MyPhoneEditText;
 import com.bob.bobmobileapp.tools.UI.MyTextView;
 import com.bob.bobmobileapp.tools.UI.MyTextViewList;
 import com.bob.bobmobileapp.tools.progressbar.MyProgressBar;
@@ -58,20 +59,24 @@ public class LoadingActivity extends AppCompatActivity {
 
         setContentView(R.layout.loading_layout);
 
+
+        MyPhoneEditText myPhoneEditText = (MyPhoneEditText) findViewById(R.id.phone_view);
+        myPhoneEditText.setBottomLineColor(ContextCompat.getColor(this, R.color.colorError));
+
         //MyTextView myEditText = findViewById(R.id.et);
         //myEditText.setText("nanana");
         //myEditText.setBottomLineEnable(false);
 
-        MyButton myButton = findViewById(R.id.mybtn);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, 2);
-        calendar.set(Calendar.MINUTE, 3);
-        calendar.set(Calendar.SECOND, 4);
-        DateFormat dateFormat = new SimpleDateFormat("hh:mm");
-        myButton.setText(dateFormat.format(calendar.getTime()));
-        ViewCompat.setBackgroundTintList(
-                myButton.getTextView(),
-                ColorStateList.valueOf(Color.RED));
+        //MyButton myButton = findViewById(R.id.mybtn);
+        //Calendar calendar = Calendar.getInstance();
+        //calendar.set(Calendar.HOUR, 2);
+        //calendar.set(Calendar.MINUTE, 3);
+        //calendar.set(Calendar.SECOND, 4);
+        //DateFormat dateFormat = new SimpleDateFormat("hh:mm");
+        //myButton.setText(dateFormat.format(calendar.getTime()));
+        //ViewCompat.setBackgroundTintList(
+        //        myButton.getTextView(),
+        //        ColorStateList.valueOf(Color.RED));
         //myButton.setBottomLineEnable(false);
 
 

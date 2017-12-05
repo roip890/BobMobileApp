@@ -2,20 +2,12 @@ package com.bob.bobmobileapp.tools.UI;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.bob.bobmobileapp.R;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by User on 22/11/2017.
