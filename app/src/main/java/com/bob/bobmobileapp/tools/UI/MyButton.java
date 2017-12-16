@@ -32,8 +32,8 @@ public class MyButton extends MyTextView {
     }
 
     @Override
-    protected void initTextViewUIObject(Context context) {
-        this.textView = new Button(context);
+    protected void createMainView() {
+        this.textView = new Button(this.getContext());
     }
 
     public void setButtonColor(int color) {

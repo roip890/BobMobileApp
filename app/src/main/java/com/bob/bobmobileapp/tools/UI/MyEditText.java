@@ -31,18 +31,18 @@ public class MyEditText extends MyTextView {
     public MyEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        this.initCursor();
     }
 
     @Override
-    protected void initTextViewUIObject(Context context) {
-        this.textView = new TextInputEditText(context);
+    protected void createMainView() {
+        this.textView = new TextInputEditText(this.getContext());
     }
 
-    @Override
-    protected void initColors(Context context){
-        super.initColors(context);
-        this.cursorColor = ContextCompat.getColor(context, R.color.textColorPrimary);
+    protected void initCursor() {
+        this.setCursorColor(ContextCompat.getColor(this.getContext(), R.color.textColorPrimary));
     }
+
 
     public void setCursorColor(int color) {
         this.cursorColor = color;
@@ -51,6 +51,8 @@ public class MyEditText extends MyTextView {
 
     protected void paintCursorColor(int color) {
         try {
+
+            //get cursor fields by reflection
             Field fCursorDrawableRes =
                     TextView.class.getDeclaredField("mCursorDrawableRes");
             fCursorDrawableRes.setAccessible(true);
@@ -62,6 +64,7 @@ public class MyEditText extends MyTextView {
             Field fCursorDrawable = clazz.getDeclaredField("mCursorDrawable");
             fCursorDrawable.setAccessible(true);
 
+            //change the field to this color
             Drawable[] drawables = new Drawable[2];
             Resources res = this.textView.getContext().getResources();
             drawables[0] = res.getDrawable(mCursorDrawableRes);
@@ -74,12 +77,15 @@ public class MyEditText extends MyTextView {
     }
 
     @Override
-    public void setError(String text) {
-        super.setError(text);
-        if (text != null) {
-            this.paintCursorColor(this.errorColor);
-        } else {
-            this.paintCursorColor(this.cursorColor);
-        }
+    protected void onErrorEnable() {
+        super.onErrorEnable();
+        this.paintCursorColor(this.errorColor);
     }
+
+    @Override
+    protected void onErrorDisable() {
+        super.onErrorDisable();
+        this.paintCursorColor(this.cursorColor);
+    }
+
 }

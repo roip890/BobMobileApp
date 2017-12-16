@@ -3,18 +3,28 @@ package com.bob.bobmobileapp.activities;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.style.UnderlineSpan;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.tools.UI.CustomTextInputLayout;
 import com.bob.bobmobileapp.tools.UI.MyButton;
 import com.bob.bobmobileapp.tools.UI.MyEditText;
 import com.bob.bobmobileapp.tools.UI.MyPhoneEditText;
@@ -29,7 +39,9 @@ import com.bumptech.glide.Glide;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
+import com.vstechlab.easyfonts.EasyFonts;
 
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -62,6 +74,10 @@ public class LoadingActivity extends AppCompatActivity {
 
         MyPhoneEditText myPhoneEditText = (MyPhoneEditText) findViewById(R.id.phone_view);
         myPhoneEditText.setBottomLineColor(ContextCompat.getColor(this, R.color.colorError));
+        myPhoneEditText.setTextColor(ContextCompat.getColor(this, R.color.colorError));
+        myPhoneEditText.setCursorColor(ContextCompat.getColor(this, R.color.colorError));
+        myPhoneEditText.setText("nananna");
+
 
         //MyTextView myEditText = findViewById(R.id.et);
         //myEditText.setText("nanana");
@@ -78,6 +94,42 @@ public class LoadingActivity extends AppCompatActivity {
         //        myButton.getTextView(),
         //        ColorStateList.valueOf(Color.RED));
         //myButton.setBottomLineEnable(false);
+
+        //CustomTextInputLayout til = (CustomTextInputLayout) findViewById(R.id.til);
+
+//        Field fInputFrame = null;
+//        try {
+//            fInputFrame = TextInputLayout.class.getDeclaredField("mInputFrame");
+//            fInputFrame.setAccessible(true);
+//            FrameLayout mInputFrame = (FrameLayout) fInputFrame.get(til);
+//            EditText et = new EditText(this);
+//            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+//                    FrameLayout.LayoutParams.WRAP_CONTENT,
+//                    FrameLayout.LayoutParams.MATCH_PARENT
+//            );
+//            til.addView(et, layoutParams);
+//            et.setText("bbb");
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+
+        //at.setText("aaa");
+
+        //EditText editText = til.getEditText();
+
+
+        //Typeface tf = Typeface.create(EasyFonts.funRaiser(this), Typeface.);
+        //til.setTypeface(tf);
+
+        //til.setHint("Hint");
+        //til.getEditText().setText("Text");
+        //til.setCollapsedTypeface(EasyFonts.funRaiser(this));
+        //til.setExpandedTypeface(EasyFonts.caviarDreamsBold(this));
+        //til.getEditText().setTypeface(EasyFonts.robotoThin(this));
+        //til.setUnderline(true);
+
 
 
 //        MyTextViewList myTextViewList = (MyTextViewList) findViewById(R.id.text_views_list);
@@ -192,7 +244,7 @@ public class LoadingActivity extends AppCompatActivity {
         this.editText.setStartDrawableColor(ContextCompat.getColor(this, R.color.colorAccent));
         this.editText.setBottomLineColor(ContextCompat.getColor(this, R.color.colorAccent));
         this.editText.setCursorColor(ContextCompat.getColor(this, R.color.colorAccent));
-        this.editText.setHintColor(ContextCompat.getColor(this, R.color.colorAccent));
+        this.editText.setTitleColor(ContextCompat.getColor(this, R.color.colorAccent));
         this.editText.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
         this.editText.setErrorTextColor(ContextCompat.getColor(this, R.color.colorError));
         this.editText.setValidator(new DefaultValidator());
@@ -243,7 +295,7 @@ public class LoadingActivity extends AppCompatActivity {
         editText2.setStartDrawableColor(ContextCompat.getColor(this, R.color.colorAccent));
         editText2.setBottomLineColor(ContextCompat.getColor(this, R.color.colorAccent));
         editText2.setCursorColor(ContextCompat.getColor(this, R.color.colorAccent));
-        editText2.setHintColor(ContextCompat.getColor(this, R.color.colorAccent));
+        editText2.setTitleColor(ContextCompat.getColor(this, R.color.colorAccent));
         editText2.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
         editText2.setErrorTextColor(ContextCompat.getColor(this, R.color.colorError));
         editText2.setValidator(new DefaultValidator());

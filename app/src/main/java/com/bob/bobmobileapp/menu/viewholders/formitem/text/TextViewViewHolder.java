@@ -250,7 +250,7 @@ public class TextViewViewHolder extends BaseViewHolder {
         this.textView.setHint(this.hintText);
 
         this.textView.setTextColor(this.textColor);
-        this.textView.setHintColor(this.hintColor);
+        this.textView.setTitleColor(this.hintColor);
         this.textView.setBottomLineColor(this.bottomLineColor);
         this.textView.setErrorTextColor(this.errorColor);
         this.textView.setStartDrawableColor(this.startDrawableColor);

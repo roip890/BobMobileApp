@@ -15,21 +15,20 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.tools.validators.ViewsValidator;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
  * Created by user on 04/10/2017.
  */
 
-public class MyTextViewList extends TextInputLayout {
+public class MyMediaView extends TextInputLayout {
 
     //constants
     public final int ALL_TEXT_VIEWS = -1;
@@ -74,15 +73,15 @@ public class MyTextViewList extends TextInputLayout {
 
 
     //constructors
-    public MyTextViewList(Context context) {
+    public MyMediaView(Context context) {
         this(context, null);
     }
 
-    public MyTextViewList(Context context, AttributeSet attrs) {
+    public MyMediaView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MyTextViewList(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyMediaView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         this.setOrientation(VERTICAL);
@@ -248,7 +247,7 @@ public class MyTextViewList extends TextInputLayout {
         this.addOrSetIfExist(this.textViews, textViewIndex, textView);
         this.initTextView(textViewIndex);
 
-        LinearLayout.LayoutParams layoutParams = new LayoutParams(
+        LayoutParams layoutParams = new LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT
         );
@@ -279,8 +278,8 @@ public class MyTextViewList extends TextInputLayout {
     protected void addBottomLine() {
         this.initBottomLine();
 
-        LinearLayout.LayoutParams lineLayoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+        LayoutParams lineLayoutParams = new LayoutParams(
+                LayoutParams.MATCH_PARENT,
                 this.asDP(2)
         );
         lineLayoutParams.setMargins(0, 0, 0, this.asDP(5));
@@ -296,20 +295,27 @@ public class MyTextViewList extends TextInputLayout {
     }
 
     protected void initErrorView() {
-        this.errorTextView = new TextView(this.getContext());
-        this.setText(null, this.ERROR_TEXT_VIEW);
-        this.setTextColor(ContextCompat.getColor(this.getContext(), R.color.colorError), this.ERROR_TEXT_VIEW);
-        this.setStartDrawableColor(ContextCompat.getColor(this.getContext(), R.color.colorError), this.ERROR_TEXT_VIEW);
-        this.setStartDrawable(null, this.ERROR_TEXT_VIEW);
-        this.setStartDrawableOnClickListener(null, this.ERROR_TEXT_VIEW);
-        this.setStartDrawableOnFocusOnly(false, this.ERROR_TEXT_VIEW);
-        this.setEndDrawableColor(ContextCompat.getColor(this.getContext(), R.color.colorError), this.ERROR_TEXT_VIEW);
-        this.setEndDrawable(null, this.ERROR_TEXT_VIEW);
-        this.setEndDrawableOnClickListener(null, this.ERROR_TEXT_VIEW);
-        this.setEndDrawableOnFocusOnly(false, this.ERROR_TEXT_VIEW);
-        this.setBoldEnable(false, this.ERROR_TEXT_VIEW);
-        this.setItalicEnable(false, this.ERROR_TEXT_VIEW);
-        this.setUnderlineEnable(false, this.ERROR_TEXT_VIEW);
+        Field fErrorView = null;
+        try {
+            fErrorView = TextInputLayout.class.getDeclaredField("mErrorView");
+            fErrorView.setAccessible(true);
+            this.errorTextView = (TextView)fErrorView.get(this);
+            this.setText(null, this.ERROR_TEXT_VIEW);
+            this.setTextColor(ContextCompat.getColor(this.getContext(), R.color.colorError), this.ERROR_TEXT_VIEW);
+            this.setStartDrawableColor(ContextCompat.getColor(this.getContext(), R.color.colorError), this.ERROR_TEXT_VIEW);
+            this.setStartDrawable(null, this.ERROR_TEXT_VIEW);
+            this.setStartDrawableOnClickListener(null, this.ERROR_TEXT_VIEW);
+            this.setStartDrawableOnFocusOnly(false, this.ERROR_TEXT_VIEW);
+            this.setEndDrawableColor(ContextCompat.getColor(this.getContext(), R.color.colorError), this.ERROR_TEXT_VIEW);
+            this.setEndDrawable(null, this.ERROR_TEXT_VIEW);
+            this.setEndDrawableOnClickListener(null, this.ERROR_TEXT_VIEW);
+            this.setEndDrawableOnFocusOnly(false, this.ERROR_TEXT_VIEW);
+            this.setBoldEnable(false, this.ERROR_TEXT_VIEW);
+            this.setItalicEnable(false, this.ERROR_TEXT_VIEW);
+            this.setUnderlineEnable(false, this.ERROR_TEXT_VIEW);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void addErrorView() {
@@ -711,13 +717,13 @@ public class MyTextViewList extends TextInputLayout {
         textView.setCompoundDrawablesRelativeWithIntrinsicBounds(startDrawable, null, endDrawable, null);
         if (textView.getCompoundDrawablesRelative()[0] != null) {
             if (this.bottomLine != null) {
-                ((LinearLayout.LayoutParams)this.bottomLine.getLayoutParams()).setMarginStart(
+                ((LayoutParams)this.bottomLine.getLayoutParams()).setMarginStart(
                         textView.getCompoundDrawablesRelative()[0].getIntrinsicWidth() + this.asDP(5)
                 );
             }
         } else {
             if (this.bottomLine != null) {
-                ((LinearLayout.LayoutParams)this.bottomLine.getLayoutParams()).setMarginStart(0);
+                ((LayoutParams)this.bottomLine.getLayoutParams()).setMarginStart(0);
             }
         }
     }
