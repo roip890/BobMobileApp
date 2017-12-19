@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.tools.UI;
+package com.bob.bobmobileapp.tools.UI.views.textviews;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.tools.UI.views.MyView;
 import com.bob.bobmobileapp.tools.validators.Validator;
 
 import java.lang.reflect.Field;
@@ -20,7 +21,7 @@ import java.lang.reflect.Field;
  * Created by user on 04/10/2017.
  */
 
-public class MyTextView extends MyView{
+public class MyTextView extends MyView {
 
     protected Validator validator;
     protected TextView textView;

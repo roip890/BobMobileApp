@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:layout_gravity="center">
 
+
+
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="wrap_content"
@@ -14,6 +16,21 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="50dp"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/image_view">
+
+
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler_view"/>
+
+    </LinearLayout>
+
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,20 +38,6 @@
         android:layout_below="@+id/image_view">
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <com.bob.bobmobileapp.tools.UI.MyPhoneEditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/phone_view">
-
-            </com.bob.bobmobileapp.tools.UI.MyPhoneEditText>
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -42,21 +45,21 @@
             android:orientation="vertical"
             android:layout_gravity="center">
 
-            <com.bob.bobmobileapp.tools.UI.MyEditText
+            <com.bob.bobmobileapp.tools.UI.views.textviews.MyEditText
                 android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/code_edit_text"
                 android:layout_gravity="center">
-            </com.bob.bobmobileapp.tools.UI.MyEditText>
+            </com.bob.bobmobileapp.tools.UI.views.textviews.MyEditText>
 
-            <com.bob.bobmobileapp.tools.UI.MyEditText
+            <com.bob.bobmobileapp.tools.UI.views.textviews.MyEditText
                 android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/code_edit_text2"
                 android:layout_gravity="center">
-            </com.bob.bobmobileapp.tools.UI.MyEditText>
+            </com.bob.bobmobileapp.tools.UI.views.textviews.MyEditText>
 
 
 

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.menu.viewholders.formitem.base.BaseViewHolder;
-import com.bob.bobmobileapp.tools.UI.MyTextView;
+import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
 import com.bob.bobmobileapp.tools.validators.Validator;
 
 import java.util.HashMap;

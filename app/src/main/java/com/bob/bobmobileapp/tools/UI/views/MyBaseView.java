@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.tools.UI;
+package com.bob.bobmobileapp.tools.UI.views;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.tools.UI.views.MyView;
 
 /**
  * Created by User on 15/12/2017.
@@ -18,6 +19,7 @@ public abstract class MyBaseView extends MyView {
 
 
     //title
+    protected int titleIndex;
     protected TextView titleTextView;
     protected int titleColor, titleStartDrawableColor, titleEndDrawableColor;
     protected boolean titleIsBold, titleIsUnderline, titleIsItalic;
@@ -38,15 +40,22 @@ public abstract class MyBaseView extends MyView {
 
     public MyBaseView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        createViews();
-        initViews();
-        addViews();
-
     }
 
 
     //initialization
+    @Override
+    protected void initViewsOrder() {
+
+
+        int i = this.getChildCount();
+        this.titleIndex = 0;
+        this.mainViewIndex = 0;
+        this.bottomLineIndex = 1;
+        this.errorIndex = 2;
+
+    }
+
     protected void createTitleView() {
 
         this.titleTextView = new TextView(this.getContext());
@@ -105,7 +114,7 @@ public abstract class MyBaseView extends MyView {
     protected void addTitleView() {
 
         //add title view with default layout params
-        this.addView(this.titleTextView, new LayoutParams(
+        this.addView(this.titleTextView, this.titleIndex, new LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT
         ));

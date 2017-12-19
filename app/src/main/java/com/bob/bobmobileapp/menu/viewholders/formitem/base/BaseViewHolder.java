@@ -16,7 +16,7 @@ import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 import com.bob.bobmobileapp.realm.objects.FormItemProperty;
-import com.bob.bobmobileapp.tools.UI.MyTextView;
+import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
 import com.bob.bobmobileapp.tools.validators.Validator;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.devicon_typeface_library.DevIcon;

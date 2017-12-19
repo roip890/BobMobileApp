@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.tools.UI;
+package com.bob.bobmobileapp.tools.UI.views;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -30,6 +30,7 @@ public abstract class MyView extends TextInputLayout {
 
 
     //general
+    protected int mainViewIndex, bottomLineIndex, errorIndex;
     protected int startDrawableColor, endDrawableColor;
     protected Drawable startDrawable, endDrawable;
     protected DrawableOnClickListener startDrawableOnClickListener, endDrawableOnClickListener;
@@ -68,6 +69,7 @@ public abstract class MyView extends TextInputLayout {
     public MyView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        initViewsOrder();
         createViews();
         initViews();
         addViews();
@@ -75,6 +77,15 @@ public abstract class MyView extends TextInputLayout {
     }
 
     //initialization
+    protected void initViewsOrder() {
+
+        this.mainViewIndex = 0;
+        this.bottomLineIndex = 1;
+        this.errorIndex = 2;
+
+
+    }
+
     protected void initView() {
 
         //init layout params
@@ -118,7 +129,7 @@ public abstract class MyView extends TextInputLayout {
         );
 
         //add main view
-        this.mainContainer.addView(this.view, viewLayoutParams);
+        this.mainContainer.addView(this.view, this.mainViewIndex, viewLayoutParams);
 
     }
 
@@ -156,7 +167,7 @@ public abstract class MyView extends TextInputLayout {
         lineLayoutParams.gravity = Gravity.BOTTOM;
 
         //add bottom line
-        this.mainContainer.addView(this.bottomLine, lineLayoutParams);
+        this.mainContainer.addView(this.bottomLine, this.bottomLineIndex, lineLayoutParams);
 
     }
 
@@ -217,8 +228,10 @@ public abstract class MyView extends TextInputLayout {
 
     protected void addErrorView() {
 
+        int i = this.getChildCount();
+
         //add error view with default layout params
-        this.addView(this.errorTextView, new LayoutParams(
+        this.addView(this.errorTextView, this.errorIndex, new LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT
         ));

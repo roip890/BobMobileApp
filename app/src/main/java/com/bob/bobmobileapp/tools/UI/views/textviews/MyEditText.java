@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.tools.UI;
+package com.bob.bobmobileapp.tools.UI.views.textviews;
 
 import android.content.Context;
 import android.content.res.Resources;
