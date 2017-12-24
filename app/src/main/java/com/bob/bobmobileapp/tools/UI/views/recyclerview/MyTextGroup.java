@@ -60,6 +60,7 @@ public class MyTextGroup<ViewType extends TextView> extends MyRecyclerView<ViewT
     }
 
 
+
     //text views
     public void setTextViewText(String text, int textViewIndex) {
         this.adapter.getView(textViewIndex).setText(text);
