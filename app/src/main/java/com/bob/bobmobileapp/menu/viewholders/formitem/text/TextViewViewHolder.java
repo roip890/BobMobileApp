@@ -29,7 +29,7 @@ public class TextViewViewHolder extends BaseViewHolder {
 
 
     protected MyTextView textView;
-    protected Validator validator;
+    protected Validator<String> validator;
     protected String text, hintText;
     protected int foregroundColor, textColor, bottomLineColor, hintColor, errorColor;
     protected int startDrawableColor, endDrawableColor;
@@ -66,9 +66,9 @@ public class TextViewViewHolder extends BaseViewHolder {
     protected void initialize() {
         this.layoutBackgroundColor = ContextCompat.getColor(context, R.color.windowBackground);
         this.layoutBackground = null;
-        this.validator = new Validator() {
+        this.validator = new Validator<String>() {
             @Override
-            public String validate(String text) {
+            public String validate(String object) {
                 return null;
             }
         };

@@ -23,10 +23,10 @@
         android:layout_below="@+id/image_view">
 
 
-    <com.bob.bobmobileapp.tools.UI.views.recyclerview.MyCheckBoxGroup
+    <com.bob.bobmobileapp.tools.UI.views.recyclerview.MyTextGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/check_group"/>
+            android:id="@+id/text_group"/>
 
     </LinearLayout>
 

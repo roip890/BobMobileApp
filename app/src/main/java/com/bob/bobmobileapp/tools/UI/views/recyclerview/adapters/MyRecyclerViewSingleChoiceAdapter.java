@@ -51,11 +51,11 @@ public class MyRecyclerViewSingleChoiceAdapter extends MyRecyclerViewBaseAdapter
 
     @Override
     public void addView(RadioButton viewToAdd) {
-        this.addView(viewToAdd, this.views.size());
+        this.addView(this.views.size(), viewToAdd);
     }
 
     @Override
-    public void addView(RadioButton viewToAdd, int index) {
+    public void addView(int index, RadioButton viewToAdd) {
         if (!this.isViewExist(viewToAdd)) {
             viewToAdd.setChecked(false);
             this.setOnCheckedListener(viewToAdd);
@@ -67,11 +67,11 @@ public class MyRecyclerViewSingleChoiceAdapter extends MyRecyclerViewBaseAdapter
 
     @Override
     public void addAllViews(ArrayList<RadioButton> viewsToAdd) {
-        this.addAllViews(viewsToAdd, this.views.size());
+        this.addAllViews(this.views.size(), viewsToAdd);
     }
 
     @Override
-    public void addAllViews(ArrayList<RadioButton> viewsToAdd, int index) {
+    public void addAllViews(int index, ArrayList<RadioButton> viewsToAdd) {
         ArrayList<RadioButton> views = new ArrayList<RadioButton>();
         for (RadioButton view : viewsToAdd) {
             if (!this.isViewExist(view)) {

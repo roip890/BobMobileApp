@@ -39,11 +39,11 @@ public class MyRecyclerViewMultiChoiceAdapter extends MyRecyclerViewBaseAdapter<
 
     @Override
     public void addView(CheckBox viewToAdd) {
-        this.addView(viewToAdd, this.views.size());
+        this.addView(this.views.size(), viewToAdd);
     }
 
     @Override
-    public void addView(CheckBox viewToAdd, int index) {
+    public void addView(int index, CheckBox viewToAdd) {
         if (!this.isViewExist(viewToAdd)) {
             viewToAdd.setChecked(false);
             this.setOnCheckedListener(viewToAdd);
@@ -54,11 +54,11 @@ public class MyRecyclerViewMultiChoiceAdapter extends MyRecyclerViewBaseAdapter<
 
     @Override
     public void addAllViews(ArrayList<CheckBox> viewsToAdd) {
-        this.addAllViews(viewsToAdd, this.views.size());
+        this.addAllViews(this.views.size(), viewsToAdd);
     }
 
     @Override
-    public void addAllViews(ArrayList<CheckBox> viewsToAdd, int index) {
+    public void addAllViews(int index, ArrayList<CheckBox> viewsToAdd) {
         ArrayList<CheckBox> views = new ArrayList<CheckBox>();
         for (CheckBox view : viewsToAdd) {
             if (!this.isViewExist(view)) {

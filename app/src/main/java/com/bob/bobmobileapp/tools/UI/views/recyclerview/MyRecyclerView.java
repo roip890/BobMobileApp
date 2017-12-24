@@ -65,7 +65,6 @@ public class MyRecyclerView<ViewType extends View> extends MyBaseView {
 
     }
 
-
     public void setLayoutOrientation(int orientation) {
 
         this.orientation = orientation;
@@ -82,10 +81,10 @@ public class MyRecyclerView<ViewType extends View> extends MyBaseView {
 
     }
 
-    public void add(View view, int index) {
+    public void add(int index, View view) {
 
         try {
-            this.adapter.addView((ViewType)view, index);
+            this.adapter.addView(index, (ViewType)view);
         } catch (Exception e) {
             this.recyclerView.addView(view, index);
         }
@@ -96,10 +95,8 @@ public class MyRecyclerView<ViewType extends View> extends MyBaseView {
         this.adapter.addAllViews(views);
     }
 
-    public void addAll(ArrayList<ViewType> views, int index) {
-
-        this.adapter.addAllViews(views, index);
-
+    public void addAll(int index, ArrayList<ViewType> views) {
+        this.adapter.addAllViews(index, views);
     }
 
     public ViewType getView(int index) {

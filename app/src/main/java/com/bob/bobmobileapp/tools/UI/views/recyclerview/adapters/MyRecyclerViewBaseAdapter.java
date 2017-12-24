@@ -66,10 +66,10 @@ public class MyRecyclerViewBaseAdapter<ViewType extends View> extends RecyclerVi
     }
 
     public void addView(ViewType viewToAdd) {
-        this.addView(viewToAdd, this.views.size());
+        this.addView(this.views.size(), viewToAdd);
     }
 
-    public void addView(ViewType viewToAdd, int index) {
+    public void addView(int index, ViewType viewToAdd) {
         if (!this.isViewExist(viewToAdd)) {
             this.views.add(index, viewToAdd);
         }
@@ -77,10 +77,10 @@ public class MyRecyclerViewBaseAdapter<ViewType extends View> extends RecyclerVi
     }
 
     public void addAllViews(ArrayList<ViewType> viewsToAdd) {
-        this.addAllViews(viewsToAdd, this.views.size());
+        this.addAllViews(this.views.size(), viewsToAdd);
     }
 
-    public void addAllViews(ArrayList<ViewType> viewsToAdd, int index) {
+    public void addAllViews(int index, ArrayList<ViewType> viewsToAdd) {
         ArrayList<ViewType> views = new ArrayList<ViewType>();
         for (ViewType view : viewsToAdd) {
             if (!this.isViewExist(view)) {

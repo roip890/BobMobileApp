@@ -1,34 +1,31 @@
 package com.bob.bobmobileapp.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
-import com.bob.bobmobileapp.tools.UI.views.MyView;
-import com.bob.bobmobileapp.tools.UI.views.recyclerview.MyCheckBoxGroup;
-import com.bob.bobmobileapp.tools.UI.views.recyclerview.MyRadioGroup;
+import com.bob.bobmobileapp.tools.UI.views.recyclerview.MyTextGroup;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyEditText;
-import com.bob.bobmobileapp.tools.UI.views.textviews.MyPhoneEditText;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
 import com.bob.bobmobileapp.tools.progressbar.MyProgressBar;
 import com.bob.bobmobileapp.tools.progressbar.ProgressBarTimer;
 import com.bob.bobmobileapp.tools.style.BackgroundColorTimer;
-import com.bob.bobmobileapp.tools.validators.DefaultValidator;
+import com.bob.bobmobileapp.tools.validators.DefaultStringValidator;
 import com.bob.bobmobileapp.tools.validators.Validator;
 import com.bumptech.glide.Glide;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
-import java.util.ArrayList;
 
 /**
  * Created by user on 27/09/2017.
@@ -55,15 +52,15 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.loading_layout);
 
 
-        MyCheckBoxGroup myCheckGroup = (MyCheckBoxGroup) findViewById(R.id.check_group);
+        MyTextGroup myCheckGroup = (MyTextGroup) findViewById(R.id.text_group);
 
 
-        CheckBox cb1 = new CheckBox(this);
-        cb1.setText("I'm CheckBox No.1!");
-        CheckBox cb2 = new CheckBox(this);
-        cb2.setText("I'm CheckBox No.2!");
-        CheckBox cb3 = new CheckBox(this);
-        cb3.setText("I'm CheckBox No.3!");
+        TextView cb1 = new TextView(this);
+        cb1.setText("I'm TextView No.1!");
+        TextView cb2 = new TextView(this);
+        cb2.setText("I'm TextView No.2!");
+        TextView cb3 = new TextView(this);
+        cb3.setText("I'm TextView No.3!");
 
 
         myCheckGroup.add(cb1);
@@ -174,7 +171,7 @@ public class LoadingActivity extends AppCompatActivity {
         this.editText.setTitleColor(ContextCompat.getColor(this, R.color.colorAccent));
         this.editText.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
         this.editText.setErrorTextColor(ContextCompat.getColor(this, R.color.colorError));
-        this.editText.setValidator(new DefaultValidator());
+        this.editText.setValidator(new DefaultStringValidator());
         this.editText.setEndDrawableOnFocusOnly(true);
         this.editText.getTextView().setMaxLines(1);
 
@@ -225,7 +222,7 @@ public class LoadingActivity extends AppCompatActivity {
         editText2.setTitleColor(ContextCompat.getColor(this, R.color.colorAccent));
         editText2.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
         editText2.setErrorTextColor(ContextCompat.getColor(this, R.color.colorError));
-        editText2.setValidator(new DefaultValidator());
+        editText2.setValidator(new DefaultStringValidator());
         editText2.setEndDrawableOnFocusOnly(true);
         editText2.getTextView().setMaxLines(1);
     }

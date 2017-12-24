@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bob.bobmobileapp.R;
-import com.bob.bobmobileapp.tools.validators.ViewsValidator;
+import com.bob.bobmobileapp.tools.validators.GroupValidator;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class MyMediaView extends TextInputLayout {
     //general
     protected ViewGroup textViewsListView;
     protected TextView bottomLine;
-    protected ViewsValidator validator;
+    protected GroupValidator validator;
     protected int bottomLineColor;
     protected Drawable backgroundDrawable;
     protected int backgroundColor;
@@ -981,7 +981,7 @@ public class MyMediaView extends TextInputLayout {
     }
 
     //validator
-    public void setValidator(ViewsValidator validator) {
+    public void setValidator(GroupValidator validator) {
         this.validator = validator;
     }
 
