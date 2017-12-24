@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.tools.UI;
+package com.bob.bobmobileapp.tools.UI.views.recyclerview;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -6,7 +6,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,7 +13,6 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,7 +27,7 @@ import java.util.ArrayList;
  * Created by user on 04/10/2017.
  */
 
-public class MyTextViewList extends TextInputLayout {
+public class MyTextViewList extends LinearLayout {
 
     //constants
     public final int ALL_TEXT_VIEWS = -1;
@@ -37,12 +35,10 @@ public class MyTextViewList extends TextInputLayout {
     public final int ERROR_TEXT_VIEW = -3;
 
     //general
-    protected ViewGroup textViewsListView;
+    protected LinearLayout textViewsListView;
     protected TextView bottomLine;
     protected ViewsValidator validator;
     protected int bottomLineColor;
-    protected Drawable backgroundDrawable;
-    protected int backgroundColor;
 
     //title
     protected TextView titleTextView;
@@ -120,7 +116,8 @@ public class MyTextViewList extends TextInputLayout {
     }
 
     protected void initTextViewListView() {
-        this.textViewsListView = this.createTextViewsListView();
+        this.textViewsListView = new LinearLayout(this.getContext());
+        this.textViewsListView.setOrientation(VERTICAL);
         this.textViews = new ArrayList<TextView>();
         this.textViewsColors = new ArrayList<Integer>();
         this.textViewsStartDrawableColors = new ArrayList<Integer>();
@@ -258,7 +255,7 @@ public class MyTextViewList extends TextInputLayout {
     }
 
     public void addTextView(int textViewIndex) {
-        TextView textView = this.createTextView();
+        TextView textView = new TextView(this.getContext());
         this.addTextView(textView, textViewIndex);
     }
 
@@ -328,16 +325,6 @@ public class MyTextViewList extends TextInputLayout {
        addErrorView();
     }
 
-    protected TextView createTextView() {
-        return new TextView(this.getContext());
-    }
-
-    protected ViewGroup createTextViewsListView() {
-        LinearLayout viewGroup =  new LinearLayout(this.getContext());
-        viewGroup.setOrientation(VERTICAL);
-        return viewGroup;
-    }
-
     //general
     public void setWidth(int width) {
         this.textViewsListView.getLayoutParams().width = width;
@@ -351,17 +338,6 @@ public class MyTextViewList extends TextInputLayout {
 
     public void setHeight(int height) {
         this.textViewsListView.getLayoutParams().height = height;
-    }
-
-    //background
-    public void setBackgroundImage(Drawable backgroundDrawable) {
-        this.backgroundDrawable = backgroundDrawable;
-        this.setBackground(backgroundDrawable);
-    }
-
-    public void setBackgroundColor(int color) {
-        this.backgroundColor = color;
-        super.setBackgroundColor(color);
     }
 
     //validation

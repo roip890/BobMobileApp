@@ -5,9 +5,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -15,9 +14,8 @@ import android.widget.RelativeLayout;
 import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.tools.UI.views.MyView;
-import com.bob.bobmobileapp.tools.UI.views.recyclerview.MyRecyclerView;
-import com.bob.bobmobileapp.tools.UI.views.recyclerview.adapters.MyRecyclerViewDefaultAdapter;
-import com.bob.bobmobileapp.tools.UI.views.recyclerview.adapters.MyRecyclerViewSingleChoiceAdapter;
+import com.bob.bobmobileapp.tools.UI.views.recyclerview.MyCheckBoxGroup;
+import com.bob.bobmobileapp.tools.UI.views.recyclerview.MyRadioGroup;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyEditText;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyPhoneEditText;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
@@ -57,31 +55,20 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.loading_layout);
 
 
-        RecyclerView myRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        MyEditText et1 = new MyPhoneEditText(this);
-        et1.setText("mmmmmm");
-        MyEditText et2 = new MyPhoneEditText(this);
-        et2.setText("oooooo");
-
-        ArrayList<MyView> editTexts = new ArrayList<MyView>();
-        editTexts.add(et1);
-        editTexts.add(et2);
+        MyCheckBoxGroup myCheckGroup = (MyCheckBoxGroup) findViewById(R.id.check_group);
 
 
-        RadioButton rb1 = new RadioButton(this);
-        rb1.setText("blabla");
-        RadioButton rb2 = new RadioButton(this);
-        rb2.setText("shabshab");
+        CheckBox cb1 = new CheckBox(this);
+        cb1.setText("I'm CheckBox No.1!");
+        CheckBox cb2 = new CheckBox(this);
+        cb2.setText("I'm CheckBox No.2!");
+        CheckBox cb3 = new CheckBox(this);
+        cb3.setText("I'm CheckBox No.3!");
 
-        ArrayList<RadioButton> radioButtons = new ArrayList<RadioButton>();
-        radioButtons.add(rb1);
-        radioButtons.add(rb2);
 
-        myRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        myRecyclerView.setAdapter(new MyRecyclerViewSingleChoiceAdapter(radioButtons));
-        rb1.setChecked(true);
-        rb2.setChecked(true);
+        myCheckGroup.add(cb1);
+        myCheckGroup.add(cb2);
+        myCheckGroup.add(cb3);
 
         initLogoImage();
         initProgressBar();

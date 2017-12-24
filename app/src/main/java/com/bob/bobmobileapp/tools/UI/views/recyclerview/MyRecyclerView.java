@@ -5,11 +5,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.RadioGroup;
 
 import com.bob.bobmobileapp.tools.UI.views.MyBaseView;
-import com.bob.bobmobileapp.tools.UI.views.MyView;
-import com.bob.bobmobileapp.tools.UI.views.recyclerview.adapters.MyRecyclerViewDefaultAdapter;
+import com.bob.bobmobileapp.tools.UI.views.recyclerview.adapters.MyRecyclerViewBaseAdapter;
 
 import java.util.ArrayList;
 
@@ -17,12 +15,12 @@ import java.util.ArrayList;
  * Created by User on 16/12/2017.
  */
 
-public class MyRecyclerView extends MyBaseView {
+public class MyRecyclerView<ViewType extends View> extends MyBaseView {
 
-    RecyclerView recyclerView;
-    ArrayList<MyView> views;
-    int columns, orientation;
-    GridLayoutManager layoutManager;
+    protected RecyclerView recyclerView;
+    protected MyRecyclerViewBaseAdapter<ViewType> adapter;
+    protected int columns, orientation;
+    protected GridLayoutManager layoutManager;
 
 
     //constructors
@@ -50,12 +48,12 @@ public class MyRecyclerView extends MyBaseView {
     @Override
     protected void initMainView() {
 
-        this.views = new ArrayList<MyView>();
         this.columns = 1;
         this.orientation = VERTICAL;
         this.layoutManager = new GridLayoutManager(this.getContext(), this.columns, this.orientation, false);
         this.recyclerView = (RecyclerView) this.view;
-        this.recyclerView.setAdapter(new MyRecyclerViewDefaultAdapter(this.views));
+        this.adapter = new MyRecyclerViewBaseAdapter<ViewType>();
+        this.recyclerView.setAdapter(this.adapter);
         this.recyclerView.setLayoutManager(this.layoutManager);
 
     }
@@ -75,39 +73,37 @@ public class MyRecyclerView extends MyBaseView {
 
     }
 
-    public void addView(MyView view) {
-
-        this.views.add(view);
-
-    }
-
-    public void addView(int index, MyView view) {
-
-        this.views.add(index, view);
+    public void add(View view) {
+        try {
+            this.adapter.addView((ViewType)view);
+        } catch (Exception e) {
+            this.recyclerView.addView(view);
+        }
 
     }
 
-    public void addViews(ArrayList<MyView> views) {
+    public void add(View view, int index) {
 
-        this.views.addAll(views);
-
-    }
-
-    public void addViews(int index, ArrayList<MyView> views) {
-
-        this.views.addAll(index, views);
+        try {
+            this.adapter.addView((ViewType)view, index);
+        } catch (Exception e) {
+            this.recyclerView.addView(view, index);
+        }
 
     }
 
-    @Override
-    public void addView(View view, int index) {
-        this.mainContainer.addView(view, index);
+    public void addAll(ArrayList<ViewType> views) {
+        this.adapter.addAllViews(views);
     }
 
-    public MyView getView(int index) {
+    public void addAll(ArrayList<ViewType> views, int index) {
 
-        return this.views.get(index);
+        this.adapter.addAllViews(views, index);
 
+    }
+
+    public ViewType getView(int index) {
+       return this.adapter.getView(index);
     }
 
 }

@@ -182,6 +182,11 @@ public class MyTextView extends MyView {
         this.paintTextColor(color, this.textView);
     }
 
+    @Override
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.view.setOnClickListener(onClickListener);
+    }
+
     public void setStartDrawable(int startDrawable) {
         this.setErrorStartDrawable(ContextCompat.getDrawable(getContext(), startDrawable));
     }

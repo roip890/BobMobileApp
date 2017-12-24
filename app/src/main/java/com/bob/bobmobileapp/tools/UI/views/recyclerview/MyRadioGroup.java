@@ -12,9 +12,7 @@ import com.bob.bobmobileapp.tools.UI.views.recyclerview.adapters.MyRecyclerViewS
  * Created by User on 19/12/2017.
  */
 
-public class MyRadioGroup extends MyRecyclerView {
-
-    MyRecyclerViewSingleChoiceAdapter adapter;
+public class MyRadioGroup extends MyRecyclerView<RadioButton> {
 
     public MyRadioGroup(Context context) {
         this(context, null);
@@ -32,11 +30,13 @@ public class MyRadioGroup extends MyRecyclerView {
 
     }
 
-    public void addView(RadioButton radioButton) {
-        this.adapter.addRadioButton(radioButton);
-        super.addView(radioButton);
+    public RadioButton getCheckedView() {
+        return ((MyRecyclerViewSingleChoiceAdapter)this.adapter).getCheckedView();
     }
 
+    public int getCheckedViewIndex() {
+        return ((MyRecyclerViewSingleChoiceAdapter)this.adapter).getCheckedViewIndex();
+    }
 
 
 }
