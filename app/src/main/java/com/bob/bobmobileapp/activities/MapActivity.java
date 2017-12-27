@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Created by User on 27/12/2017.
  */
 
+
 public class MapActivity extends FragmentActivity
         implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
