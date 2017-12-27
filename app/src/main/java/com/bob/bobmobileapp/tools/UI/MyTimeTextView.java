@@ -57,6 +57,7 @@ public class MyTimeTextView extends MyTextView {
                 calendar.set(Calendar.HOUR, hours);
                 calendar.set(Calendar.MINUTE, minutes);
                 textView.setText(dateFormat.format(calendar.getTime()));
+                updateText();
                 timeDialog.dismiss();
             }
         }, this.hours, this.minutes, this.fullHours);
@@ -83,6 +84,12 @@ public class MyTimeTextView extends MyTextView {
 
     public void setSeconds(int seconds) {
         this.seconds = seconds;
+    }
+
+    private void updateText() {
+        calendar.set(Calendar.HOUR, hours);
+        calendar.set(Calendar.MINUTE, minutes);
+        textView.setText(dateFormat.format(calendar.getTime()));
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.TimerTask;
  * Created by user on 27/09/2017.
  */
 
-public class BackgroundColorTimer extends TimerTask {
+public class BackgroundColorTimer {
 
     private final int COLORS = 2;
     private final int PRIMARY = 0;
@@ -59,7 +59,7 @@ public class BackgroundColorTimer extends TimerTask {
     }
 
 
-    public void run() {
+    public void runTask() {
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 incrementColorParam(PRIMARY, ALPHA);
@@ -85,7 +85,13 @@ public class BackgroundColorTimer extends TimerTask {
     }
 
     public void startTimer(int interval) {
-        this.timer.schedule(this, 0, interval);
+        this.timer = new Timer();
+        this.timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runTask();
+            }
+        }, 0, interval);
     }
 
     public void stopTimer() {

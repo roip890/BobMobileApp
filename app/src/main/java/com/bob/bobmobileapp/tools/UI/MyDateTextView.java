@@ -44,14 +44,10 @@ public class MyDateTextView extends MyTextView {
         this.dateDialog = new DatePickerDialog(this.getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
-                setYears(year);
-                setMonths(month);
-                setDays(day);
-                calendar.set(Calendar.YEAR, years);
-                calendar.set(Calendar.MONTH, months);
-                calendar.set(Calendar.DAY_OF_MONTH, days);
-                textView.setText(dateFormat.format(calendar.getTime()));
-                dateDialog.dismiss();
+                years = years;
+                months = months;
+                days = days;
+                updateText();
             }
         }, years, months, days);
         this.textView.setOnClickListener(new OnClickListener() {
@@ -69,13 +65,23 @@ public class MyDateTextView extends MyTextView {
 
     public void setYears(int years) {
         this.years = years;
+        this.updateText();
     }
 
     public void setMonths(int months) {
         this.months = months;
+        this.updateText();
     }
 
     public void setDays(int days) {
-        this.days = days;
+            this.days = days;
+        this.updateText();
+    }
+
+    private void updateText() {
+        calendar.set(Calendar.YEAR, years);
+        calendar.set(Calendar.MONTH, months);
+        calendar.set(Calendar.DAY_OF_MONTH, days);
+        textView.setText(dateFormat.format(calendar.getTime()));
     }
 }

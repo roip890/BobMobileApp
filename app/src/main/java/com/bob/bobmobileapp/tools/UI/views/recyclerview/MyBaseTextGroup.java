@@ -28,7 +28,7 @@ public abstract class MyBaseTextGroup<ViewType extends TextView> extends MyRecyc
     protected ArrayList<Integer> textViewsTextColors, textViewsStartDrawableColors, textViewsEndDrawableColors;
     protected ArrayList<Drawable> textViewsStartDrawables, textViewsEndDrawables;
     protected ArrayList<Boolean> textViewsIsBold, textViewsIsItalic, textViewsIsUnderline;
-    protected ArrayList<MyTextViewList.DrawableOnClickListener> textViewsStartDrawableOnClickListener, textViewsEndDrawableOnClickListener;
+    protected ArrayList<DrawableOnClickListener> textViewsStartDrawableOnClickListener, textViewsEndDrawableOnClickListener;
     protected ArrayList<Boolean> textViewsStartDrawableOnFocusOnly, textViewsEndDrawableOnFocusOnly;
     protected ArrayList<Boolean> textViewsFocusIsFirst;
 
@@ -63,8 +63,8 @@ public abstract class MyBaseTextGroup<ViewType extends TextView> extends MyRecyc
         this.textViewsIsBold = new ArrayList<Boolean>();
         this.textViewsIsItalic = new ArrayList<Boolean>();
         this.textViewsIsUnderline = new ArrayList<Boolean>();
-        this.textViewsStartDrawableOnClickListener = new ArrayList<MyTextViewList.DrawableOnClickListener>();
-        this.textViewsEndDrawableOnClickListener = new ArrayList<MyTextViewList.DrawableOnClickListener>();
+        this.textViewsStartDrawableOnClickListener = new ArrayList<DrawableOnClickListener>();
+        this.textViewsEndDrawableOnClickListener = new ArrayList<DrawableOnClickListener>();
         this.textViewsStartDrawableOnFocusOnly = new ArrayList<Boolean>();
         this.textViewsEndDrawableOnFocusOnly = new ArrayList<Boolean>();
         this.textViewsFocusIsFirst = new ArrayList<Boolean>();

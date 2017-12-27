@@ -1,18 +1,27 @@
 package com.bob.bobmobileapp.activities;
 
+import android.app.Dialog;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.fragments.Map;
 import com.bob.bobmobileapp.tools.UI.views.recyclerview.MyTextGroup;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyEditText;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
@@ -22,17 +31,32 @@ import com.bob.bobmobileapp.tools.style.BackgroundColorTimer;
 import com.bob.bobmobileapp.tools.validators.DefaultStringValidator;
 import com.bob.bobmobileapp.tools.validators.Validator;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
+
+import java.io.IOException;
+import java.util.List;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by user on 27/09/2017.
  */
 
 
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingActivity extends AppCompatActivity{
 
     public static int CHECK_USER = 0;
     public static int LOAD_MENU = 1;
@@ -62,10 +86,42 @@ public class LoadingActivity extends AppCompatActivity {
         TextView cb3 = new TextView(this);
         cb3.setText("I'm TextView No.3!");
 
-
+        final Context context = this;
         myCheckGroup.add(cb1);
         myCheckGroup.add(cb2);
         myCheckGroup.add(cb3);
+
+        cb1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(LoadingActivity.this, Map.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+        cb2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(LoadingActivity.this, MapsActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        cb3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(LoadingActivity.this, MapActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
 
         initLogoImage();
         initProgressBar();

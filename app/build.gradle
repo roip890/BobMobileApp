@@ -103,4 +103,7 @@ dependencies {
     //country code picker
     compile 'com.hbb20:ccp:2.1.0'
 
+    //google play services
+    compile  'com.google.android.gms:play-services:11.8.0'
+
 }

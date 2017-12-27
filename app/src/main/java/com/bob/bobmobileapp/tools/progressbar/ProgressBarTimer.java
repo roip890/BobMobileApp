@@ -15,7 +15,7 @@ import java.util.TimerTask;
  * Created by user on 27/09/2017.
  */
 
-public class ProgressBarTimer extends TimerTask {
+public class ProgressBarTimer {
 
     private Timer timer;
     private Activity activity;
@@ -30,7 +30,7 @@ public class ProgressBarTimer extends TimerTask {
         this.timer = new Timer();
    }
 
-    public void run() {
+    public void runTask() {
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 progressBar.incrementProgressBy(progressInterval);
@@ -39,7 +39,12 @@ public class ProgressBarTimer extends TimerTask {
     }
 
     public void startTimer(int interval) {
-        this.timer.schedule(this, 0, interval);
+        this.timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runTask();
+            }
+        }, 0, interval);
     }
 
     public void stopTimer() {
