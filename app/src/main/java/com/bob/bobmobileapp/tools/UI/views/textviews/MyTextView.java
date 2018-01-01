@@ -62,17 +62,17 @@ public class MyTextView extends MyView {
         this.setTextInputType(InputType.TYPE_CLASS_TEXT);
 
         //text color
-        this.setTextColor(ContextCompat.getColor(this.getContext(), R.color.colorError));
+        this.setTextColor(ContextCompat.getColor(this.getContext(), R.color.textColorPrimary));
 
         //start drawable
-        this.setStartDrawableColor(ContextCompat.getColor(this.getContext(), R.color.colorError));
+        this.setStartDrawableColor(ContextCompat.getColor(this.getContext(), R.color.textColorPrimary));
         this.setStartDrawable(null);
         this.setStartDrawableOnClickListener(null);
         this.setStartDrawableOnFocusOnly(false);
         this.setStartDrawableEnable(false);
 
         //end drawable
-        this.setEndDrawableColor(ContextCompat.getColor(this.getContext(), R.color.colorError));
+        this.setEndDrawableColor(ContextCompat.getColor(this.getContext(), R.color.textColorPrimary));
         this.setEndDrawable(null);
         this.setEndDrawableOnClickListener(null);
         this.setEndDrawableOnFocusOnly(false);
@@ -188,7 +188,7 @@ public class MyTextView extends MyView {
     }
 
     public void setStartDrawable(int startDrawable) {
-        this.setErrorStartDrawable(ContextCompat.getDrawable(getContext(), startDrawable));
+        this.setStartDrawable(ContextCompat.getDrawable(getContext(), startDrawable));
     }
 
     public void setStartDrawable(Drawable startDrawable) {

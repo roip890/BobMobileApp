@@ -1,11 +1,7 @@
 package com.bob.bobmobileapp.http;
 
 
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
-
 import com.android.volley.AuthFailureError;
-import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -15,7 +11,6 @@ import com.bob.bobmobileapp.BOBApplication;
 
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +66,7 @@ public class HttpController {
     }
 
     public void makeJsonRequest(String url, final HttpJsonResponseHandler responseHandler) {
-        this.makeJsonRequest(url, responseHandler, null, null);
+        this.makeJsonRequest(url, responseHandler, new HashMap<String, String>(), new HashMap<String, String>());
     }
 
     public void makeImageRequest(String url, final HttpImageResponseHandler responseHandler) {

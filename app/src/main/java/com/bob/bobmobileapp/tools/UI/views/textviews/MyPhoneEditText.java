@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
  */
 
 public class MyPhoneEditText extends MyEditText {
+
     protected CountryCodePicker countryCodePicker;
     protected LinearLayout phoneViewLayout;
 

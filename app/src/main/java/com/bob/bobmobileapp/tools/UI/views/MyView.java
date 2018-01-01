@@ -124,8 +124,8 @@ public abstract class MyView extends TextInputLayout {
 
         //init layout params
         FrameLayout.LayoutParams viewLayoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
         );
 
         //add main view
@@ -156,7 +156,7 @@ public abstract class MyView extends TextInputLayout {
 
         //init layout params
         FrameLayout.LayoutParams lineLayoutParams = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT,
                 this.bottomLineSize
         );
 
@@ -232,7 +232,7 @@ public abstract class MyView extends TextInputLayout {
 
         //add error view with default layout params
         this.addView(this.errorTextView, this.errorIndex, new LayoutParams(
-                LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT
         ));
 
@@ -293,13 +293,13 @@ public abstract class MyView extends TextInputLayout {
 
         //error view margin update
         LinearLayout.LayoutParams errorViewLayoutParams = (LinearLayout.LayoutParams)this.errorTextView.getLayoutParams();
-        if (bottomLineLayoutParams != null) {
+        if (errorViewLayoutParams != null) {
             errorViewLayoutParams.setMarginStart(this.getStartDrawableStartMargin());
         }
 
         //main view margin update
         FrameLayout.LayoutParams mainViewLayoutParams = (FrameLayout.LayoutParams)this.view.getLayoutParams();
-        if (bottomLineLayoutParams != null) {
+        if (mainViewLayoutParams != null) {
             mainViewLayoutParams.setMarginStart(this.getStartDrawableStartMargin());
         }
 

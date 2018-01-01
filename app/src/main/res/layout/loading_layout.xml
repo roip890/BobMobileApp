@@ -17,16 +17,18 @@
         android:layout_marginBottom="50dp"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:layout_below="@+id/image_view">
 
 
-    <com.bob.bobmobileapp.tools.UI.views.recyclerview.MyTextGroup
-            android:layout_width="match_parent"
+        <com.bob.bobmobileapp.tools.UI.views.textviews.MyLocationInputView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/text_group"/>
+            android:layout_gravity="center"
+            android:id="@+id/my_out_loc"/>
 
     </LinearLayout>
 

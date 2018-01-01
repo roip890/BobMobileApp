@@ -1,26 +1,43 @@
 package com.bob.bobmobileapp.tools.UI.views.textviews;
 
-import android.app.DatePickerDialog;
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.util.Xml;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
+import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.map.MapsActivity;
+import com.bob.bobmobileapp.tools.style.Icons;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.location.places.ui.SupportPlaceAutocompleteFragment;
+import com.mikepenz.iconics.IconicsDrawable;
+
+import org.xmlpull.v1.XmlPullParser;
 
 /**
  * Created by User on 24/12/2017.
  */
 
-public class MyLocationInputView extends MyTextView{
-    private int years;
-    private int months;
-    private int days;
-    protected SimpleDateFormat dateFormat;
-    protected Calendar calendar;
-    protected DatePickerDialog dateDialog;
+public class MyLocationInputView extends MyLocationOutputView {
 
     public MyLocationInputView(Context context) {
         this(context, null);
@@ -30,55 +47,60 @@ public class MyLocationInputView extends MyTextView{
         this(context, attrs, 0);
     }
 
-    public MyLocationInputView(Context context, AttributeSet attrs, final int defStyleAttr) {
+    public MyLocationInputView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.setYears(0);
-        this.setMonths(0);
-        this.setDays(0);
-        this.dateFormat = new SimpleDateFormat("hh:mm", Locale.getDefault());
-        this.calendar = Calendar.getInstance();
-        this.setHint("Select Time:");
-        this.dateDialog = new DatePickerDialog(this.getContext(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                years = years;
-                months = months;
-                days = days;
-                updateText();
-            }
-        }, years, months, days);
-        this.textView.setOnClickListener(new View.OnClickListener() {
+    }
+
+    @Override
+    protected void initMainView() {
+        super.initMainView();
+
+        this.setMapDrawableColor(ContextCompat.getColor(this.getContext(), R.color.textColorPrimary));
+        this.setMapDrawable(((IconicsDrawable) Icons.get().findDrawable(this.getContext(), "gmd_my_location")).sizeDp(24));
+        this.setMapDrawableEnable(true);
+
+        this.mapIconImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                dateDialog.updateDate(years, months, days);
-                dateDialog.show();
+
+                if (getContext() instanceof FragmentActivity) {
+
+
+                    PlaceAutocompleteFragment autocompleteFragment = new PlaceAutocompleteFragment();
+
+                    autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                        @Override
+                        public void onPlaceSelected(Place place) {
+                            // TODO: Get info about the selected place.
+                            Log.i("Select", "Place: " + place.getName());//get place details here
+                        }
+
+                        @Override
+                        public void onError(Status status) {
+                            // TODO: Handle the error.
+                            Log.i("Error", "An error occurred: " + status);
+                        }
+                    });
+
+                    FragmentManager fm = ((FragmentActivity)getContext()).getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.place_autocomplete_fragment, autocompleteFragment);
+                    ft.commit();
+
+
+                }
+
+//                Intent intent = new Intent(getContext(), MapsActivity.class);
+//                getContext().startActivity(intent);
+
             }
         });
+
+//        this.setBackgroundColor(Color.RED);
+//        this.mapIconImageView.setColorFilter(Color.GREEN);
+//        this.textView.setBackgroundColor(Color.YELLOW);
+
     }
 
-    public void setDateFormat(String format) {
-        this.dateFormat.applyPattern(format);
-    }
-
-    public void setYears(int years) {
-        this.years = years;
-        this.updateText();
-    }
-
-    public void setMonths(int months) {
-        this.months = months;
-        this.updateText();
-    }
-
-    public void setDays(int days) {
-        this.days = days;
-        this.updateText();
-    }
-
-    private void updateText() {
-        calendar.set(Calendar.YEAR, years);
-        calendar.set(Calendar.MONTH, months);
-        calendar.set(Calendar.DAY_OF_MONTH, days);
-        textView.setText(dateFormat.format(calendar.getTime()));
-    }
 }
+

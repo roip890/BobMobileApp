@@ -3,8 +3,6 @@ package com.bob.bobmobileapp.http;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
-import org.json.JSONObject;
-
 /**
  * Created by user on 30/09/2017.
  */

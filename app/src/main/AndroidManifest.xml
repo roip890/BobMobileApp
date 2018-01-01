@@ -13,9 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialDrawerTheme.TranslucentStatus">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCp_neipH5fKcRawIw6No7H9155r8qy-4c"/>
+            android:value="@string/GOOGLE_PLACE_API_KEY"/>
+
         <activity android:name=".activities.LoadingActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,24 +26,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.bob.bobmobileapp.fragments.Map"
+            android:name="com.bob.bobmobileapp.map.MapsActivity"
             android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Dialog" >
-        </activity>
-        <activity
-            android:name=".activities.MapsActivity"
-            android:label="@string/title_activity_maps"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Dialog">
-        </activity>
-        <activity
-            android:name=".activities.MapActivity"
-            android:label="@string/title_activity_maps"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Dialog">
+            android:launchMode="singleInstance">
         </activity>
     </application>
 
