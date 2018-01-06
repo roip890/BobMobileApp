@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.map;
+package com.bob.bobmobileapp.googleapi.maps;
 
 import android.app.Activity;
 import android.content.Context;
@@ -51,7 +51,7 @@ import java.util.List;
 /**
  * An activity that displays a map showing the place at the device's current location.
  */
-public class MapsFragment extends DialogFragment
+public class MapsFragmentDialog extends DialogFragment
         implements OnMapReadyCallback {
 
     private int PROXIMITY_RADIUS = 100;
@@ -190,7 +190,6 @@ public class MapsFragment extends DialogFragment
             super.onSaveInstanceState(outState);
         }
     }
-
 
     /**
      * Manipulates the map when it's available.
@@ -467,9 +466,6 @@ public class MapsFragment extends DialogFragment
                             }
                             places.release();
                         }
-                        if (likelyPlaces.size() == likelyCount) {
-                            openPlacesDialog();
-                        }
                     }
                 });
             }
@@ -488,7 +484,7 @@ public class MapsFragment extends DialogFragment
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=" + latitude + "," + longitude);
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
-        googlePlacesUrl.append("&key=" + getString(R.string.GOOGLE_PLACE_API_KEY));
+        googlePlacesUrl.append("&key=" + getString(R.string.google_maps_key));
         googlePlacesUrl.append("&sensor=true");
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
@@ -498,7 +494,7 @@ public class MapsFragment extends DialogFragment
 
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/geocode/json?");
         googlePlacesUrl.append("latlng=" + latitude + "," + longitude);
-        googlePlacesUrl.append("&key=" + getString(R.string.GOOGLE_PLACE_API_KEY));
+        googlePlacesUrl.append("&key=" + getString(R.string.google_maps_key));
         googlePlacesUrl.append("&sensor=true");
         return (googlePlacesUrl.toString());
     }

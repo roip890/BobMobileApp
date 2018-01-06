@@ -11,11 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
-import com.bob.bobmobileapp.map.MapsActivity;
-import com.bob.bobmobileapp.tools.UI.views.recyclerview.MyTextGroup;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyEditText;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyLocationInputView;
-import com.bob.bobmobileapp.tools.UI.views.textviews.MyLocationOutputView;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
 import com.bob.bobmobileapp.tools.progressbar.MyProgressBar;
 import com.bob.bobmobileapp.tools.progressbar.ProgressBarTimer;

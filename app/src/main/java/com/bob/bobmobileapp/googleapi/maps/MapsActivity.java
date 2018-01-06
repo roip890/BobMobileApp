@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.map;
+package com.bob.bobmobileapp.googleapi.maps;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -449,7 +449,7 @@ public class MapsActivity extends AppCompatActivity
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=" + latitude + "," + longitude);
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
-        googlePlacesUrl.append("&key=" + getString(R.string.GOOGLE_PLACE_API_KEY));
+        googlePlacesUrl.append("&key=" + getString(R.string.google_maps_key));
         googlePlacesUrl.append("&sensor=true");
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
@@ -459,7 +459,7 @@ public class MapsActivity extends AppCompatActivity
 
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/geocode/json?");
         googlePlacesUrl.append("latlng=" + latitude + "," + longitude);
-        googlePlacesUrl.append("&key=" + getString(R.string.GOOGLE_PLACE_API_KEY));
+        googlePlacesUrl.append("&key=" + getString(R.string.google_maps_key));
         googlePlacesUrl.append("&sensor=true");
         return (googlePlacesUrl.toString());
     }

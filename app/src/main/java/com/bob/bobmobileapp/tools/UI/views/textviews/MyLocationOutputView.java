@@ -1,13 +1,12 @@
 package com.bob.bobmobileapp.tools.UI.views.textviews;
 
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -18,10 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bob.bobmobileapp.R;
-import com.bob.bobmobileapp.map.MapsActivity;
-import com.bob.bobmobileapp.map.MapsFragment;
+import com.bob.bobmobileapp.googleapi.maps.MapsFragmentDialog;
 import com.bob.bobmobileapp.tools.style.Icons;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -104,8 +101,18 @@ public class MyLocationOutputView extends MyTextView {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getContext(), MapsActivity.class);
-                getContext().startActivity(intent);
+                MapsFragmentDialog mapsFragmentDialog = new MapsFragmentDialog();
+                FragmentManager fm = ((FragmentActivity)getContext()).getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                mapsFragmentDialog.show(ft, "Maps");
+
+
+                //ft.add(getId(), autocompleteFragment , "fragment" + fragCount++);
+                //ft.commit();
+
+
+                //Intent intent = new Intent(getContext(), MapsActivity.class);
+                //getContext().startActivity(intent);
 
             }
         });
