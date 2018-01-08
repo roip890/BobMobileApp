@@ -24,11 +24,11 @@
         android:layout_below="@+id/image_view">
 
 
-        <com.bob.bobmobileapp.tools.UI.views.textviews.MyLocationInputView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/my_out_loc"/>
+            android:id="@+id/text_play"/>
 
     </LinearLayout>
 

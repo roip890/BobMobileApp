@@ -10,6 +10,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.bob.bobmobileapp.tools.http.HttpBitmapCache;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.upstream.HttpDataSource;
+import com.google.android.exoplayer2.util.Util;
 import com.securepreferences.SecurePreferences;
 
 import io.realm.Realm;
@@ -26,6 +32,7 @@ public class BOBApplication extends Application {
 
     private SecurePreferences mSecurePrefs;
     private SecurePreferences mUserPrefs;
+    protected String userAgent;
 
     @Override
     public void onCreate() {
@@ -37,6 +44,7 @@ public class BOBApplication extends Application {
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
+        userAgent = Util.getUserAgent(this, "ExoPlayerDemo");
     }
 
     public BOBApplication(){
@@ -93,5 +101,19 @@ public class BOBApplication extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
+
+    public DataSource.Factory buildDataSourceFactory(DefaultBandwidthMeter bandwidthMeter) {
+        return new DefaultDataSourceFactory(this, bandwidthMeter,
+                buildHttpDataSourceFactory(bandwidthMeter));
+    }
+
+    public HttpDataSource.Factory buildHttpDataSourceFactory(DefaultBandwidthMeter bandwidthMeter) {
+        return new DefaultHttpDataSourceFactory(userAgent, bandwidthMeter);
+    }
+
+    public boolean useExtensionRenderers() {
+        return BuildConfig.FLAVOR.equals("withExtensions");
+    }
+
 
 }

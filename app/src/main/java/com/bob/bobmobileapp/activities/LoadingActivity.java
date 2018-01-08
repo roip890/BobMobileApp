@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
@@ -19,6 +20,7 @@ import com.bob.bobmobileapp.tools.progressbar.ProgressBarTimer;
 import com.bob.bobmobileapp.tools.style.BackgroundColorTimer;
 import com.bob.bobmobileapp.tools.validators.DefaultStringValidator;
 import com.bob.bobmobileapp.tools.validators.Validator;
+import com.bob.bobmobileapp.video.ExoPlayerActivity;
 import com.bumptech.glide.Glide;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -49,10 +51,20 @@ public class LoadingActivity extends AppCompatActivity{
         setContentView(R.layout.loading_layout);
 
 
-        MyLocationInputView myOutLoc = (MyLocationInputView) findViewById(R.id.my_out_loc);
+//        MyLocationInputView myOutLoc = (MyLocationInputView) findViewById(R.id.my_out_loc);
+//
+//        myOutLoc.setText("My Out Loc");
 
-        myOutLoc.setText("My Out Loc");
 
+        TextView textPlay = (TextView) findViewById(R.id.text_play);
+        textPlay.setText("Click Me!");
+        textPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoadingActivity.this, ExoPlayerActivity.class);
+                startActivity(intent);
+            }
+        });
 
         initLogoImage();
         initProgressBar();
