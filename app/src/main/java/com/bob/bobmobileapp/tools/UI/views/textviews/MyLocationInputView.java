@@ -10,9 +10,8 @@ import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.googleapi.places.OnPlaceSelectListener;
 import com.bob.bobmobileapp.googleapi.places.PlacesAutocompleteFragmentDialog;
 import com.bob.bobmobileapp.googleapi.places.PlacesPickerFragmentDialog;
-import com.bob.bobmobileapp.tools.style.Icons;
+import com.bob.bobmobileapp.tools.UI.style.Icons;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
 import com.mikepenz.iconics.IconicsDrawable;
 
 /**

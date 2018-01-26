@@ -16,29 +16,12 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="50dp"/>
 
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/image_view">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/text_play"/>
-
-    </LinearLayout>
-
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_below="@+id/image_view">
-
 
 
         <LinearLayout
@@ -68,7 +51,7 @@
         </LinearLayout>
 
 
-        <com.bob.bobmobileapp.tools.progressbar.MyProgressBar
+        <com.bob.bobmobileapp.tools.UI.progressbar.MyProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

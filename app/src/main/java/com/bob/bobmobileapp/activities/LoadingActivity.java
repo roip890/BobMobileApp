@@ -1,6 +1,7 @@
 package com.bob.bobmobileapp.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -8,23 +9,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.tools.UI.views.mediaviews.MyVideoView;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyEditText;
-import com.bob.bobmobileapp.tools.UI.views.textviews.MyLocationInputView;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
-import com.bob.bobmobileapp.tools.progressbar.MyProgressBar;
-import com.bob.bobmobileapp.tools.progressbar.ProgressBarTimer;
-import com.bob.bobmobileapp.tools.style.BackgroundColorTimer;
+import com.bob.bobmobileapp.tools.UI.progressbar.MyProgressBar;
+import com.bob.bobmobileapp.tools.UI.progressbar.ProgressBarTimer;
+import com.bob.bobmobileapp.tools.UI.style.BackgroundColorTimer;
 import com.bob.bobmobileapp.tools.validators.DefaultStringValidator;
 import com.bob.bobmobileapp.tools.validators.Validator;
-import com.bob.bobmobileapp.video.ExoPlayerActivity;
 import com.bumptech.glide.Glide;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by user on 27/09/2017.
@@ -51,20 +52,13 @@ public class LoadingActivity extends AppCompatActivity{
         setContentView(R.layout.loading_layout);
 
 
-//        MyLocationInputView myOutLoc = (MyLocationInputView) findViewById(R.id.my_out_loc);
-//
-//        myOutLoc.setText("My Out Loc");
+        MyVideoView imageView2 = (MyVideoView) findViewById(R.id.vid_view);
+//        imageView2.setVideoUri("http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_2mb.mp4");
+        imageView2.setYoutubeVideoByID("WLMmX17D2uw");
+//        imageView2.setVideoUri("https://s3-us-west-2.amazonaws.com/avnohellodev/videos/9e867aba83197862e7500ebe3ebfd68a.mp4");
+//        imageView2.setYoutubeVideoByID("668nUCeBHyY");
 
 
-        TextView textPlay = (TextView) findViewById(R.id.text_play);
-        textPlay.setText("Click Me!");
-        textPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoadingActivity.this, ExoPlayerActivity.class);
-                startActivity(intent);
-            }
-        });
 
         initLogoImage();
         initProgressBar();
@@ -78,7 +72,7 @@ public class LoadingActivity extends AppCompatActivity{
             }
         }
 
-        Glide.with(this).load("http://www.freeiconspng.com/uploads/hotel-png-0.png").into(imageView);
+        Glide.with(this).load("http://www.freeiconspng.com/uploads/hotel-png-0.png").into(this.imageView);
     }
 
     private void initLogoImage() {
@@ -224,6 +218,17 @@ public class LoadingActivity extends AppCompatActivity{
         editText2.setValidator(new DefaultStringValidator());
         editText2.setEndDrawableOnFocusOnly(true);
         editText2.getTextView().setMaxLines(1);
+    }
+
+    private byte[] bitmapToByte(Bitmap bitmap){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+    //int to dp tool
+    protected int asDP(int num) {
+        return num * ((int)(this.getResources().getDisplayMetrics().density));
     }
 
 }

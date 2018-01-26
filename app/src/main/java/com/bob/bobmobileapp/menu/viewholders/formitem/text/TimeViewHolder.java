@@ -3,8 +3,10 @@ package com.bob.bobmobileapp.menu.viewholders.formitem.text;
 import android.content.Context;
 import android.view.View;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
+import com.bob.bobmobileapp.tools.UI.views.textviews.dialogviews.MyTimeTextView;
+
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -15,17 +17,29 @@ import java.util.regex.Pattern;
 public class TimeViewHolder extends TextViewViewHolder {
 
     protected int hours, minutes;
+    protected MyTimeTextView timeTextView;
 
     public TimeViewHolder(Context context, View view) {
         super(context, view, null);
     }
 
     @Override
+    protected void initView(View view) {
+        this.setTextView((MyTextView) view.findViewById(R.id.my_time_text_view));
+    }
+
+    @Override
+    public void setTextView(MyTextView textView) {
+        this.textView = textView;
+        this.timeTextView = (MyTimeTextView) textView;
+    }
+
+    @Override
     protected void initialize() {
         super.initialize();
-        this.hours = 0;
-        this.minutes = 0;
-        this.hintText = "Select Time:";
+        this.timeTextView.setHours(0);
+        this.timeTextView.setMinutes(0);
+        this.textView.setTitleText("Please enter your text");
     }
 
     protected void updateProperties(HashMap<String, String> properties) {
@@ -36,15 +50,11 @@ public class TimeViewHolder extends TextViewViewHolder {
             if (timeParts.length == 2) {
                 hours = Integer.parseInt(timeParts[0]);
                 minutes = Integer.parseInt(timeParts[1]);
+                timeTextView.setHours(hours);
+                timeTextView.setWidth(minutes);
             }
-            this.text = curProperty;
         }
-    }
 
-    @Override
-    protected void setValue() {
-        NumberFormat formatter = new DecimalFormat("00");
-        this.textView.setText(formatter.format(hours) + ":" + formatter.format(minutes));
     }
 
 }

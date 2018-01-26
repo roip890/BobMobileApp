@@ -96,6 +96,12 @@ public class ListDialogViewHolder extends DialogViewHolder {
                 dialogSelectedItems.add(position);
             }
         });
+        this.dialogBuilder.itemsCallbackSingleChoice(1, new MaterialDialog.ListCallbackSingleChoice() {
+            @Override
+            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                return false;
+            }
+        })
     }
 
 }

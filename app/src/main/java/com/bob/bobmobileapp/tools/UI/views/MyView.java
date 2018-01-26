@@ -6,10 +6,13 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +21,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.StackingBehavior;
+import com.afollestad.materialdialogs.Theme;
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.finals;
 
 import java.lang.reflect.Field;
 
@@ -55,6 +64,23 @@ public abstract class MyView extends TextInputLayout {
     protected Drawable errorStartDrawable, errorEndDrawable;
     protected MyView.DrawableOnClickListener errorStartDrawableOnClickListener, errorEndDrawableOnClickListener;
     protected boolean errorStartDrawableOnFocusOnly, errorEndDrawableOnFocusOnly;
+
+    //dialog
+    protected boolean isDialogEnable;
+    protected MaterialDialog.Builder dialogBuilder;
+    protected int dialogBackGroundColor, dialogTitleColor, dialogContentColor, dialogPositiveColor,
+            dialogNegativeColor, dialogNeutralColor, dialogDividerColor, dialogLinkColor;
+    protected GravityEnum dialogTitleGravity, dialogContentGravity, dialogButtonsGravity,
+            dialogButtonsStackedGravity;
+    protected int dialogIconMaxSize;
+    protected boolean dialogIsPositiveFocus, dialogIsNegativeFocus;
+    protected StackingBehavior dialogIsButtonsStacked;
+    protected String dialogTitleText, dialogContentText, dialogPositiveText,
+            dialogNegativeText, dialogNeutralText;
+    protected Theme dialogTheme;
+    protected Typeface dialogTitleAndButtonsFont, dialogTextFont;
+    protected Drawable dialogIcon;
+    protected MaterialDialog.SingleButtonCallback dialogPositiveOnClick, dialogNegativeOnClick, dialogNaturalOnClick;
 
 
     //constructors
@@ -142,7 +168,7 @@ public abstract class MyView extends TextInputLayout {
     protected void initBottomLine() {
 
         //set default bottom line size
-        this.setBottomLineSize(this.asDP(2));
+        this.setBottomLineSize(this.convertPixelsToDp(2));
 
         //set default bottom line color
         this.setBottomLineColor(ContextCompat.getColor(this.getContext(), R.color.textColorPrimary));
@@ -161,7 +187,7 @@ public abstract class MyView extends TextInputLayout {
         );
 
         //set bottom margin
-        lineLayoutParams.setMargins(0, 0, 0, this.asDP(5));
+        lineLayoutParams.setMargins(0, 0, 0, this.convertPixelsToDp(5));
 
         //gravity
         lineLayoutParams.gravity = Gravity.BOTTOM;
@@ -235,6 +261,36 @@ public abstract class MyView extends TextInputLayout {
                 LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT
         ));
+
+    }
+
+    protected void initDialog() {
+        this.dialogBuilder = new MaterialDialog.Builder(this.getContext());
+        this.setDialogBackGroundColor(ContextCompat.getColor(this.getContext(), R.color.windowBackground));
+        this.setDialogTitleColor(ContextCompat.getColor(this.getContext(), R.color.textColorPrimary));
+        this.setDialogContentColor(ContextCompat.getColor(this.getContext(), R.color.textColorPrimary));
+        this.setDialogPositiveColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
+        this.setDialogNegativeColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
+        this.setDialogNeutralColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
+        this.setDialogDividerColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
+        this.setDialogLinkColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
+        this.setDialogTitleGravity(finals.dialogGravity.get("center"));
+        this.setDialogContentGravity(finals.dialogGravity.get("center"));
+        this.setDialogButtonsGravity(finals.dialogGravity.get("end"));
+        this.setDialogButtonsStackedGravity(finals.dialogGravity.get("center"));
+        this.setDialogIconMaxSize( (int) this.getContext().getResources().getDimension(R.dimen.dialog_default_max_icon_size));
+        this.setDialogIsPositiveFocus(false);
+        this.setDialogIsNegativeFocus(true);
+        this.setDialogIsButtonsStacked(finals.dialogStackingBehavior.get("never"));
+        this.setDialogTitleText("Default dialog");
+        this.setDialogContentText("Default message");
+        this.setDialogPositiveText("Ok");
+        this.setDialogNegativeText("Cancle");
+        this.setDialogNeutralText(null);
+        this.setDialogTheme(Theme.LIGHT);
+        this.setDialogTitleAndButtonsFont(null);
+        this.setDialogTextFont(null);
+        this.setDialogIcon(null);
 
     }
 
@@ -367,7 +423,7 @@ public abstract class MyView extends TextInputLayout {
     }
 
     protected int getBottomLineBottomPadding() {
-        return this.asDP(5);
+        return this.convertPixelsToDp(5);
     }
 
 
@@ -520,7 +576,7 @@ public abstract class MyView extends TextInputLayout {
     }
 
     protected void setTextSize(int size, TextView textView) {
-        textView.setTextSize(this.asDP(size));
+        textView.setTextSize(this.convertPixelsToDp(size));
     }
 
     protected void paintTextColor(int color, TextView textView) {
@@ -547,7 +603,7 @@ public abstract class MyView extends TextInputLayout {
         }
     }
 
-    public void makeItalicEnable(boolean isItalic, boolean isBold, TextView textView) {
+    protected void makeItalicEnable(boolean isItalic, boolean isBold, TextView textView) {
         if (isItalic) {
             if (isBold) {
                 textView.setTypeface(textView.getTypeface(), Typeface.BOLD_ITALIC);
@@ -563,7 +619,7 @@ public abstract class MyView extends TextInputLayout {
         }
     }
 
-    public void makeUnderlineEnable(boolean isUnderline, TextView textView) {
+    protected void makeUnderlineEnable(boolean isUnderline, TextView textView) {
         if (isUnderline) {
             textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         } else {
@@ -573,6 +629,188 @@ public abstract class MyView extends TextInputLayout {
 
     protected void setTextInputType(int type, TextView textView) {
         textView.setInputType(type);
+    }
+
+    //dialog
+    public void setDialogEnable(boolean isDialogEnable) {
+        this.isDialogEnable = isDialogEnable;
+    }
+
+    public void setDialogBackGroundColor(int dialogBackGroundColor) {
+        this.dialogBackGroundColor = dialogBackGroundColor;
+        this.dialogBuilder.backgroundColor(this.backgroundColor);
+    }
+
+    public void setDialogTitleColor(int dialogTitleColor) {
+        this.dialogTitleColor = dialogTitleColor;
+        this.dialogBuilder.titleColor(this.dialogTitleColor);
+    }
+
+    public void setDialogContentColor(int dialogContentColor) {
+        this.dialogContentColor = dialogContentColor;
+        this.dialogBuilder.contentColor(this.dialogContentColor);
+    }
+
+    public void setDialogPositiveColor(int dialogPositiveColor) {
+        this.dialogPositiveColor = dialogPositiveColor;
+        this.dialogBuilder.positiveColor(this.dialogPositiveColor);
+    }
+
+    public void setDialogNegativeColor(int dialogNegativeColor) {
+        this.dialogNegativeColor = dialogNegativeColor;
+        this.dialogBuilder.negativeColor(this.dialogNegativeColor);
+    }
+
+    public void setDialogNeutralColor(int dialogNeutralColor) {
+        this.dialogNeutralColor = dialogNeutralColor;
+        this.dialogBuilder.neutralColor(this.dialogNeutralColor);
+    }
+
+    public void setDialogDividerColor(int dialogDividerColor) {
+        this.dialogDividerColor = dialogDividerColor;
+        this.dialogBuilder.dividerColor(this.dialogDividerColor);
+    }
+
+    public void setDialogLinkColor(int dialogLinkColor) {
+        this.dialogLinkColor = dialogLinkColor;
+        this.dialogBuilder.linkColor(this.dialogLinkColor);
+    }
+
+    public void setDialogTitleGravity(GravityEnum dialogTitleGravity) {
+        this.dialogTitleGravity = dialogTitleGravity;
+        this.dialogBuilder.titleGravity(this.dialogTitleGravity);
+    }
+
+    public void setDialogContentGravity(GravityEnum dialogContentGravity) {
+        this.dialogContentGravity = dialogContentGravity;
+        this.dialogBuilder.contentGravity(this.dialogContentGravity);
+    }
+
+    public void setDialogButtonsGravity(GravityEnum dialogButtonsGravity) {
+        this.dialogButtonsGravity = dialogButtonsGravity;
+        this.dialogBuilder.buttonsGravity(this.dialogButtonsGravity);
+    }
+
+    public void setDialogButtonsStackedGravity(GravityEnum dialogButtonsStackedGravity) {
+        this.dialogButtonsStackedGravity = dialogButtonsStackedGravity;
+        this.dialogBuilder.btnStackedGravity(this.dialogButtonsStackedGravity);
+    }
+
+    public void setDialogIconMaxSize(int dialogIconMaxSize) {
+        this.dialogIconMaxSize = dialogIconMaxSize;
+        this.dialogBuilder.maxIconSize(this.dialogIconMaxSize);
+    }
+
+    public void setDialogIsPositiveFocus(boolean dialogIsPositiveFocus) {
+        this.dialogIsPositiveFocus = dialogIsPositiveFocus;
+        this.dialogBuilder.positiveFocus(this.dialogIsPositiveFocus);
+    }
+
+    public void setDialogIsNegativeFocus(boolean dialogIsNegativeFocus) {
+        this.dialogIsNegativeFocus = dialogIsNegativeFocus;
+        this.dialogBuilder.negativeFocus(this.dialogIsNegativeFocus);
+    }
+
+    public void setDialogIsButtonsStacked(StackingBehavior dialogIsButtonsStacked) {
+        this.dialogIsButtonsStacked = dialogIsButtonsStacked;
+        this.dialogBuilder.stackingBehavior(this.dialogIsButtonsStacked);
+    }
+
+    public void setDialogTitleText(String dialogTitleText) {
+        this.dialogTitleText = dialogTitleText;
+        this.dialogBuilder.title(this.dialogTitleText);
+    }
+
+    public void setDialogContentText(String dialogContentText) {
+        this.dialogContentText = dialogContentText;
+        this.dialogBuilder.content(this.dialogContentText);
+    }
+
+    public void setDialogPositiveText(String dialogPositiveText) {
+        this.dialogPositiveText = dialogPositiveText;
+        this.dialogBuilder.positiveText(this.dialogPositiveText);
+    }
+
+    public void setDialogNegativeText(String dialogNegativeText) {
+        this.dialogNegativeText = dialogNegativeText;
+        this.dialogBuilder.negativeText(this.dialogNegativeText);
+    }
+
+    public void setDialogNeutralText(String dialogNeutralText) {
+        this.dialogNeutralText = dialogNeutralText;
+        this.dialogBuilder.neutralText(this.dialogNeutralText);
+    }
+
+    public void setDialogTheme(Theme dialogTheme) {
+        this.dialogTheme = dialogTheme;
+        this.dialogBuilder.theme(this.dialogTheme);
+    }
+
+    public void setDialogTitleAndButtonsFont(Typeface dialogTitleAndButtonsFont) {
+        this.dialogTitleAndButtonsFont = dialogTitleAndButtonsFont;
+        this.dialogBuilder.typeface(this.dialogTitleAndButtonsFont, this.dialogTextFont);
+    }
+
+    public void setDialogTextFont(Typeface dialogTextFont) {
+        this.dialogTextFont = dialogTextFont;
+        this.dialogBuilder.typeface(this.dialogTitleAndButtonsFont, this.dialogTextFont);
+    }
+
+    public void setDialogIcon(Drawable dialogIcon) {
+        this.dialogIcon = dialogIcon;
+        this.dialogBuilder.icon(this.dialogIcon);
+    }
+
+    public void setDialogPositiveOnClick(MaterialDialog.SingleButtonCallback dialogPositiveOnClick) {
+        this.dialogPositiveOnClick = dialogPositiveOnClick;
+        this.dialogBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                if (MyView.this.dialogPositiveOnClick != null) {
+                    MyView.this.dialogPositiveOnClick.onClick(dialog, which);
+                }
+            }
+        });
+    }
+
+    public void setDialogNegativeOnClick(MaterialDialog.SingleButtonCallback dialogNegativeOnClick) {
+        this.dialogNegativeOnClick = dialogNegativeOnClick;
+        this.dialogBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                if (MyView.this.dialogNegativeOnClick != null) {
+                    MyView.this.dialogNegativeOnClick.onClick(dialog, which);
+                }
+            }
+        });
+    }
+
+    public void setDialogNaturalOnClick(MaterialDialog.SingleButtonCallback dialogNaturalOnClick) {
+        this.dialogNaturalOnClick = dialogNaturalOnClick;
+        this.dialogBuilder.onNeutral(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                if (MyView.this.dialogNaturalOnClick != null) {
+                    MyView.this.dialogNaturalOnClick.onClick(dialog, which);
+                }
+            }
+        });
+    }
+
+    public void setDialogContentView(int contentView) {
+        this.setDialogContentView(contentView, true);
+    }
+
+    public void setDialogContentView(int contentView, boolean wrapInScrollView) {
+        this.dialogBuilder.customView(contentView, wrapInScrollView);
+    }
+
+    public void setDialogContentView(View contentView) {
+        this.setDialogContentView(contentView, true);
+    }
+
+    public void setDialogContentView(View contentView, boolean wrapInScrollView) {
+        this.dialogBuilder.customView(contentView, wrapInScrollView);
     }
 
     //drawables
@@ -619,9 +857,9 @@ public abstract class MyView extends TextInputLayout {
 
     protected int getStartDrawableStartMargin() {
         if (this.startDrawable != null) {
-            return this.startDrawable.getIntrinsicWidth() + this.asDP(5);
+            return this.startDrawable.getIntrinsicWidth() + this.convertPixelsToDp(5);
         } else {
-            return this.asDP(5);
+            return this.convertPixelsToDp(5);
         }
     }
 
@@ -721,8 +959,32 @@ public abstract class MyView extends TextInputLayout {
 
 
     //int to dp tool
-    protected int asDP(int num) {
-        return num * ((int)(this.getContext().getResources().getDisplayMetrics().density));
+    protected int convertPixelsToDp(int px) {
+        return px * ((int)(this.getContext().getResources().getDisplayMetrics().density));
     }
+
+    protected int convertPixelsToSp(int px) {
+        return convertDpToSp(convertPixelsToDp(px));
+    }
+
+    protected int convertDpToPixels(float dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, this.getContext().getResources().getDisplayMetrics());
+    }
+
+    protected int convertSpToPixels(float sp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, this.getContext().getResources().getDisplayMetrics());
+    }
+
+    protected int convertDpToSp(float dp) {
+        return (int) (convertDpToPixels(dp) / (float) convertSpToPixels(dp));
+    }
+
+    protected int convertSpToDp(float sp) {
+        return convertPixelsToDp(convertSpToPixels(sp));
+    }
+
+
+
+
 
 }

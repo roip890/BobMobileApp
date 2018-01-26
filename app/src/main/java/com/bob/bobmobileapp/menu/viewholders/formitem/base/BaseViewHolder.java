@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
@@ -52,7 +53,6 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
         initView(view);
         initialize();
-        configure();
     }
 
     public BaseViewHolder(Context context, View view) {
@@ -65,8 +65,6 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
     abstract protected void updateProperties(HashMap<String, String> properties);
 
-    protected abstract void configure();
-
     public void configureFormItem(FormItem formItem) {
         HashMap<String, String> properties = new HashMap<String, String>();
         RealmResults<FormItemProperty> RealmProperties = RealmController.get().with(BOBApplication.get()).getPropertiesOfFormItem(formItem.getId());
@@ -74,10 +72,33 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
             properties.put(property.getKey(), property.getValue());
         }
         updateProperties(properties);
-        configure();
     }
 
     //extern this functions
+    protected int convertPixelsToDp(int px) {
+        return px * ((int)(this.context.getResources().getDisplayMetrics().density));
+    }
+
+    protected int convertPixelsToSp(int px) {
+        return convertDpToSp(convertPixelsToDp(px));
+    }
+
+    protected int convertDpToPixels(float dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, this.context.getResources().getDisplayMetrics());
+    }
+
+    protected int convertSpToPixels(float sp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, this.context.getResources().getDisplayMetrics());
+    }
+
+    protected int convertDpToSp(float dp) {
+        return (int) (convertDpToPixels(dp) / (float) convertSpToPixels(dp));
+    }
+
+    protected int convertSpToDp(float sp) {
+        return convertPixelsToDp(convertSpToPixels(sp));
+    }
+
     protected Drawable findDrawable(String drawableName) {
         Drawable drawable;
         if ((drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName()))) != null) {

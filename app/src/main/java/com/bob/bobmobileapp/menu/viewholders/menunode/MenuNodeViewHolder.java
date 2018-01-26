@@ -7,7 +7,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -17,21 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bob.bobmobileapp.BOBApplication;
-import com.bob.bobmobileapp.activities.MainActivity;
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.activities.MainActivity;
 import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.menu.adapters.MenuNodesAdapter;
 import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.MenuNode;
 import com.bob.bobmobileapp.realm.objects.MenuNodeProperty;
-import com.bob.bobmobileapp.tools.svg.SvgDecoder;
-import com.bob.bobmobileapp.tools.svg.SvgDrawableTranscoder;
-import com.bob.bobmobileapp.tools.svg.SvgSoftwareLayerSetter;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.caverock.androidsvg.SVG;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.devicon_typeface_library.DevIcon;
 import com.mikepenz.entypo_typeface_library.Entypo;
@@ -48,7 +40,6 @@ import com.mikepenz.typeicons_typeface_library.Typeicons;
 import com.mikepenz.weather_icons_typeface_library.WeatherIcons;
 import com.vstechlab.easyfonts.EasyFonts;
 
-import java.io.InputStream;
 import java.util.HashMap;
 
 import io.realm.RealmResults;
@@ -251,17 +242,8 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
         this.menuImageView.setMaxHeight(this.imageMaxHeight);
         this.menuImageView.setMaxWidth(this.imageMaxWidth);
         if (this.imageUrl != null) {
+
             Glide.with(this.context)
-                    .using(Glide.buildStreamModelLoader(Uri.class, this.context), InputStream.class)
-                    .from(Uri.class)
-                    .as(SVG.class)
-                    .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                    .sourceEncoder(new StreamEncoder())
-                    .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
-                    .decoder(new SvgDecoder())
-                    .animate(android.R.anim.fade_in)
-                    .listener(new SvgSoftwareLayerSetter<Uri>())
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .load(Uri.parse(this.imageUrl))
                     .into(this.menuImageView);
         }

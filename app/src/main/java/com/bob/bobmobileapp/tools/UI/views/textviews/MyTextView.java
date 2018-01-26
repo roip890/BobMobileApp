@@ -122,9 +122,9 @@ public class MyTextView extends MyView {
 
     protected int getStartDrawableStartMargin() {
         if (this.textView.getCompoundDrawablesRelative()[0] != null) {
-            return this.textView.getCompoundDrawablesRelative()[0].getIntrinsicWidth() + this.asDP(5);
+            return this.textView.getCompoundDrawablesRelative()[0].getIntrinsicWidth() + this.convertPixelsToDp(5);
         } else {
-            return this.asDP(5);
+            return this.convertPixelsToDp(5);
         }
     }
 

@@ -27,22 +27,10 @@ import java.util.HashMap;
 
 public class TextViewViewHolder extends BaseViewHolder {
 
-
     protected MyTextView textView;
-    protected Validator<String> validator;
-    protected String text, hintText;
-    protected int foregroundColor, textColor, bottomLineColor, hintColor, errorColor;
-    protected int startDrawableColor, endDrawableColor;
-    protected int textSize, inputType;
-    protected int layoutBackgroundColor, gravity, width, height;
-    protected Typeface textFont;
-    protected Drawable layoutBackground, startDrawable, endDrawable;
-    protected boolean boldText, underlineText, italicText;
-
 
     public TextViewViewHolder(Context context, View view, Validator validator) {
         super(context, view, validator);
-        this.validator = validator;
     }
 
     public TextViewViewHolder(Context context, View view) {
@@ -59,42 +47,32 @@ public class TextViewViewHolder extends BaseViewHolder {
 
     @Override
     protected void initView(View view) {
-        setTextView((MyTextView) view.findViewById(R.id.my_text_view));
+        this.setTextView((MyTextView) view.findViewById(R.id.my_text_view));
     }
 
     @Override
     protected void initialize() {
-        this.layoutBackgroundColor = ContextCompat.getColor(context, R.color.windowBackground);
-        this.layoutBackground = null;
-        this.validator = new Validator<String>() {
-            @Override
-            public String validate(String object) {
-                return null;
-            }
-        };
-        this.gravity = finals.gravity.get("start");
+        this.textView.setBackgroundColor(ContextCompat.getColor(context, R.color.windowBackground));
+        this.textView.setGravity(finals.gravity.get("start"));
+        this.textView.setText("");
+        this.textView.setTitleText("Please enter your text");
 
-        this.text = "";
-        this.hintText = "Please enter your text";
+        this.textView.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+        this.textView.setTitleColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+        this.textView.setBottomLineColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+        this.textView.setErrorTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+        this.textView.setStartDrawableColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+        this.textView.setEndDrawableColor(ContextCompat.getColor(context, R.color.textColorPrimary));
 
-        this.foregroundColor = ContextCompat.getColor(context, R.color.textColorPrimary);
-        this.textColor = ContextCompat.getColor(context, R.color.textColorPrimary);
-        this.hintColor = ContextCompat.getColor(context, R.color.textColorPrimary);
-        this.bottomLineColor = ContextCompat.getColor(context, R.color.textColorPrimary);
-        this.errorColor = ContextCompat.getColor(context, R.color.textColorPrimary);
-        this.startDrawableColor = ContextCompat.getColor(context, R.color.textColorPrimary);
-        this.endDrawableColor = ContextCompat.getColor(context, R.color.textColorPrimary);
+        this.textView.setTextSize(this.convertSpToPixels(8));
+        this.textView.setTextInputType(finals.inputTypes.get("none"));
 
-        this.textSize = (int)(context.getResources().getDimension(R.dimen.text_size_medium));
-        this.inputType = finals.inputTypes.get("none");
-        this.textFont = null;
+        this.textView.setBoldEnable(false);
+        this.textView.setUnderlineEnable(false);
+        this.textView.setItalicEnable(false);
 
-        this.boldText = false;
-        this.underlineText = false;
-        this.italicText = false;
-
-        this.startDrawable = null;
-        this.initEndDrawable();
+        this.textView.setStartDrawable(null);
+        this.textView.setEndDrawable(null);
     }
 
     @Override
@@ -102,91 +80,78 @@ public class TextViewViewHolder extends BaseViewHolder {
         String curProperty;
         if ((curProperty = properties.get("layout_background_color")) != null) {
             try {
-                this.layoutBackgroundColor = Color.parseColor(curProperty);
+                this.textView.setBackgroundColor(Color.parseColor(curProperty));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
         if ((curProperty = properties.get("layout_background")) != null) {
-            this.layoutBackground = ContextCompat.getDrawable(context, context.getResources().getIdentifier(curProperty, "drawable", context.getPackageName()));
+            this.textView.setBackgroundImage(ContextCompat.getDrawable(context, context.getResources().getIdentifier(curProperty, "drawable", context.getPackageName())));
         }
 
         if ((curProperty = properties.get("width")) != null) {
             try {
-                this.width = Integer.parseInt(curProperty);
+                this.textView.setWidth(Integer.parseInt(curProperty));
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }
         if ((curProperty = properties.get("height")) != null) {
             try {
-                this.height = Integer.parseInt(curProperty);
+                this.textView.setHeight(Integer.parseInt(curProperty));
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }
         if ((curProperty = properties.get("gravity")) != null) {
-            this.gravity = finals.gravity.get(curProperty);
+            this.textView.setGravity(finals.gravity.get(curProperty));
         }
 
         if ((curProperty = properties.get("text")) != null) {
-            this.text = curProperty;
+            this.textView.setText(curProperty);
         }
         if ((curProperty = properties.get("hint_text")) != null) {
-            this.hintText = curProperty;
+            this.textView.setTitleText(curProperty);
         }
 
-        if ((curProperty = properties.get("foreground_color")) != null) {
-            try {
-                this.foregroundColor = Color.parseColor(curProperty);
-                this.textColor = Color.parseColor(curProperty);
-                this.hintColor = Color.parseColor(curProperty);
-                this.bottomLineColor = Color.parseColor(curProperty);
-                this.errorColor = Color.parseColor(curProperty);
-                this.startDrawableColor = Color.parseColor(curProperty);
-                this.endDrawableColor = Color.parseColor(curProperty);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
         if ((curProperty = properties.get("text_color")) != null) {
             try {
-                this.textColor = Color.parseColor(curProperty);
+                this.textView.setTitleColor(Color.parseColor(curProperty));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
         if ((curProperty = properties.get("hint_color")) != null) {
             try {
-                this.hintColor = Color.parseColor(curProperty);
+                this.textView.setTitleColor(Color.parseColor(curProperty));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
         if ((curProperty = properties.get("bottom_line_color")) != null) {
             try {
-                this.bottomLineColor = Color.parseColor(curProperty);
+                this.textView.setBottomLineColor(Color.parseColor(curProperty));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
         if ((curProperty = properties.get("error_color")) != null) {
             try {
-                this.errorColor = Color.parseColor(curProperty);
+                this.textView.setErrorTextColor(Color.parseColor(curProperty));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
         if ((curProperty = properties.get("start_drawable_color")) != null) {
             try {
-                this.startDrawableColor = Color.parseColor(curProperty);
+                this.textView.setStartDrawableColor(Color.parseColor(curProperty));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
         if ((curProperty = properties.get("end_drawable_color")) != null) {
             try {
-                this.endDrawableColor = Color.parseColor(curProperty);
+                this.textView.setEndDrawableColor(Color.parseColor(curProperty));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
@@ -194,96 +159,46 @@ public class TextViewViewHolder extends BaseViewHolder {
 
         if ((curProperty = properties.get("font_size")) != null) {
             try {
-                this.textSize = Integer.parseInt(curProperty);
+                this.textView.setTextSize(this.convertPixelsToSp(Integer.parseInt(curProperty)  ));
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }
         if ((curProperty = properties.get("font_type")) != null) {
-            this.textFont = this.findTypeface(curProperty);
+            this.textView.setTextTypeface(this.findTypeface(curProperty));
         }
         if ((curProperty = properties.get("input_type")) != null) {
-            this.inputType = finals.inputTypes.get(curProperty);
+            this.textView.setTextInputType(finals.inputTypes.get(curProperty));
         }
 
         if ((curProperty = properties.get("bold_text")) != null) {
             if (curProperty.equals("true")) {
-                this.boldText = true;
+                this.textView.setBoldEnable(true);
             } else if (curProperty.equals("false")) {
-                this.boldText = false;
+                this.textView.setBoldEnable(false);
             }
         }
         if ((curProperty = properties.get("underline_text")) != null) {
             if (curProperty.equals("true")) {
-                this.underlineText = true;
-            } else if (curProperty.equals("false")) {
-                this.underlineText = false;
+                this.textView.setUnderlineEnable(true);
+           } else if (curProperty.equals("false")) {
+                this.textView.setUnderlineEnable(false);
             }
         }
         if ((curProperty = properties.get("italic_text")) != null) {
             if (curProperty.equals("true")) {
-                this.italicText = true;
+                this.textView.setItalicEnable(true);
             } else if (curProperty.equals("false")) {
-                this.italicText = false;
+                this.textView.setItalicEnable(true);
             }
         }
 
         if ((curProperty = properties.get("start_drawable")) != null) {
-            this.startDrawable = this.findDrawable(curProperty);
+            this.textView.setStartDrawable(this.findDrawable(curProperty));
         }
         if ((curProperty = properties.get("end_drawable")) != null) {
-            this.endDrawable = this.findDrawable(curProperty);
+            this.textView.setEndDrawable(this.findDrawable(curProperty));
         }
     }
 
-    @Override
-    protected void configure() {
-        this.textView.setBackground(this.layoutBackground);
-        this.textView.setBackgroundColor(this.layoutBackgroundColor);
-        this.textView.setValidator(this.validator);
-
-        this.textView.setWidth(this.width);
-        this.textView.setHeight(this.height);
-        ((LinearLayout.LayoutParams) this.textView.getLayoutParams()).gravity = this.gravity;
-
-        this.setValue();
-        this.textView.setHint(this.hintText);
-
-        this.textView.setTextColor(this.textColor);
-        this.textView.setTitleColor(this.hintColor);
-        this.textView.setBottomLineColor(this.bottomLineColor);
-        this.textView.setErrorTextColor(this.errorColor);
-        this.textView.setStartDrawableColor(this.startDrawableColor);
-        this.textView.setEndDrawableColor(this.endDrawableColor);
-
-        this.textView.setTextSize(this.textSize);
-        this.textView.setTextInputType(this.inputType);
-        this.textView.setTextTypeface(this.textFont);
-
-        this.textView.setBoldEnable(this.boldText);
-        this.textView.setItalicEnable(this.italicText);
-        this.textView.setUnderlineEnable(this.underlineText);
-
-        this.textView.setStartDrawable(this.startDrawable);
-        this.textView.setEndDrawable(this.endDrawable);
-    }
-
-    protected void setValue() {
-        this.textView.setText(this.text);
-    }
-
-    protected void initEndDrawable() {
-        this.endDrawable = this.findDrawable("gmi_close_circle");
-        this.textView.setEndDrawableOnClickListener(new MyTextView.DrawableOnClickListener() {
-            @Override
-            public void onDrawableClick() {
-                if (!textView.getText().toString().equals("")) {
-                    textView.setText("");
-                    textView.setEndDrawableEnable(false);
-                }
-            }
-        });
-        this.textView.setEndDrawableOnFocusOnly(true);
-
-    }
 }

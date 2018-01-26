@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:name=".BOBApplication"
@@ -37,10 +40,19 @@
             android:launchMode="singleInstance">
         </activity>
         <activity
-            android:name="com.bob.bobmobileapp.video.ExoPlayerActivity"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance">
+            android:name=".video.VideoPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
+        <activity
+            android:name=".video.FullScreenVideoPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity>
+        <activity
+            android:name=".image.ImageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppThemeDialogNoTitle">
+        </activity>
+
     </application>
 
 </manifest>
