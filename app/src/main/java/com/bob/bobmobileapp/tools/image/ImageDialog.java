@@ -1,6 +1,5 @@
-package com.bob.bobmobileapp.image;
+package com.bob.bobmobileapp.tools.image;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,8 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
 
 import com.bob.bobmobileapp.R;
 import com.bumptech.glide.Glide;

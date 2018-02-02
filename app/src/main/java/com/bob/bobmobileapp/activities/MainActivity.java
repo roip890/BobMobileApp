@@ -17,6 +17,7 @@ import com.bob.bobmobileapp.drawerItems.secondary.CustomCenteredSecondaryDrawerI
 import com.bob.bobmobileapp.menu.adapters.FormItemsAdapter;
 import com.bob.bobmobileapp.menu.adapters.MenuNodesAdapter;
 import com.bob.bobmobileapp.realm.RealmController;
+import com.bob.bobmobileapp.realm.RealmHelper;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 import com.bob.bobmobileapp.realm.objects.FormItemProperty;
 import com.bob.bobmobileapp.realm.objects.MenuNode;
@@ -193,45 +194,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void insertItemToDB() {
-        RealmController.get().with(BOBApplication.get()).insertMenuNode(makeNewMenuNode(0, -1, "main", "https://image.flaticon.com/icons/svg/149/149176.svg"));
-        RealmController.get().with(BOBApplication.get()).insertMenuNode(makeNewMenuNode(1, 0, "food", "https://image.flaticon.com/icons/svg/121/121907.svg"));
-        RealmController.get().with(BOBApplication.get()).insertMenuNode(makeNewMenuNode(2, 0, "room service", "https://image.flaticon.com/icons/svg/201/201699.svg"));
-        RealmController.get().with(BOBApplication.get()).insertMenuNodeProperty(makeNewMenuNodeProperty(0, 1, "font_color", "#FFFF0000"));
+        RealmController.with(BOBApplication.get()).insertMenuNode(RealmHelper.get().makeNewMenuNode(0, -1, "main", "https://image.flaticon.com/icons/svg/149/149176.svg"));
+        RealmController.with(BOBApplication.get()).insertMenuNode(RealmHelper.get().makeNewMenuNode(1, 0, "food", "http://www.pvhc.net/img8/niexjjzstcseuzdzkvoq.png"));
+        RealmController.with(BOBApplication.get()).insertMenuNode(RealmHelper.get().makeNewMenuNode(2, 0, "room service", "https://image.flaticon.com/icons/svg/201/201699.svg"));
+        RealmController.with(BOBApplication.get()).insertMenuNode(RealmHelper.get().makeNewMenuNode(3, 1, "room service", "https://image.flaticon.com/icons/svg/201/201699.svg"));
+        RealmController.with(BOBApplication.get()).insertMenuNode(RealmHelper.get().makeNewMenuNode(4, 1, "room service", "https://image.flaticon.com/icons/svg/201/201699.svg"));
+        RealmController.with(BOBApplication.get()).insertMenuNode(RealmHelper.get().makeNewMenuNode(5, 1, "room service", "https://image.flaticon.com/icons/svg/201/201699.svg"));
+        RealmController.with(BOBApplication.get()).insertMenuNodeProperty(RealmHelper.get().makeNewMenuNodeProperty(0, 1, "font_color", "#FFFF0000"));
     }
 
-    private MenuNode makeNewMenuNode(long id, long parentId, String title, String imageUrl) {
-        MenuNode menuNode = new MenuNode();
-        menuNode.setId(id);
-        menuNode .setParentId(parentId);
-        menuNode.setTitle(title);
-        menuNode.setImageUrl(imageUrl);
-        return menuNode;
-    }
-
-    private FormItem makeNewFormItem(long id, long parentId, String type) {
-        FormItem formItem = new FormItem();
-        formItem.setId(id);
-        formItem.setParentId(parentId);
-        formItem.setType(type);
-        return formItem;
-    }
-
-    private FormItemProperty makeNewFormItemProperty(long id, long parentId, String key, String value) {
-        FormItemProperty formItemProperty = new FormItemProperty();
-        formItemProperty.setId(id);
-        formItemProperty.setParentId(parentId);
-        formItemProperty.setKey(key);
-        formItemProperty.setValue(value);
-        return formItemProperty;
-    }
-
-    private MenuNodeProperty makeNewMenuNodeProperty(long id, long parentId, String key, String value) {
-        MenuNodeProperty menuNodeProperty = new MenuNodeProperty();
-        menuNodeProperty.setId(id);
-        menuNodeProperty.setParentId(parentId);
-        menuNodeProperty.setKey(key);
-        menuNodeProperty.setValue(value);
-        return menuNodeProperty;
-    }
 
 }

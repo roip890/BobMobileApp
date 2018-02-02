@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 
 import com.bob.bobmobileapp.tools.UI.views.recyclerviews.viewholders.MyRecyclerViewBaseViewHolder;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class MyRecyclerViewBaseAdapter<ViewType extends View> extends RecyclerView.Adapter<MyRecyclerViewBaseViewHolder<ViewType>> {
 
     protected ArrayList<ViewType> views;
+    protected ArrayList<Integer> disabledItemsIndices;
 
     public MyRecyclerViewBaseAdapter(ArrayList<ViewType> views){
 
@@ -109,5 +111,29 @@ public class MyRecyclerViewBaseAdapter<ViewType extends View> extends RecyclerVi
     public ArrayList<ViewType> getViews() {
         return this.views;
     }
+
+    private void updateDisableViews() {
+        for (int index : this.disabledItemsIndices) {
+            if (index < this.views.size()) {
+                this.views.get(index).setEnabled(false);
+            }
+        }
+
+    }
+
+    public void setItemEnable(int index, boolean enable) {
+        if ((!enable) && (!this.disabledItemsIndices.contains(index)) && (index < this.views.size())) {
+            this.disabledItemsIndices.add(index);
+        }
+        this.updateDisableViews();
+        this.notifyDataSetChanged();
+    }
+
+    public void setItemEnable(RadioButton item, boolean enable) {
+        if (this.views.contains(item)) {
+            this.setItemEnable(this.views.indexOf(item), enable);
+        }
+    }
+
 
 }

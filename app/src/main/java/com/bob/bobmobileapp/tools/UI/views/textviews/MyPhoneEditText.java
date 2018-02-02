@@ -43,7 +43,9 @@ public class MyPhoneEditText extends MyEditText {
             e.printStackTrace();
         }
         AttributeSet linearLayoutAttrs = Xml.asAttributeSet(linearLayoutParser);
-        this.phoneViewLayout = new LinearLayout(this.getContext(), linearLayoutAttrs);
+        this.view = new LinearLayout(this.getContext(), linearLayoutAttrs);
+        this.phoneViewLayout = (LinearLayout) this.view;
+        this.phoneViewLayout.setOrientation(HORIZONTAL);
 
         XmlPullParser countryCodePickerParser = getResources().getXml(R.xml.view_default_attribute);
         try {

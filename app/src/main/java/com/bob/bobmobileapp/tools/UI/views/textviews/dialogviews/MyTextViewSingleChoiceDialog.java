@@ -38,7 +38,7 @@ public class MyTextViewSingleChoiceDialog extends MyTextViewListDialog {
             @Override
             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                 MyTextViewSingleChoiceDialog.this.selectedItems.clear();
-                MyTextViewSingleChoiceDialog.this.selectedItems.add(text.toString());
+                MyTextViewSingleChoiceDialog.this.selectedItems.add(which);
                 updateText();
                 return false;
             }

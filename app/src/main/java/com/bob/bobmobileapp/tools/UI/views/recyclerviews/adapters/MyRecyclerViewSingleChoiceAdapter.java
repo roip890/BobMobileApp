@@ -62,7 +62,7 @@ public class MyRecyclerViewSingleChoiceAdapter extends MyRecyclerViewBaseAdapter
             this.views.add(index, viewToAdd);
         }
         this.notifyDataSetChanged();
-        this.updateChackedView();
+        this.updateCheckedView();
     }
 
     @Override
@@ -82,13 +82,13 @@ public class MyRecyclerViewSingleChoiceAdapter extends MyRecyclerViewBaseAdapter
         }
         this.views.addAll(index, viewsToAdd);
         this.notifyDataSetChanged();
-        this.updateChackedView();
+        this.updateCheckedView();
     }
 
     @Override
     public void removeView(RadioButton viewToRemove) {
         super.removeView(viewToRemove);
-        this.updateChackedView();
+        this.updateCheckedView();
     }
 
     @Override
@@ -96,7 +96,7 @@ public class MyRecyclerViewSingleChoiceAdapter extends MyRecyclerViewBaseAdapter
         this.removeView(this.views.get(indexToRemove));
     }
 
-    private void updateChackedView() {
+    private void updateCheckedView() {
 
         if (this.views.size() > 0) {
             if (!this.isViewExist(this.defaultCheckedRadioButton)) {
@@ -149,10 +149,11 @@ public class MyRecyclerViewSingleChoiceAdapter extends MyRecyclerViewBaseAdapter
                 if (!isChecked) return;
                 if (isViewExist((RadioButton) radioButtonView)) {
                     defaultCheckedRadioButton = (RadioButton) radioButtonView;
-                    updateChackedView();
+                    updateCheckedView();
                     //notifyDataSetChanged();
                 }
             }
         });
     }
+
 }

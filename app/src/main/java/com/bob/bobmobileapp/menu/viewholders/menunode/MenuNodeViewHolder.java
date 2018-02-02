@@ -23,22 +23,9 @@ import com.bob.bobmobileapp.menu.adapters.MenuNodesAdapter;
 import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.MenuNode;
 import com.bob.bobmobileapp.realm.objects.MenuNodeProperty;
+import com.bob.bobmobileapp.tools.UI.style.Fonts;
+import com.bob.bobmobileapp.tools.UI.style.Icons;
 import com.bumptech.glide.Glide;
-import com.mikepenz.community_material_typeface_library.CommunityMaterial;
-import com.mikepenz.devicon_typeface_library.DevIcon;
-import com.mikepenz.entypo_typeface_library.Entypo;
-import com.mikepenz.fontawesome_typeface_library.FontAwesome;
-import com.mikepenz.foundation_icons_typeface_library.FoundationIcons;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.ionicons_typeface_library.Ionicons;
-import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
-import com.mikepenz.meteocons_typeface_library.Meteoconcs;
-import com.mikepenz.octicons_typeface_library.Octicons;
-import com.mikepenz.pixeden_7_stroke_typeface_library.Pixeden7Stroke;
-import com.mikepenz.typeicons_typeface_library.Typeicons;
-import com.mikepenz.weather_icons_typeface_library.WeatherIcons;
-import com.vstechlab.easyfonts.EasyFonts;
 
 import java.util.HashMap;
 
@@ -152,7 +139,7 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
             this.layoutBackground = ContextCompat.getDrawable(context, context.getResources().getIdentifier(curProperty, "drawable", context.getPackageName()));
         }
         if ((curProperty = properties.get("font_type")) != null) {
-            this.fontType = this.findTypeface(curProperty);
+            this.fontType = Fonts.get().findTypeface(this.context, curProperty);
         }
         if ((curProperty = properties.get("bold_text")) != null) {
             if (curProperty.equals("true")) {
@@ -207,7 +194,7 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
             this.imageUrl = curProperty;
         }
         if ((curProperty = properties.get("image_drawable")) != null) {
-            this.imageDrawable = findDrawable(curProperty);
+            this.imageDrawable = Icons.get().findDrawable(this.context, curProperty);
         }
         if ((curProperty = properties.get("image_color")) != null) {
             try {
@@ -274,92 +261,5 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
         configure();
     }
 
-    private Drawable findDrawable(String drawableName) {
-        Drawable drawable;
-        if ((drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName()))) != null) {
-            return drawable;
-        } else {
-            try {
-                return new IconicsDrawable(context).icon(MaterialDesignIconic.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(GoogleMaterial.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(FontAwesome.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Octicons.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Meteoconcs.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(CommunityMaterial.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(WeatherIcons.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Typeicons.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Entypo.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(DevIcon.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(FoundationIcons.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Ionicons.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Pixeden7Stroke.Icon.valueOf(drawableName)).color(Color.RED).sizeDp(24);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    private Typeface findTypeface(String typefaceName) {
-        Typeface typeface;
-        if ((typeface = Typeface.createFromAsset(context.getAssets(), typefaceName)) != null) {
-            return typeface;
-        } else {
-            try {
-                return  (Typeface) EasyFonts.class.getMethod(typefaceName,new Class[] { Context.class }).invoke(null, context);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
 
 }

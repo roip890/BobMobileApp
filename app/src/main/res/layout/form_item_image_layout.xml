@@ -4,19 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/text_input_layout"
+    <com.bob.bobmobileapp.tools.UI.views.mediaviews.MyImageView
+        android:id="@+id/my_image_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/view_group">
-
-        </RadioGroup>
-
-    </android.support.design.widget.TextInputLayout>
+    </com.bob.bobmobileapp.tools.UI.views.mediaviews.MyImageView>
 
 
 </LinearLayout>

@@ -34,9 +34,7 @@ public class MyTextViewMultiChoiceDialog extends MyTextViewListDialog {
             @Override
             public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
                 MyTextViewMultiChoiceDialog.this.selectedItems.clear();
-                for (CharSequence item : text) {
-                    MyTextViewMultiChoiceDialog.this.selectedItems.add(item.toString());
-                }
+                MyTextViewMultiChoiceDialog.this.selectedItems.addAll(Arrays.asList(which));
                 updateText();
                 return false;
             }

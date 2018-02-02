@@ -11,12 +11,15 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.Theme;
 import com.bob.bobmobileapp.BOBApplication;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 import com.bob.bobmobileapp.realm.objects.FormItemProperty;
+import com.bob.bobmobileapp.tools.UI.views.MyBaseView;
+import com.bob.bobmobileapp.tools.UI.views.MyView;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
 import com.bob.bobmobileapp.tools.validators.Validator;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
@@ -44,147 +47,109 @@ import io.realm.RealmResults;
  * Created by user on 17/09/2017.
  */
 
-public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+public abstract class BaseViewHolder extends MyViewHolder {
 
     protected Context context;
+    protected MyBaseView baseView;
 
     public BaseViewHolder(Context context, View view, Validator validator) {
-        super(view);
-        this.context = context;
-        initView(view);
-        initialize();
+        super(context, view, validator);
     }
 
     public BaseViewHolder(Context context, View view) {
         this(context, view, null);
     }
 
+    protected void setView(MyBaseView view) {
+        super.setView(view);
+        this.baseView = view;
+    }
+
     protected abstract void initView(View view);
 
-    abstract protected void initialize();
-
-    abstract protected void updateProperties(HashMap<String, String> properties);
-
-    public void configureFormItem(FormItem formItem) {
-        HashMap<String, String> properties = new HashMap<String, String>();
-        RealmResults<FormItemProperty> RealmProperties = RealmController.get().with(BOBApplication.get()).getPropertiesOfFormItem(formItem.getId());
-        for (FormItemProperty property : RealmProperties) {
-            properties.put(property.getKey(), property.getValue());
-        }
-        updateProperties(properties);
+    protected void initialize() {
+        super.initialize();
+        this.baseView.setTitleText("Default title:");
+        this.baseView.setTitleTextSize(this.convertSpToPixels(8));
+        this.baseView.setTitleTextInputType(finals.inputTypes.get("none"));
+        this.baseView.setTitleTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+        this.baseView.setTitleTextTypeface(null);
+        this.baseView.setTitleBoldEnable(false);
+        this.baseView.setTitleItalicEnable(false);
+        this.baseView.setTitleUnderlineEnable(false);
     }
 
-    //extern this functions
-    protected int convertPixelsToDp(int px) {
-        return px * ((int)(this.context.getResources().getDisplayMetrics().density));
-    }
-
-    protected int convertPixelsToSp(int px) {
-        return convertDpToSp(convertPixelsToDp(px));
-    }
-
-    protected int convertDpToPixels(float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, this.context.getResources().getDisplayMetrics());
-    }
-
-    protected int convertSpToPixels(float sp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, this.context.getResources().getDisplayMetrics());
-    }
-
-    protected int convertDpToSp(float dp) {
-        return (int) (convertDpToPixels(dp) / (float) convertSpToPixels(dp));
-    }
-
-    protected int convertSpToDp(float sp) {
-        return convertPixelsToDp(convertSpToPixels(sp));
-    }
-
-    protected Drawable findDrawable(String drawableName) {
-        Drawable drawable;
-        if ((drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName()))) != null) {
-            return drawable;
-        } else {
+    protected void updateProperties(HashMap<String, String> properties) {
+        super.updateProperties(properties);
+        String curProperty;
+        if ((curProperty = properties.get("layout_background_color")) != null) {
             try {
-                return new IconicsDrawable(context).icon(MaterialDesignIconic.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(GoogleMaterial.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(FontAwesome.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Octicons.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Meteoconcs.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(CommunityMaterial.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(WeatherIcons.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Typeicons.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Entypo.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(DevIcon.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(FoundationIcons.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Ionicons.Icon.valueOf(drawableName));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-            try {
-                return new IconicsDrawable(context).icon(Pixeden7Stroke.Icon.valueOf(drawableName));
+                this.baseView.setBackgroundColor(Color.parseColor(curProperty));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
-        return null;
-    }
+        if ((curProperty = properties.get("layout_background")) != null) {
+            this.baseView.setBackgroundImage(ContextCompat.getDrawable(context, context.getResources().getIdentifier(curProperty, "drawable", context.getPackageName())));
+        }
 
-    protected Typeface findTypeface(String typefaceName) {
-        Typeface typeface;
-        if ((typeface = Typeface.createFromAsset(context.getAssets(), typefaceName)) != null) {
-            return typeface;
-        } else {
+        if ((curProperty = properties.get("width")) != null) {
             try {
-                return  (Typeface) EasyFonts.class.getMethod(typefaceName,new Class[] { Context.class }).invoke(null, context);
-            } catch (Exception e) {
+                this.baseView.setWidth(Integer.parseInt(curProperty));
+            } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }
-        return null;
+        if ((curProperty = properties.get("height")) != null) {
+            try {
+                this.baseView.setHeight(Integer.parseInt(curProperty));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((curProperty = properties.get("gravity")) != null) {
+            this.baseView.setGravity(finals.gravity.get(curProperty));
+        }
+
+        if ((curProperty = properties.get("hint_text")) != null) {
+            this.baseView.setTitleText(curProperty);
+        }
+
+        if ((curProperty = properties.get("bottom_line_color")) != null) {
+            try {
+                this.baseView.setBottomLineColor(Color.parseColor(curProperty));
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((curProperty = properties.get("error_color")) != null) {
+            try {
+                this.baseView.setErrorTextColor(Color.parseColor(curProperty));
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((curProperty = properties.get("start_drawable_color")) != null) {
+            try {
+                this.baseView.setStartDrawableColor(Color.parseColor(curProperty));
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+        if ((curProperty = properties.get("end_drawable_color")) != null) {
+            try {
+                this.baseView.setEndDrawableColor(Color.parseColor(curProperty));
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if ((curProperty = properties.get("start_drawable")) != null) {
+            this.baseView.setStartDrawable(this.findDrawable(curProperty));
+        }
+        if ((curProperty = properties.get("end_drawable")) != null) {
+            this.baseView.setEndDrawable(this.findDrawable(curProperty));
+        }
     }
 
 }

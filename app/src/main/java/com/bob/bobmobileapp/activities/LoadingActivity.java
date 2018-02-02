@@ -52,9 +52,9 @@ public class LoadingActivity extends AppCompatActivity{
         setContentView(R.layout.loading_layout);
 
 
-        MyVideoView imageView2 = (MyVideoView) findViewById(R.id.vid_view);
+//        MyVideoView imageView2 = (MyVideoView) findViewById(R.id.vid_view);
 //        imageView2.setVideoUri("http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_2mb.mp4");
-        imageView2.setYoutubeVideoByID("WLMmX17D2uw");
+//        imageView2.setYoutubeVideoByID("WLMmX17D2uw");
 //        imageView2.setVideoUri("https://s3-us-west-2.amazonaws.com/avnohellodev/videos/9e867aba83197862e7500ebe3ebfd68a.mp4");
 //        imageView2.setYoutubeVideoByID("668nUCeBHyY");
 

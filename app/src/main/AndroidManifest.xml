@@ -27,12 +27,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-        <activity android:name=".activities.LoadingActivity" >
+        <activity android:name=".activities.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activities.LoadingActivity" >
         </activity>
         <activity
             android:name="com.bob.bobmobileapp.googleapi.maps.MapsActivity"
@@ -40,15 +42,15 @@
             android:launchMode="singleInstance">
         </activity>
         <activity
-            android:name=".video.VideoPlayerActivity"
+            android:name=".tools.video.VideoPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
         <activity
-            android:name=".video.FullScreenVideoPlayerActivity"
+            android:name=".tools.video.FullScreenVideoPlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
         <activity
-            android:name=".image.ImageActivity"
+            android:name=".tools.image.ImageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppThemeDialogNoTitle">
         </activity>

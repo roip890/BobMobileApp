@@ -89,12 +89,5 @@ public class MyLocationInputView extends MyLocationOutputView {
 
     }
 
-    private void createFragment() {
-
-
-
-
-    }
-
 }
 

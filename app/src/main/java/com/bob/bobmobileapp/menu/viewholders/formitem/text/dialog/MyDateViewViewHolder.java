@@ -1,9 +1,10 @@
-package com.bob.bobmobileapp.menu.viewholders.formitem.text;
+package com.bob.bobmobileapp.menu.viewholders.formitem.text.dialog;
 
 import android.content.Context;
 import android.view.View;
 
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.menu.viewholders.formitem.text.MyTextViewViewHolder;
 import com.bob.bobmobileapp.tools.UI.views.textviews.dialogviews.MyDateTextView;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
 
@@ -15,18 +16,17 @@ import java.util.regex.Pattern;
  * Created by user on 01/09/2017.
  */
 
-public class DateViewHolder extends TextViewViewHolder {
+public class MyDateViewViewHolder extends MyTextViewViewHolder {
 
-    protected int year, month, day;
     protected MyDateTextView dateTextView;
 
-    public DateViewHolder(Context context, View view) {
+    public MyDateViewViewHolder(Context context, View view) {
         super(context, view, null);
     }
 
     @Override
     protected void initView(View view) {
-        this.setTextView((MyTextView) view.findViewById(R.id.my_date_text_view));
+        this.setTextView((MyDateTextView) view.findViewById(R.id.my_date_text_view));
     }
 
     @Override
@@ -42,7 +42,8 @@ public class DateViewHolder extends TextViewViewHolder {
         this.dateTextView.setYears(calendar.get(Calendar.YEAR));
         this.dateTextView.setMonths(calendar.get(Calendar.MONTH));
         this.dateTextView.setDays(calendar.get(Calendar.DAY_OF_MONTH));
-        this.textView.setTitleText("Select Date:");
+        this.textView.setTitleText("Please select date:");
+        this.textView.setDialogTitleText("Please select date:");
     }
 
     protected void updateProperties(HashMap<String, String> properties) {

@@ -2,19 +2,14 @@ package com.bob.bobmobileapp.menu.viewholders.formitem.text;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import com.afollestad.materialdialogs.Theme;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.menu.viewholders.formitem.base.BaseViewHolder;
+import com.bob.bobmobileapp.menu.viewholders.formitem.base.MyViewHolder;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
 import com.bob.bobmobileapp.tools.validators.Validator;
 
@@ -25,15 +20,15 @@ import java.util.HashMap;
  * Created by user on 01/09/2017.
  */
 
-public class TextViewViewHolder extends BaseViewHolder {
+public class MyTextViewViewHolder extends MyViewHolder {
 
     protected MyTextView textView;
 
-    public TextViewViewHolder(Context context, View view, Validator validator) {
+    public MyTextViewViewHolder(Context context, View view, Validator validator) {
         super(context, view, validator);
     }
 
-    public TextViewViewHolder(Context context, View view) {
+    public MyTextViewViewHolder(Context context, View view) {
         this(context, view, null);
     }
 
@@ -42,6 +37,7 @@ public class TextViewViewHolder extends BaseViewHolder {
     }
 
     public void setTextView(MyTextView textView) {
+        super.setView(textView);
         this.textView = textView;
     }
 
@@ -52,17 +48,11 @@ public class TextViewViewHolder extends BaseViewHolder {
 
     @Override
     protected void initialize() {
-        this.textView.setBackgroundColor(ContextCompat.getColor(context, R.color.windowBackground));
-        this.textView.setGravity(finals.gravity.get("start"));
+        super.initialize();
         this.textView.setText("");
-        this.textView.setTitleText("Please enter your text");
 
         this.textView.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
         this.textView.setTitleColor(ContextCompat.getColor(context, R.color.textColorPrimary));
-        this.textView.setBottomLineColor(ContextCompat.getColor(context, R.color.textColorPrimary));
-        this.textView.setErrorTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
-        this.textView.setStartDrawableColor(ContextCompat.getColor(context, R.color.textColorPrimary));
-        this.textView.setEndDrawableColor(ContextCompat.getColor(context, R.color.textColorPrimary));
 
         this.textView.setTextSize(this.convertSpToPixels(8));
         this.textView.setTextInputType(finals.inputTypes.get("none"));
@@ -71,20 +61,12 @@ public class TextViewViewHolder extends BaseViewHolder {
         this.textView.setUnderlineEnable(false);
         this.textView.setItalicEnable(false);
 
-        this.textView.setStartDrawable(null);
-        this.textView.setEndDrawable(null);
     }
 
     @Override
     protected void updateProperties(HashMap<String, String> properties) {
+        super.updateProperties(properties);
         String curProperty;
-        if ((curProperty = properties.get("layout_background_color")) != null) {
-            try {
-                this.textView.setBackgroundColor(Color.parseColor(curProperty));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
         if ((curProperty = properties.get("layout_background")) != null) {
             this.textView.setBackgroundImage(ContextCompat.getDrawable(context, context.getResources().getIdentifier(curProperty, "drawable", context.getPackageName())));
         }
@@ -103,15 +85,9 @@ public class TextViewViewHolder extends BaseViewHolder {
                 e.printStackTrace();
             }
         }
-        if ((curProperty = properties.get("gravity")) != null) {
-            this.textView.setGravity(finals.gravity.get(curProperty));
-        }
 
         if ((curProperty = properties.get("text")) != null) {
             this.textView.setText(curProperty);
-        }
-        if ((curProperty = properties.get("hint_text")) != null) {
-            this.textView.setTitleText(curProperty);
         }
 
         if ((curProperty = properties.get("text_color")) != null) {
@@ -124,34 +100,6 @@ public class TextViewViewHolder extends BaseViewHolder {
         if ((curProperty = properties.get("hint_color")) != null) {
             try {
                 this.textView.setTitleColor(Color.parseColor(curProperty));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((curProperty = properties.get("bottom_line_color")) != null) {
-            try {
-                this.textView.setBottomLineColor(Color.parseColor(curProperty));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((curProperty = properties.get("error_color")) != null) {
-            try {
-                this.textView.setErrorTextColor(Color.parseColor(curProperty));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((curProperty = properties.get("start_drawable_color")) != null) {
-            try {
-                this.textView.setStartDrawableColor(Color.parseColor(curProperty));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
-        if ((curProperty = properties.get("end_drawable_color")) != null) {
-            try {
-                this.textView.setEndDrawableColor(Color.parseColor(curProperty));
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
@@ -189,16 +137,10 @@ public class TextViewViewHolder extends BaseViewHolder {
             if (curProperty.equals("true")) {
                 this.textView.setItalicEnable(true);
             } else if (curProperty.equals("false")) {
-                this.textView.setItalicEnable(true);
+                this.textView.setItalicEnable(false);
             }
         }
 
-        if ((curProperty = properties.get("start_drawable")) != null) {
-            this.textView.setStartDrawable(this.findDrawable(curProperty));
-        }
-        if ((curProperty = properties.get("end_drawable")) != null) {
-            this.textView.setEndDrawable(this.findDrawable(curProperty));
-        }
     }
 
 }

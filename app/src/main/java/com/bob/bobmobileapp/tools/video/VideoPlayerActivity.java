@@ -1,4 +1,4 @@
-package com.bob.bobmobileapp.video;
+package com.bob.bobmobileapp.tools.video;
 
 import android.app.Activity;
 import android.net.Uri;

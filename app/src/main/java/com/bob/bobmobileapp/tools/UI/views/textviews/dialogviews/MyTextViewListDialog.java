@@ -25,10 +25,9 @@ import java.util.ArrayList;
 public class MyTextViewListDialog extends MyTextView {
 
     protected ArrayList<String> items;
-    protected ArrayList<String> selectedItems;
+    protected ArrayList<Integer> selectedItems, disabledItemsIndices;
     protected int itemsColor;
     protected GravityEnum itemsGravity;
-    protected ArrayList<Integer> disabledItemsIndices;
 
     public MyTextViewListDialog(Context context) {
         this(context, null);
@@ -42,7 +41,7 @@ public class MyTextViewListDialog extends MyTextView {
         super(context, attrs, defStyleAttr);
         this.setItems(new ArrayList<String>());
         this.setDisabledItems(new ArrayList<Integer>());
-        this.setSelectedItems(new ArrayList<String>());
+        this.setSelectedItems(new ArrayList<Integer>());
         this.setItemsColor(ContextCompat.getColor(this.getContext(), R.color.textColorPrimary));
         this.setItemsGravity(finals.dialogGravity.get("start"));
         this.setTitleText("Select Items:");
@@ -50,7 +49,11 @@ public class MyTextViewListDialog extends MyTextView {
     }
 
     protected void updateText() {
-        textView.setText(TextUtils.join(", ", this.items));
+        ArrayList<String> selectedItems = new ArrayList<>();
+        for (Integer index : this.selectedItems) {
+            selectedItems.add(this.items.get(index));
+        }
+        textView.setText(TextUtils.join(", ", selectedItems));
     }
 
     public void setItems(ArrayList<String> items) {
@@ -74,18 +77,26 @@ public class MyTextViewListDialog extends MyTextView {
         this.dialogBuilder.itemsDisabledIndices((Integer[])this.disabledItemsIndices.toArray());
     }
 
-    protected void setSelectedItems(ArrayList<String> selectedItems) {
-        this.selectedItems = selectedItems;
+    public void setSelectedItems(ArrayList<Integer> selectedItems) {
+        ArrayList<Integer> tempSelectedItems = new ArrayList<>();
+        for (Integer index : selectedItems) {
+            if ((index >= 0) && (index < this.items.size()) && (!this.selectedItems.contains(index))) {
+                tempSelectedItems.add(index);
+            }
+        }
+        this.selectedItems = tempSelectedItems;
         updateText();
     }
 
     public void addItem(String item) {
-        this.items.add(item);
+        if (!this.items.contains(item)) {
+            this.items.add(item);
+        }
     }
 
     public void addItem(String item, boolean disabled) {
         this.items.add(item);
-        if (disabled) {
+        if ((disabled) && (!this.disabledItemsIndices.contains(this.items.indexOf(item)))) {
             this.disabledItemsIndices.add(this.items.indexOf(item));
         }
     }
@@ -105,12 +116,24 @@ public class MyTextViewListDialog extends MyTextView {
         }
     }
 
+    public void setItemEnable(int index, boolean enable) {
+        if ((!enable) && (!this.disabledItemsIndices.contains(index)) && (index < this.items.size())) {
+            this.disabledItemsIndices.add(index);
+        }
+    }
+
+    public void setItemEnable(String item, boolean enable) {
+        if (this.items.contains(item)) {
+            this.setItemEnable(this.items.indexOf(item), enable);
+        }
+    }
+
     protected void setItemsCallback() {
         this.dialogBuilder.itemsCallback(new MaterialDialog.ListCallback() {
             @Override
             public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
                 MyTextViewListDialog.this.selectedItems.clear();
-                MyTextViewListDialog.this.selectedItems.add(text.toString());
+                MyTextViewListDialog.this.selectedItems.add(position);
                 updateText();
             }
         });

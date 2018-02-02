@@ -11,8 +11,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 
-import com.bob.bobmobileapp.video.MyYoutubeExtractor;
-import com.bob.bobmobileapp.video.VideoPlayerActivity;
+import com.bob.bobmobileapp.tools.video.MyYoutubeExtractor;
+import com.bob.bobmobileapp.tools.video.VideoPlayerActivity;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class MyVideoView extends MyImageView {
                     FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
                     mmr.setDataSource(videoUri);
                     thumbnail = mmr.getFrameAtTime(1000000, FFmpegMediaMetadataRetriever.OPTION_CLOSEST);
-                    setVideoPreviewAnimaton();
+                    setVideoPreviewAnimation();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -74,14 +74,14 @@ public class MyVideoView extends MyImageView {
                 if (ytFiles != null) {
                     int itag = 22;
                     videoUri = ytFiles.get(itag).getUrl();
-                    setVideoPreviewAnimaton();
+                    setVideoPreviewAnimation();
                 }
             }
         });
         youtubeExtractor.extract(youtubeLink, false, false);
     }
 
-    protected void setVideoPreviewAnimaton() {
+    protected void setVideoPreviewAnimation() {
         if ((getContext() instanceof Activity) && (this.videoUri != null)) {
             new Thread(new Runnable() {
                 @Override
