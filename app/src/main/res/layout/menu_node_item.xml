@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+<com.bob.bobmobileapp.tools.UI.views.menu.MyMenuNodeView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/menu_node_view">
+    android:id="@+id/menu_node">
 
-    <ImageView
-        android:id="@+id/menu_node_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_margin="5dp"/>
-
-    <TextView
-        android:id="@+id/menu_node_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="5dp"
-        android:layout_margin="5dp"/>
-
-
-</LinearLayout>
+</com.bob.bobmobileapp.tools.UI.views.menu.MyMenuNodeView>

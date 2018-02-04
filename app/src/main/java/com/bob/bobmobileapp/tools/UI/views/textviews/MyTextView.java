@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.tools.UI.UIUtilsManager;
 import com.bob.bobmobileapp.tools.UI.views.MyView;
 import com.bob.bobmobileapp.tools.validators.Validator;
 
@@ -122,9 +123,9 @@ public class MyTextView extends MyView {
 
     protected int getStartDrawableStartMargin() {
         if (this.textView.getCompoundDrawablesRelative()[0] != null) {
-            return this.textView.getCompoundDrawablesRelative()[0].getIntrinsicWidth() + this.convertPixelsToDp(5);
+            return this.textView.getCompoundDrawablesRelative()[0].getIntrinsicWidth() + UIUtilsManager.get().convertPixelsToDp(this.getContext(), 5);
         } else {
-            return this.convertPixelsToDp(5);
+            return UIUtilsManager.get().convertPixelsToDp(this.getContext(), 5);
         }
     }
 

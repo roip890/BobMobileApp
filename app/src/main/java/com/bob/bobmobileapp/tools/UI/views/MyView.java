@@ -28,6 +28,7 @@ import com.afollestad.materialdialogs.StackingBehavior;
 import com.afollestad.materialdialogs.Theme;
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
+import com.bob.bobmobileapp.tools.UI.UIUtilsManager;
 
 import java.lang.reflect.Field;
 
@@ -168,7 +169,7 @@ public abstract class MyView extends TextInputLayout {
     protected void initBottomLine() {
 
         //set default bottom line size
-        this.setBottomLineSize(this.convertPixelsToDp(2));
+        this.setBottomLineSize(UIUtilsManager.get().convertPixelsToDp(this.getContext(), 2));
 
         //set default bottom line color
         this.setBottomLineColor(ContextCompat.getColor(this.getContext(), R.color.textColorPrimary));
@@ -187,7 +188,7 @@ public abstract class MyView extends TextInputLayout {
         );
 
         //set bottom margin
-        lineLayoutParams.setMargins(0, 0, 0, this.convertPixelsToDp(5));
+        lineLayoutParams.setMargins(0, 0, 0, UIUtilsManager.get().convertPixelsToDp(this.getContext(), 5));
 
         //gravity
         lineLayoutParams.gravity = Gravity.BOTTOM;
@@ -423,7 +424,7 @@ public abstract class MyView extends TextInputLayout {
     }
 
     protected int getBottomLineBottomPadding() {
-        return this.convertPixelsToDp(5);
+        return UIUtilsManager.get().convertPixelsToDp(this.getContext(), 5);
     }
 
 
@@ -576,7 +577,7 @@ public abstract class MyView extends TextInputLayout {
     }
 
     protected void setTextSize(int size, TextView textView) {
-        textView.setTextSize(this.convertPixelsToDp(size));
+        textView.setTextSize(UIUtilsManager.get().convertPixelsToDp(this.getContext(), size));
     }
 
     protected void paintTextColor(int color, TextView textView) {
@@ -857,9 +858,9 @@ public abstract class MyView extends TextInputLayout {
 
     protected int getStartDrawableStartMargin() {
         if (this.startDrawable != null) {
-            return this.startDrawable.getIntrinsicWidth() + this.convertPixelsToDp(5);
+            return this.startDrawable.getIntrinsicWidth() + UIUtilsManager.get().convertPixelsToDp(this.getContext(), 5);
         } else {
-            return this.convertPixelsToDp(5);
+            return UIUtilsManager.get().convertPixelsToDp(this.getContext(), 5);
         }
     }
 
@@ -956,34 +957,6 @@ public abstract class MyView extends TextInputLayout {
         }
         return false;
     }
-
-
-    //int to dp tool
-    protected int convertPixelsToDp(int px) {
-        return px * ((int)(this.getContext().getResources().getDisplayMetrics().density));
-    }
-
-    protected int convertPixelsToSp(int px) {
-        return convertDpToSp(convertPixelsToDp(px));
-    }
-
-    protected int convertDpToPixels(float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, this.getContext().getResources().getDisplayMetrics());
-    }
-
-    protected int convertSpToPixels(float sp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, this.getContext().getResources().getDisplayMetrics());
-    }
-
-    protected int convertDpToSp(float dp) {
-        return (int) (convertDpToPixels(dp) / (float) convertSpToPixels(dp));
-    }
-
-    protected int convertSpToDp(float sp) {
-        return convertPixelsToDp(convertSpToPixels(sp));
-    }
-
-
 
 
 

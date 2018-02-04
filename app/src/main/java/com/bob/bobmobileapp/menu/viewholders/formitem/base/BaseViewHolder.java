@@ -18,6 +18,9 @@ import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.realm.RealmController;
 import com.bob.bobmobileapp.realm.objects.FormItem;
 import com.bob.bobmobileapp.realm.objects.FormItemProperty;
+import com.bob.bobmobileapp.tools.UI.UIUtilsManager;
+import com.bob.bobmobileapp.tools.UI.style.Fonts;
+import com.bob.bobmobileapp.tools.UI.style.Icons;
 import com.bob.bobmobileapp.tools.UI.views.MyBaseView;
 import com.bob.bobmobileapp.tools.UI.views.MyView;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
@@ -70,7 +73,7 @@ public abstract class BaseViewHolder extends MyViewHolder {
     protected void initialize() {
         super.initialize();
         this.baseView.setTitleText("Default title:");
-        this.baseView.setTitleTextSize(this.convertSpToPixels(8));
+        this.baseView.setTitleTextSize(UIUtilsManager.get().convertSpToPixels(this.context, 8));
         this.baseView.setTitleTextInputType(finals.inputTypes.get("none"));
         this.baseView.setTitleTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
         this.baseView.setTitleTextTypeface(null);
@@ -145,10 +148,10 @@ public abstract class BaseViewHolder extends MyViewHolder {
         }
 
         if ((curProperty = properties.get("start_drawable")) != null) {
-            this.baseView.setStartDrawable(this.findDrawable(curProperty));
+            this.baseView.setStartDrawable(Icons.get().findDrawable(this.context, curProperty));
         }
         if ((curProperty = properties.get("end_drawable")) != null) {
-            this.baseView.setEndDrawable(this.findDrawable(curProperty));
+            this.baseView.setEndDrawable(Icons.get().findDrawable(this.context, curProperty));
         }
     }
 

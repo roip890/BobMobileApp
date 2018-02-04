@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.tools.UI.UIUtilsManager;
 import com.hbb20.CountryCodePicker;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -72,7 +73,7 @@ public class MyPhoneEditText extends MyEditText {
     protected void addMainView() {
 
         FrameLayout.LayoutParams countryCodePickerParams = new FrameLayout.LayoutParams(
-                this.convertPixelsToDp(150),
+                UIUtilsManager.get().convertPixelsToDp(this.getContext(), 150),
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         this.phoneViewLayout.addView(this.countryCodePicker, countryCodePickerParams);
@@ -90,9 +91,9 @@ public class MyPhoneEditText extends MyEditText {
     @Override
     protected int getStartDrawableStartMargin() {
         if (this.textView.getCompoundDrawablesRelative()[0] != null) {
-            return this.textView.getCompoundDrawablesRelative()[0].getIntrinsicWidth() + this.convertPixelsToDp(150);
+            return this.textView.getCompoundDrawablesRelative()[0].getIntrinsicWidth() + UIUtilsManager.get().convertPixelsToDp(this.getContext(), 150);
         } else {
-            return this.convertPixelsToDp(150);
+            return UIUtilsManager.get().convertPixelsToDp(this.getContext(), 150);
         }
     }
 

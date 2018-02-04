@@ -35,15 +35,14 @@ public class MenuNodesAdapter extends RecyclerView.Adapter<MenuNodeViewHolder> {
     public MenuNodesAdapter(Context context, long parentMenuNodeId) {
         this.parentMenuNodeId = parentMenuNodeId;
         this.menuNodes = new ArrayList<MenuNode>();
-        this.setMenuNodes(RealmController.get().with(BOBApplication.get()).getSubMenuNodes(this.parentMenuNodeId));
+        this.setMenuNodes(RealmController.with(BOBApplication.get()).getSubMenuNodes(this.parentMenuNodeId));
         this.context = context;
     }
 
     @Override
     public MenuNodeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_node_item, null);
-        MenuNodeViewHolder menuNodeViewHolder = new MenuNodeViewHolder(this.context, this, layoutView);
-        return menuNodeViewHolder;
+        return new MenuNodeViewHolder(this.context, this, layoutView);
     }
 
     @Override

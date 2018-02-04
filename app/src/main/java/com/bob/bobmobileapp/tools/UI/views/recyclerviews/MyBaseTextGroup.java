@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bob.bobmobileapp.R;
+import com.bob.bobmobileapp.tools.UI.UIUtilsManager;
 import com.bob.bobmobileapp.tools.UI.views.MyView;
 import com.bob.bobmobileapp.tools.validators.GroupValidator;
 
@@ -167,7 +168,7 @@ public abstract class MyBaseTextGroup<ViewType extends TextView> extends MyRecyc
             }
         });
 
-        textView.setCompoundDrawablePadding(this.convertPixelsToDp(5));
+        textView.setCompoundDrawablePadding(UIUtilsManager.get().convertPixelsToDp(this.getContext(), 5));
         textView.setBackgroundColor(ContextCompat.getColor(this.getContext(), R.color.transparent));
     }
 

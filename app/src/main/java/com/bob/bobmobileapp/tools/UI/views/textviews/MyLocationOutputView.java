@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.googleapi.maps.MapsFragmentDialog;
+import com.bob.bobmobileapp.tools.UI.UIUtilsManager;
 import com.bob.bobmobileapp.tools.UI.style.Icons;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -136,7 +137,7 @@ public class MyLocationOutputView extends MyTextView {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        mapIconParams.setMarginStart(convertPixelsToDp(5));
+        mapIconParams.setMarginStart(UIUtilsManager.get().convertPixelsToDp(this.getContext(), 5));
         this.locationOutputLayout.addView(this.mapIconImageView, mapIconParams);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -197,9 +198,9 @@ public class MyLocationOutputView extends MyTextView {
 
     protected int getBottomLineEndMargin() {
         if (this.mapIconImageView.getDrawable() != null) {
-            return this.mapIconImageView.getDrawable().getIntrinsicWidth() + this.convertPixelsToDp(5);
+            return this.mapIconImageView.getDrawable().getIntrinsicWidth() + UIUtilsManager.get().convertPixelsToDp(this.getContext(), 5);
         } else {
-            return this.convertPixelsToDp(5);
+            return UIUtilsManager.get().convertPixelsToDp(this.getContext(), 5);
         }
     }
 

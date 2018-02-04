@@ -10,6 +10,8 @@ import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.finals;
 import com.bob.bobmobileapp.menu.viewholders.formitem.base.BaseViewHolder;
 import com.bob.bobmobileapp.menu.viewholders.formitem.base.MyViewHolder;
+import com.bob.bobmobileapp.tools.UI.UIUtilsManager;
+import com.bob.bobmobileapp.tools.UI.style.Fonts;
 import com.bob.bobmobileapp.tools.UI.views.textviews.MyTextView;
 import com.bob.bobmobileapp.tools.validators.Validator;
 
@@ -54,7 +56,7 @@ public class MyTextViewViewHolder extends MyViewHolder {
         this.textView.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
         this.textView.setTitleColor(ContextCompat.getColor(context, R.color.textColorPrimary));
 
-        this.textView.setTextSize(this.convertSpToPixels(8));
+        this.textView.setTextSize(UIUtilsManager.get().convertSpToPixels(this.context, 8));
         this.textView.setTextInputType(finals.inputTypes.get("none"));
 
         this.textView.setBoldEnable(false);
@@ -107,13 +109,13 @@ public class MyTextViewViewHolder extends MyViewHolder {
 
         if ((curProperty = properties.get("font_size")) != null) {
             try {
-                this.textView.setTextSize(this.convertPixelsToSp(Integer.parseInt(curProperty)  ));
+                this.textView.setTextSize(UIUtilsManager.get().convertPixelsToSp(this.context, Integer.parseInt(curProperty)));
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
         }
         if ((curProperty = properties.get("font_type")) != null) {
-            this.textView.setTextTypeface(this.findTypeface(curProperty));
+            this.textView.setTextTypeface(Fonts.get().findTypeface(this.context, curProperty));
         }
         if ((curProperty = properties.get("input_type")) != null) {
             this.textView.setTextInputType(finals.inputTypes.get(curProperty));

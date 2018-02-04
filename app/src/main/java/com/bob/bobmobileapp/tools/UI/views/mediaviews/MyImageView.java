@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bob.bobmobileapp.tools.UI.UIUtilsManager;
 import com.bob.bobmobileapp.tools.image.ImageActivity;
 import com.bob.bobmobileapp.tools.UI.views.MyBaseView;
 import com.bumptech.glide.Glide;
@@ -66,13 +67,13 @@ public class MyImageView extends MyBaseView{
 
     public void setImageWidth(int width) {
         this.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        this.imageView.getLayoutParams().width = this.convertPixelsToDp(width);
+        this.imageView.getLayoutParams().width = UIUtilsManager.get().convertPixelsToDp(this.getContext(), width);
 
     }
 
     public void setImageHeight(int height) {
         this.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        this.imageView.getLayoutParams().height = this.convertPixelsToDp(height);
+        this.imageView.getLayoutParams().height = UIUtilsManager.get().convertPixelsToDp(this.getContext(), height);
     }
 
     protected void onImageClick() {
