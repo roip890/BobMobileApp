@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -326,20 +327,6 @@ public abstract class MyView extends TextInputLayout {
 
 
     //general
-    public void setWidth(int width) {
-        ViewGroup.LayoutParams layoutParams = this.getLayoutParams();
-        if (layoutParams != null) {
-            layoutParams.width = width;
-        }
-    }
-
-    public void setHeight(int height) {
-        ViewGroup.LayoutParams layoutParams = this.getLayoutParams();
-        if (layoutParams != null) {
-            layoutParams.height = height;
-        }
-    }
-
     protected void updateViewsMargins() {
 
         //bottom line margin update
@@ -363,6 +350,37 @@ public abstract class MyView extends TextInputLayout {
 
     }
 
+    protected void setHeight(int height, View view) {
+        if ((view != null) && (view.getLayoutParams() != null)) {
+            this.setField(view.getLayoutParams(), "height", height);
+        }
+    }
+
+    protected void setWidth(int width, View view) {
+        if ((view != null) && (view.getLayoutParams() != null)) {
+            this.setField(view.getLayoutParams(), "width", width);
+        }
+    }
+
+    protected void setGravity(int gravity, View view) {
+        if ((view != null) && (view.getLayoutParams() != null)) {
+            this.setField(view.getLayoutParams(), "gravity", gravity);
+        }
+    }
+
+    public void setHeight(int height) {
+        this.setHeight(height, this);
+    }
+
+    public void setWidth(int width) {
+        this.setWidth(width, this);
+    }
+
+    @Override
+    public void setGravity(int gravity) {
+        this.setGravity(gravity, this);
+    }
+
 
 
     //title view
@@ -370,8 +388,21 @@ public abstract class MyView extends TextInputLayout {
 
     public abstract String getTitleText();
 
-
     //main view
+
+
+    public void setViewHeight(int height) {
+        if (this.getLayoutParams() != null) {
+            this.getLayoutParams().height = height;
+        }
+    }
+
+    public void setViewWidth(int width) {
+        if (this.getLayoutParams() != null) {
+            this.getLayoutParams().width = width;
+        }
+    }
+
     public abstract void setStartDrawable(int startDrawable);
 
     public abstract void setStartDrawable(Drawable startDrawable);
@@ -429,6 +460,18 @@ public abstract class MyView extends TextInputLayout {
 
 
     //error view
+    public void setErrorViewHeight(int height) {
+        if (this.errorTextView.getLayoutParams() != null) {
+            this.errorTextView.getLayoutParams().height = height;
+        }
+    }
+
+    public void setErrorViewWidth(int width) {
+        if (this.errorTextView.getLayoutParams() != null) {
+            this.errorTextView.getLayoutParams().width = width;
+        }
+    }
+
     public void setError(String text) {
         this.setText(text, this.errorTextView);
         if (text != null) {
@@ -630,6 +673,10 @@ public abstract class MyView extends TextInputLayout {
 
     protected void setTextInputType(int type, TextView textView) {
         textView.setInputType(type);
+    }
+
+    protected void setTextAlignment(int textAlignment, TextView textView) {
+        textView.setTextAlignment(textAlignment);
     }
 
     //dialog
@@ -958,6 +1005,28 @@ public abstract class MyView extends TextInputLayout {
         return false;
     }
 
+    protected Field getObjectField(Object object, String fieldName) {
+        Class<?> objectClass = object.getClass();
+        for (Field field : objectClass.getFields()) {
+            if (field.getName().equals(fieldName)) {
+                return field;
+            }
+        }
+        return null;
+    }
 
-
+    protected boolean setField(Object object, String fieldName, Object fieldValue) {
+        Field field;
+        if ((field = this.getObjectField(object, fieldName)) != null) {
+            field.setAccessible(true);
+            try {
+                field.set(object, fieldValue);
+                int gravity = field.getInt(object);
+                return true;
+            } catch (IllegalAccessException e) {
+                return false;
+            }
+        }
+        return false;
+    }
 }

@@ -1,9 +1,12 @@
 package com.bob.bobmobileapp.tools.UI.views.menu;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
@@ -19,11 +22,23 @@ import com.bob.bobmobileapp.R;
 import com.bob.bobmobileapp.tools.UI.UIUtilsManager;
 import com.bob.bobmobileapp.tools.UI.views.MyBaseView;
 import com.bob.bobmobileapp.tools.UI.views.MyView;
+import com.bob.bobmobileapp.tools.image.svg.SvgSoftwareLayerSetter;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.ImageViewTarget;
+import com.bumptech.glide.request.target.Target;
+import com.caverock.androidsvg.SVG;
+import com.mikepenz.iconics.Iconics;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import org.xmlpull.v1.XmlPullParser;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 /**
  * Created by User on 14/01/2018.
@@ -173,28 +188,51 @@ public class MyMenuNodeView extends MyBaseView{
 
     public void setImageUri(String uri) {
         this.imageUri = uri;
+        this.menuNodeImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         if (this.imageUri != null) {
             Glide
                     .with(this.getContext())
                     .load(Uri.parse(uri))
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                    .transition(withCrossFade())
+                    .listener(new SvgSoftwareLayerSetter())
                     .into(this.menuNodeImageView);
         }
     }
 
-    public void setImageWidth(int width) {
-        this.menuNodeImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        this.menuNodeImageView.getLayoutParams().width = UIUtilsManager.get().convertPixelsToDp(this.getContext(), width);
-
-    }
 
     public void setImageHeight(int height) {
         this.menuNodeImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        ViewGroup.LayoutParams lp = this.menuNodeImageView.getLayoutParams();
-        this.menuNodeImageView.getLayoutParams().height = UIUtilsManager.get().convertPixelsToDp(this.getContext(), height);
+        this.setHeight(height, this.menuNodeImageView);
     }
 
+    public void setImageWidth(int width) {
+        this.menuNodeImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        this.setWidth(width, this.menuNodeImageView);
+    }
+
+    public void setImageGravity(int gravity) {
+        this.setGravity(gravity, this.menuNodeImageView);
+    }
+
+
     //menu label
+    public void setLabelHeight(int height) {
+        this.setHeight(height, this.menuNodeLabelView);
+    }
+
+    public void setLabelWidth(int width) {
+        this.setWidth(width, this.menuNodeLabelView);
+    }
+
+    public void setLabelGravity(int gravity) {
+        this.setGravity(gravity, this.menuNodeLabelView);
+    }
+
+    public void setLabeLTextAlignment(int textAlignment) {
+        this.setTextAlignment(textAlignment, this.menuNodeLabelView);
+    }
+
     public TextView getMenuTextView() {
         return this.menuNodeLabelView;
     }

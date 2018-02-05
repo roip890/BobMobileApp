@@ -1,5 +1,8 @@
 package com.bob.bobmobileapp;
 
+import android.view.View;
+import android.widget.TextView;
+
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.StackingBehavior;
 
@@ -100,5 +103,18 @@ public class finals {
         dialogStackingBehavior.put("adaptive", StackingBehavior.ADAPTIVE);
         dialogStackingBehavior.put("always", StackingBehavior.ALWAYS);
     }
+
+    public static final HashMap<String, Integer> textAlignment;
+    static {
+        textAlignment = new HashMap<String, Integer>();
+        textAlignment.put("inherit", 0);
+        textAlignment.put("gravity", 1);
+        textAlignment.put("text_start", 2);
+        textAlignment.put("text_end", 3);
+        textAlignment.put("center", 4);
+        textAlignment.put("view_start", 5);
+        textAlignment.put("view_end", 6);
+    }
+
 
 }

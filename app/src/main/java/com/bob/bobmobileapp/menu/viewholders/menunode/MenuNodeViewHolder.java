@@ -83,8 +83,8 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
         this.menuNodeView.setLabelUnderlineEnable(false);
         this.menuNodeView.setLabelItalicEnable(false);
         //this.gravity = finals.gravity.get("center");
-        this.menuNodeView.setImageHeight(UIUtilsManager.get().convertPixelsToDp(this.context, 24));
-        this.menuNodeView.setImageWidth(UIUtilsManager.get().convertPixelsToDp(this.context, 24));
+        this.menuNodeView.setImageHeight(UIUtilsManager.get().convertPixelsToDp(this.context, 150));
+        this.menuNodeView.setImageWidth(UIUtilsManager.get().convertPixelsToDp(this.context, 150));
         this.menuNodeView.setLabelText("def node");
         this.menuNodeView.setImageUri(null);
         //this.imageDrawable = null;
@@ -97,6 +97,10 @@ public class MenuNodeViewHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
+        this.menuNodeView.setGravity(finals.gravity.get("center"));
+        this.menuNodeView.setImageGravity(finals.gravity.get("center"));
+        this.menuNodeView.setLabelGravity(finals.gravity.get("center"));
+        this.menuNodeView.setLabeLTextAlignment(finals.textAlignment.get("center"));
     }
 
     private void updateProperties(HashMap<String, String> properties) {
